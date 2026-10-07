@@ -1,0 +1,248 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@layer base {
+  :root {
+    --bg-light: #f8fafc;
+    --text-light: #0f172a;
+  }
+
+  html, body, #root {
+    min-height: 100vh;
+    height: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  html.dark {
+    --bg-light: #090d16;
+    --text-light: #f8fafc;
+    color-scheme: dark;
+  }
+
+  body {
+    background-color: var(--bg-light);
+    color: var(--text-light);
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    transition: background-color 0.25s ease, color 0.25s ease;
+  }
+}
+
+/* Custom background patterns for professional dashboard look */
+.bg-app-pattern {
+  background-color: #f8fafc;
+  background-image: radial-gradient(#e2e8f0 0.75px, transparent 0.75px);
+  background-size: 16px 16px;
+}
+
+html.dark .bg-app-pattern {
+  background-color: #0b1120;
+  background-image: radial-gradient(#1e293b 1px, transparent 1px);
+  background-size: 16px 16px;
+}
+
+/* Glassmorphism subtle overlays */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+html.dark .glass-panel {
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* Responsive scrollbar hiding */
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Safe area insets for mobile PWA */
+.pt-safe {
+  padding-top: env(safe-area-inset-top, 0px);
+}
+.pb-safe {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+.mt-safe {
+  margin-top: env(safe-area-inset-top, 0px);
+}
+
+/* Continuous Sliding Ticker Animation */
+@keyframes marquee {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}
+
+.animate-marquee {
+  display: inline-block;
+  white-space: nowrap;
+  animation: marquee 40s linear infinite;
+  will-change: transform;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* Continuous Pink Glowing Background Light Animation for Plans */
+@keyframes pinkGlowPulse {
+  0%, 100% {
+    opacity: 0.6;
+    filter: blur(18px);
+    box-shadow: 0 0 35px 12px rgba(236, 72, 153, 0.6);
+  }
+  50% {
+    opacity: 1;
+    filter: blur(24px);
+    box-shadow: 0 0 60px 22px rgba(244, 114, 182, 0.9);
+  }
+}
+
+.animate-pink-glow {
+  animation: pinkGlowPulse 2.8s ease-in-out infinite;
+}
+
+/* Slow Rotating Blue Border Animation for Labour/Worker Cards */
+@keyframes spinSlow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin-slow {
+  animation: spinSlow 12s linear infinite;
+}
+
+/* Rotating Blue Border Outer Card Container */
+.rotating-blue-card-wrapper {
+  position: relative;
+  border-radius: 1.15rem; /* ~18px */
+  padding: 3px; /* border thickness of rotating blue line */
+  overflow: hidden;
+  background: transparent;
+  box-shadow: 0 8px 20px -4px rgba(59, 130, 246, 0.35), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.rotating-blue-card-wrapper::before {
+  content: '';
+  position: absolute;
+  top: -65%;
+  left: -65%;
+  width: 230%;
+  height: 230%;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    #3b82f6 45deg,  /* Bright Blue */
+    #60a5fa 90deg,  /* Light Sky Blue */
+    #1d4ed8 150deg, /* Royal Blue */
+    #93c5fd 210deg, /* Ice Blue */
+    #2563eb 280deg, /* Vibrant Blue */
+    transparent 360deg
+  );
+  animation: spinSlow 12s linear infinite;
+  z-index: 0;
+}
+
+.rotating-blue-card-inner {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  border-radius: 1rem; /* ~16px inner corner radius */
+  background-color: #f1f5f9; /* Light Gray Slate-100 */
+  color: #0f172a; /* Slate 900 text */
+}
+
+/* Thin Rotating Blue Border Line for Subscription Plan Cards */
+.rotating-blue-thin-card-wrapper {
+  position: relative;
+  border-radius: 1.1rem; /* ~17px */
+  padding: 2px; /* Patla sa blue border line */
+  overflow: hidden;
+  background: transparent;
+  box-shadow: 0 4px 15px -2px rgba(59, 130, 246, 0.3);
+}
+
+.rotating-blue-thin-card-wrapper::before {
+  content: '';
+  position: absolute;
+  top: -70%;
+  left: -70%;
+  width: 240%;
+  height: 240%;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    #2563eb 45deg,  /* Royal Blue */
+    #60a5fa 90deg,  /* Sky Blue */
+    #1d4ed8 150deg, /* Deep Blue */
+    #93c5fd 210deg, /* Light Ice Blue */
+    #3b82f6 280deg, /* Bright Blue */
+    transparent 360deg
+  );
+  animation: spinSlow 16s linear infinite; /* Ek dum slow rotation */
+  z-index: 0;
+}
+
+.rotating-blue-thin-card-inner {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  border-radius: 1rem; /* ~16px */
+}
+
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 8mm;
+  }
+  
+  body {
+    background-color: #fffdf5 !important;
+    color: #1a0f00 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  body * {
+    visibility: hidden !important;
+  }
+
+  #kundli-certificate-print-area,
+  #kundli-certificate-print-area * {
+    visibility: visible !important;
+  }
+
+  #kundli-certificate-print-area {
+    display: block !important;
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 16px !important;
+    background-color: #fffdf5 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    box-shadow: none !important;
+    border-color: #b8860b !important;
+  }
+}
+

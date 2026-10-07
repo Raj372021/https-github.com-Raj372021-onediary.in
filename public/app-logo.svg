@@ -1,0 +1,122 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <defs>
+    <!-- Background Blue/Indigo Gradient -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="50%" stop-color="#1e1b4b"/>
+      <stop offset="100%" stop-color="#0284c7"/>
+    </linearGradient>
+
+    <!-- Gold Border Accent -->
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fde047"/>
+      <stop offset="50%" stop-color="#f59e0b"/>
+      <stop offset="100%" stop-color="#d97706"/>
+    </linearGradient>
+
+    <!-- Notebook 3D Gradient -->
+    <linearGradient id="notebookGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#f8fafc"/>
+    </linearGradient>
+
+    <!-- '.in' Badge Gradient -->
+    <linearGradient id="inBadgeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0284c7"/>
+      <stop offset="100%" stop-color="#2563eb"/>
+    </linearGradient>
+
+    <!-- Helmet Gradient -->
+    <linearGradient id="helmetGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#fef08a"/>
+      <stop offset="40%" stop-color="#facc15"/>
+      <stop offset="100%" stop-color="#ca8a04"/>
+    </linearGradient>
+
+    <!-- Drop Shadow Filter -->
+    <filter id="dropShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#000000" flood-opacity="0.45"/>
+    </filter>
+
+    <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#0f172a" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+
+  <!-- Outer Main Card Canvas with Rich Border -->
+  <rect x="8" y="8" width="496" height="496" rx="88" fill="url(#bgGrad)" stroke="url(#goldGrad)" stroke-width="6"/>
+
+  <!-- TOP DECORATIVE ELEMENT: Contractor Hardhat/Helmet Man & Growth Bars -->
+  <g transform="translate(196, 18)" filter="url(#dropShadow)">
+    <!-- Growth Bars behind helmet -->
+    <rect x="80" y="52" width="12" height="20" fill="#10b981" rx="3"/>
+    <rect x="98" y="38" width="12" height="34" fill="#10b981" rx="3"/>
+    <rect x="116" y="24" width="12" height="48" fill="#10b981" rx="3"/>
+    <!-- Growth Arrow -->
+    <path d="M96 44 L138 6 L148 22 L138 6 L120 2" fill="none" stroke="#60a5fa" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <!-- Contractor Face -->
+    <ellipse cx="60" cy="56" rx="28" ry="30" fill="#fbcfe8"/>
+    <!-- Neck & Shoulders -->
+    <path d="M22 88 C22 75, 98 75, 98 88 L104 110 L16 110 Z" fill="#1e40af"/>
+    <!-- White Inner Shirt -->
+    <path d="M48 88 L60 102 L72 88 Z" fill="#ffffff"/>
+    <!-- Overalls Straps -->
+    <rect x="32" y="88" width="14" height="22" fill="#2563eb"/>
+    <rect x="74" y="88" width="14" height="22" fill="#2563eb"/>
+
+    <!-- Yellow Construction Helmet -->
+    <path d="M18 50 C18 10, 102 10, 102 50 Z" fill="url(#helmetGrad)" stroke="#ca8a04" stroke-width="3"/>
+    <rect x="10" y="46" width="100" height="12" rx="6" fill="#facc15" stroke="#ca8a04" stroke-width="2"/>
+    <rect x="50" y="14" width="20" height="8" rx="3" fill="#fef08a"/>
+  </g>
+
+  <!-- CENTER: Iconic Open 3D Spiral Notebook Logo Badge -->
+  <g transform="translate(66, 122)" filter="url(#dropShadow)">
+    <!-- White Notebook Page Base -->
+    <rect x="0" y="0" width="380" height="320" rx="32" fill="url(#notebookGrad)" stroke="#1e3a8a" stroke-width="7"/>
+
+    <!-- Left Metallic Spiral Binding Rings -->
+    <g fill="#94a3b8" stroke="#1e293b" stroke-width="3">
+      <circle cx="16" cy="50" r="11"/>
+      <circle cx="16" cy="105" r="11"/>
+      <circle cx="16" cy="160" r="11"/>
+      <circle cx="16" cy="215" r="11"/>
+      <circle cx="16" cy="270" r="11"/>
+    </g>
+
+    <!-- 'one' Text (Bold Dark Navy) -->
+    <text x="195" y="85" fill="#0f172a" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="900" font-size="72" text-anchor="middle" letter-spacing="-2">one</text>
+
+    <!-- 'diary' Text (Bold Navy Blue) -->
+    <text x="195" y="170" fill="#1e3a8a" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="900" font-size="88" text-anchor="middle" letter-spacing="-3">diary</text>
+
+    <!-- '.in' Blue Pill Badge -->
+    <g transform="translate(138, 185)" filter="url(#softShadow)">
+      <rect width="114" height="48" rx="16" fill="url(#inBadgeGrad)" stroke="#ffffff" stroke-width="2.5"/>
+      <text x="57" y="36" fill="#ffffff" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="900" font-size="34" text-anchor="middle">.in</text>
+    </g>
+
+    <!-- Dashed Line -->
+    <line x1="50" y1="250" x2="340" y2="250" stroke="#cbd5e1" stroke-width="2.5" stroke-dasharray="7 5"/>
+
+    <!-- Tagline text -->
+    <text x="195" y="278" fill="#334155" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="900" font-size="14" text-anchor="middle" letter-spacing="0.5">ALL-IN-ONE SOLUTION</text>
+    <text x="195" y="298" fill="#1d4ed8" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="900" font-size="16" text-anchor="middle" letter-spacing="0.8">FOR CONTRACTORS</text>
+  </g>
+
+  <!-- BOTTOM SECURITY BADGES ROW -->
+  <g transform="translate(86, 458)">
+    <g transform="translate(0, 0)">
+      <circle cx="12" cy="0" r="10" fill="#10b981"/>
+      <path d="M8 0 L11 3 L16 -3" stroke="#ffffff" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      <text x="28" y="4" fill="#ffffff" font-family="system-ui, sans-serif" font-weight="800" font-size="12">100% SECURE</text>
+    </g>
+
+    <g transform="translate(180, 0)">
+      <circle cx="12" cy="0" r="10" fill="#3b82f6"/>
+      <path d="M7 -3 C7 -7, 17 -7, 17 -3" stroke="#ffffff" stroke-width="2" fill="none"/>
+      <text x="28" y="4" fill="#ffffff" font-family="system-ui, sans-serif" font-weight="800" font-size="12">OFFLINE MODE</text>
+    </g>
+  </g>
+</svg>

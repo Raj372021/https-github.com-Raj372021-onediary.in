@@ -1,0 +1,21 @@
+{
+  "entities": {
+    "GlobalSetting": {
+      "title": "GlobalSetting",
+      "description": "Global application configuration, payment gateways, wage rates and admin settings",
+      "type": "object",
+      "properties": {
+        "key": { "type": "string" },
+        "value": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["key", "value"]
+    }
+  },
+  "firestore": {
+    "/global_settings/{settingId}": {
+      "schema": "GlobalSetting",
+      "description": "Stores global app settings"
+    }
+  }
+}

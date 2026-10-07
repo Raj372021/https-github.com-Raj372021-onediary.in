@@ -1,0 +1,1 @@
+sed -i 's/window.open(url, '"'"'_blank'"'"');/window.open(url, '"'"'_blank'"'"');\n    const today = new Date().toISOString().split('"'"'T'"'"')[0];\n    updateAttendance(worker.id, today, { advance: balance, advanceNote: "UPI Payment" });/g' src/pages/WorkerDetail.tsx

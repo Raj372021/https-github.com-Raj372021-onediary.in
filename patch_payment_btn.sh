@@ -1,0 +1,1 @@
+sed -i 's/{loading ? "Loading..." : \`Pay ${formatCurrency(amount)} →\`}/{loading ? "Loading..." : (paymentSettings?.qrCodeUrl && !paymentSettings?.isRazorpayEnabled && selectedMethod === "UPI") ? \`I have Paid ${formatCurrency(amount)} \` : \`Pay ${formatCurrency(amount)} →\`}/g' src/pages/Payment.tsx

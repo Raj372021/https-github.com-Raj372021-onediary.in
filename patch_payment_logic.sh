@@ -1,0 +1,2 @@
+sed -i '/if (!window.Razorpay) {/i \
+    if (paymentSettings?.qrCodeUrl && !paymentSettings?.isRazorpayEnabled && selectedMethod === "UPI") {\n      setLoading(true);\n      await new Promise(r => setTimeout(r, 1500));\n      setPaymentId("manual_pay_" + Math.random().toString(36).substring(7));\n      setShowSuccess(true);\n      setTimeout(() => navigate("/"), 3000);\n      return;\n    }\n' src/pages/Payment.tsx

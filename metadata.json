@@ -1,0 +1,6 @@
+{
+  "name": "onediary.in",
+  "description": "OneDiary (onediary.in) - Digital Khata, Attendance, Payments, CashBook & AI Assistant",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,64 @@
+{
+  "id": "in.onediary.app",
+  "name": "OneDiary - Digital Khata, Attendance & Diary",
+  "short_name": "OneDiary",
+  "description": "All-in-One Digital Khata, Attendance, Wage Calculator, CashBook & Diary for Contractors & Businesses.",
+  "start_url": "/",
+  "scope": "/",
+  "dir": "ltr",
+  "lang": "hi",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0f172a",
+  "theme_color": "#1d4ed8",
+  "categories": ["finance", "business", "productivity", "utilities"],
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/app-logo.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Workers / मज़दूर",
+      "short_name": "Workers",
+      "description": "Manage Worker Attendance & Khata",
+      "url": "/workers",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "CashBook / कैशबुक",
+      "short_name": "Cashbook",
+      "description": "Track Income & Expense",
+      "url": "/cashbook",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
+    }
+  ],
+  "prefer_related_applications": false
+}
