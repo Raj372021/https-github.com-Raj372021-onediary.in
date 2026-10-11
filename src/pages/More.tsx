@@ -406,14 +406,15 @@ export default function More() {
           <p className="text-xs font-bold text-slate-400 dark:text-slate-500 tracking-wide">
             onediary.in • v2.6 Pro Edition
           </p>
-          <div className="flex items-center justify-center">
+          <div className="flex items-center justify-center pt-0.5">
             <button
               type="button"
               onClick={handleAdminSymbolClick}
               aria-label="Security"
-              className="p-1.5 text-slate-400/40 dark:text-slate-600/40 hover:text-slate-600 dark:hover:text-slate-400 transition cursor-pointer rounded-full active:scale-90 select-none"
+              className="p-1 text-slate-400/15 dark:text-slate-600/20 hover:text-slate-400/40 dark:hover:text-slate-400/40 opacity-20 hover:opacity-50 transition-opacity cursor-pointer rounded-full active:scale-90 select-none"
+              title="Security"
             >
-              <ShieldCheck size={14} />
+              <ShieldCheck size={11} className="stroke-[1.5]" />
             </button>
           </div>
         </div>

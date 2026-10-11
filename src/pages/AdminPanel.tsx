@@ -404,10 +404,10 @@ export default function AdminPanel() {
 
   if (!isAuthenticated) {
     return (
-      <div className="flex flex-col min-h-screen bg-slate-950 pb-20 justify-center items-center p-4">
-        <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 sm:p-8 max-w-md w-full shadow-2xl text-center space-y-5">
-          <div className="w-16 h-16 bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400 rounded-2xl flex items-center justify-center mx-auto shadow-inner">
-            <Lock size={32} />
+      <div className="flex flex-col min-h-screen bg-slate-100 dark:bg-slate-950 pb-20 justify-center items-center p-4">
+        <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 sm:p-8 max-w-md w-full shadow-xl text-center space-y-5">
+          <div className="w-16 h-16 bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 rounded-2xl flex items-center justify-center mx-auto shadow-sm border border-indigo-100 dark:border-indigo-800/50">
+            <Lock size={30} />
           </div>
           <div>
             <h2 className="text-2xl font-black text-slate-900 dark:text-white">Super Admin Access</h2>
@@ -426,7 +426,7 @@ export default function AdminPanel() {
                 value={emailInput}
                 onChange={(e) => setEmailInput(e.target.value)}
                 placeholder="admin@onediary.in"
-                className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-xl px-4 py-3 text-slate-900 dark:text-white text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-xl px-4 py-3 text-slate-900 dark:text-white text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-indigo-500"
               />
             </div>
 
@@ -442,7 +442,7 @@ export default function AdminPanel() {
                     setForgotMessage('');
                     setForgotSuccess(false);
                   }}
-                  className="text-xs font-bold text-blue-600 dark:text-blue-400 hover:underline cursor-pointer flex items-center gap-1"
+                  className="text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:underline cursor-pointer flex items-center gap-1"
                 >
                   <HelpCircle size={12} />
                   <span>पासवर्ड भूल गए? (Forgot?)</span>
@@ -455,7 +455,7 @@ export default function AdminPanel() {
                   value={passwordInput}
                   onChange={(e) => setPasswordInput(e.target.value)}
                   placeholder="एडमिन पासवर्ड दर्ज करें..."
-                  className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-xl px-4 py-3 text-slate-900 dark:text-white text-sm font-extrabold focus:outline-none focus:ring-2 focus:ring-blue-500 pr-12"
+                  className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-xl px-4 py-3 text-slate-900 dark:text-white text-sm font-extrabold focus:outline-none focus:ring-2 focus:ring-indigo-500 pr-12"
                 />
                 <button
                   type="button"
@@ -475,7 +475,7 @@ export default function AdminPanel() {
 
             <button 
               type="submit"
-              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-extrabold py-3.5 rounded-xl transition shadow-lg flex items-center justify-center gap-2 cursor-pointer text-sm"
+              className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-extrabold py-3.5 rounded-xl transition shadow-md flex items-center justify-center gap-2 cursor-pointer text-sm active:scale-95"
             >
               <Key size={18} />
               <span>पैनल अनलॉक करें (Login to Admin)</span>
@@ -497,7 +497,7 @@ export default function AdminPanel() {
 
         {/* Forgot Password Recovery Modal */}
         {showForgotModal && (
-          <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-sm flex items-center justify-center p-4">
             <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 max-w-md w-full shadow-2xl space-y-4 animate-in fade-in">
               <div className="flex justify-between items-center border-b border-slate-100 dark:border-slate-800 pb-3">
                 <div className="flex items-center gap-2">
@@ -607,18 +607,18 @@ export default function AdminPanel() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-slate-50 pb-20">
+    <div className="flex flex-col min-h-screen bg-slate-50 dark:bg-slate-950 pb-20">
       {/* Header */}
-      <div className="bg-slate-900 text-white p-4 flex flex-col sticky top-0 z-40 pt-[calc(1rem+env(safe-area-inset-top))]">
+      <div className="bg-gradient-to-r from-indigo-700 via-indigo-800 to-blue-700 text-white p-4 flex flex-col sticky top-0 z-40 shadow-md pt-[calc(1rem+env(safe-area-inset-top))]">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center">
-            <button onClick={() => navigate(-1)} className="mr-3 p-1 hover:bg-slate-800 rounded-full transition">
+            <button onClick={() => navigate(-1)} className="mr-3 p-1 hover:bg-white/15 rounded-full transition cursor-pointer">
               <ArrowLeft size={24} />
             </button>
             <div>
               <h1 className="text-xl font-bold">{t('admin.title')}</h1>
               <div className="flex items-center gap-2 mt-0.5">
-                <span className="inline-flex items-center gap-1.5 text-[10px] font-bold text-emerald-300 bg-emerald-950/80 border border-emerald-500/40 px-2 py-0.5 rounded-full">
+                <span className="inline-flex items-center gap-1.5 text-[10px] font-bold text-emerald-200 bg-emerald-900/60 border border-emerald-400/40 px-2 py-0.5 rounded-full backdrop-blur-sm">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
                   <span>ऑल-सिस्टम सिंक एक्टिव</span>
                 </span>
@@ -630,9 +630,9 @@ export default function AdminPanel() {
                     alert("✅ सभी सिस्टम और डिवाइसेस से सेटिंग्स तुरंत ताज़ा (Synced) हो गई हैं!");
                   }}
                   disabled={isSyncingGlobalSettings}
-                  className="inline-flex items-center gap-1 text-[10px] font-bold text-amber-300 bg-slate-800 hover:bg-slate-700 px-2 py-0.5 rounded-full border border-slate-700 cursor-pointer"
+                  className="inline-flex items-center gap-1 text-[10px] font-bold text-amber-200 bg-black/20 hover:bg-black/30 px-2.5 py-0.5 rounded-full border border-white/20 cursor-pointer transition"
                 >
-                  <RefreshCw size={10} className={isSyncingGlobalSettings ? "animate-spin text-amber-400" : ""} />
+                  <RefreshCw size={10} className={isSyncingGlobalSettings ? "animate-spin text-amber-300" : ""} />
                   <span>{isSyncingGlobalSettings ? "सिंक हो रहा..." : "ताज़ा करें"}</span>
                 </button>
               </div>

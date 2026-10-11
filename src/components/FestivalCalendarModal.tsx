@@ -1532,12 +1532,12 @@ export default function FestivalCalendarModal({ isOpen, onClose }: Props) {
       );
 
   return (
-    <div className="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-md flex items-center justify-center p-2 sm:p-4 overflow-y-auto animate-in fade-in duration-200">
+    <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-2 sm:p-4 overflow-y-auto animate-in fade-in duration-200">
       <motion.div 
         initial={{ scale: 0.92, opacity: 0, y: 15 }}
         animate={{ scale: 1, opacity: 1, y: 0 }}
         exit={{ scale: 0.92, opacity: 0, y: 15 }}
-        className="bg-slate-900 border-2 border-amber-500/70 rounded-3xl shadow-2xl shadow-amber-950/90 w-full max-w-3xl overflow-hidden text-white flex flex-col my-auto"
+        className="bg-amber-50/95 dark:bg-slate-900 border-2 border-amber-400 rounded-3xl shadow-2xl shadow-amber-900/20 w-full max-w-3xl overflow-hidden text-slate-900 dark:text-white flex flex-col my-auto"
       >
         {/* 🚩 SRI HANUMAN PRASAD HEADER WITH CREATOR CREDIT & LANGUAGE BAR */}
         <div className="bg-gradient-to-r from-red-800 via-amber-600 to-orange-800 text-white p-3 sm:p-4 shadow-lg relative border-b-2 border-amber-400/80">
@@ -1659,23 +1659,23 @@ export default function FestivalCalendarModal({ isOpen, onClose }: Props) {
         </div>
 
         {/* 📅 MONTH SELECTOR NAV BAR */}
-        <div className="bg-slate-950 px-3 py-2.5 sm:px-4 border-b border-amber-500/30 flex items-center justify-between">
+        <div className="bg-amber-100/90 px-3 py-2.5 sm:px-4 border-b border-amber-300 flex items-center justify-between">
           <button
             onClick={prevMonth}
-            className="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-amber-600 text-amber-200 hover:text-white font-extrabold text-xs flex items-center gap-1 border border-amber-500/30 transition cursor-pointer"
+            className="px-3 py-1.5 rounded-xl bg-white hover:bg-amber-500 text-slate-800 hover:text-white font-extrabold text-xs flex items-center gap-1 border border-amber-300 shadow-xs transition cursor-pointer"
           >
             <ChevronLeft size={16} />
             <span>{labels.prev}</span>
           </button>
 
           <div className="text-center">
-            <h3 className="text-sm sm:text-base font-black text-amber-300 tracking-wide flex items-center justify-center gap-1.5">
+            <h3 className="text-sm sm:text-base font-black text-amber-900 tracking-wide flex items-center justify-center gap-1.5">
               <span>{labels.months[currentMonth]}</span>
-              <span className="text-white bg-amber-600/90 px-2 py-0.5 rounded-lg text-xs border border-amber-400/40 font-black">
+              <span className="text-white bg-amber-600 px-2 py-0.5 rounded-lg text-xs border border-amber-500 font-black">
                 {currentYear}
               </span>
             </h3>
-            <div className="text-[10px] text-slate-400 font-medium flex flex-col items-center">
+            <div className="text-[10px] text-slate-600 font-medium flex flex-col items-center">
               <div className="flex items-center justify-center gap-1.5 flex-wrap">
                 <span>onediary.in</span>
                 <span>• श्री हनुमान प्रसाद पंचांग 2026</span>
@@ -1685,7 +1685,7 @@ export default function FestivalCalendarModal({ isOpen, onClose }: Props) {
 
           <button
             onClick={nextMonth}
-            className="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-amber-600 text-amber-200 hover:text-white font-extrabold text-xs flex items-center gap-1 border border-amber-500/30 transition cursor-pointer"
+            className="px-3 py-1.5 rounded-xl bg-white hover:bg-amber-500 text-slate-800 hover:text-white font-extrabold text-xs flex items-center gap-1 border border-amber-300 shadow-xs transition cursor-pointer"
           >
             <span>{labels.next}</span>
             <ChevronRight size={16} />
@@ -1693,16 +1693,16 @@ export default function FestivalCalendarModal({ isOpen, onClose }: Props) {
         </div>
 
         {/* 🗓️ CALENDAR GRID & RIGHT SIDE HOLIDAYS CONTAINER */}
-        <div className="p-3 sm:p-4 bg-slate-900 grid grid-cols-1 md:grid-cols-12 gap-3 items-start">
+        <div className="p-3 sm:p-4 bg-white grid grid-cols-1 md:grid-cols-12 gap-3 items-start">
           {/* Left Column: Compact Month Days Grid */}
           <div className="md:col-span-7 space-y-2">
             {/* Weekday Header */}
-            <div className="grid grid-cols-7 gap-1 text-center border-b border-slate-800 pb-2">
+            <div className="grid grid-cols-7 gap-1 text-center border-b border-amber-200 pb-2">
               {labels.weekdays.map((w, idx) => (
                 <div 
                   key={idx} 
                   className={`text-[10px] sm:text-xs font-black py-1 rounded-md flex flex-col items-center leading-tight ${
-                    idx === 0 ? 'text-rose-400 bg-rose-950/30' : 'text-amber-200/90 bg-slate-800/40'
+                    idx === 0 ? 'text-rose-700 bg-rose-100' : 'text-amber-900 bg-amber-100/70'
                   }`}
                 >
                   <span>{w}</span>
@@ -1714,7 +1714,7 @@ export default function FestivalCalendarModal({ isOpen, onClose }: Props) {
             <div className="grid grid-cols-7 gap-1 sm:gap-1.5">
               {/* Blank leading cells */}
               {blankCells.map((_, i) => (
-                <div key={`blank-${i}`} className="h-8 sm:h-9 rounded-xl bg-slate-950/20 opacity-30 border border-slate-800/40" />
+                <div key={`blank-${i}`} className="h-8 sm:h-9 rounded-xl bg-slate-100 opacity-40 border border-slate-200" />
               ))}
 
               {/* Actual day cells */}
@@ -1734,14 +1734,14 @@ export default function FestivalCalendarModal({ isOpen, onClose }: Props) {
                   <button
                     key={day}
                     onClick={() => setSelectedDateStr(fullDateStr)}
-                    className={`h-8 sm:h-9 rounded-xl p-0.5 flex flex-col justify-between items-center relative transition cursor-pointer text-center border overflow-hidden shadow-[0_0_6px_rgba(236,72,153,0.35)] ${
+                    className={`h-8 sm:h-9 rounded-xl p-0.5 flex flex-col justify-between items-center relative transition cursor-pointer text-center border overflow-hidden shadow-xs ${
                       isSelected
-                        ? 'bg-amber-400 text-slate-950 font-black border-pink-300 ring-2 ring-pink-400 shadow-[0_0_12px_rgba(236,72,153,0.8)] scale-105 z-10'
+                        ? 'bg-amber-400 text-slate-950 font-black border-amber-600 ring-2 ring-amber-500 shadow-md scale-105 z-10'
                         : fest
-                        ? 'bg-gradient-to-br from-amber-600 via-rose-700 to-pink-700 text-amber-100 border-pink-400 hover:border-pink-300 shadow-[0_0_8px_rgba(236,72,153,0.6)]'
+                        ? 'bg-gradient-to-br from-amber-100 via-orange-100 to-yellow-100 text-amber-950 border-amber-300 hover:border-amber-400 shadow-xs'
                         : isSunday
-                        ? 'bg-gradient-to-br from-rose-900/90 via-pink-950/85 to-indigo-950 text-rose-200 border-pink-500/80 hover:border-pink-300'
-                        : 'bg-gradient-to-br from-indigo-950 via-purple-950 to-slate-900 text-slate-100 border-pink-500/60 hover:border-pink-300'
+                        ? 'bg-rose-50 text-rose-900 border-rose-200 hover:border-rose-300'
+                        : 'bg-slate-50 hover:bg-slate-100 text-slate-800 border-slate-200'
                     }`}
                   >
                     {/* Photo background overlay if festival exists */}
@@ -1759,7 +1759,7 @@ export default function FestivalCalendarModal({ isOpen, onClose }: Props) {
 
                     {/* Top Day Number */}
                     <div className="flex flex-col items-center justify-center leading-none relative z-10 w-full pt-0.5">
-                      <span className={`text-xs sm:text-sm font-black tracking-tight ${isSelected ? 'text-slate-950' : isSunday ? 'text-rose-300' : 'text-white'}`}>
+                      <span className={`text-xs sm:text-sm font-black tracking-tight ${isSelected ? 'text-slate-950' : isSunday ? 'text-rose-700' : 'text-slate-900'}`}>
                         {day}
                       </span>
                     </div>
@@ -1770,17 +1770,17 @@ export default function FestivalCalendarModal({ isOpen, onClose }: Props) {
                         <div className="flex items-center justify-center gap-0.5">
                           <span className="text-[9px] sm:text-[10px]">{fest.icon}</span>
                           {fest.image && (
-                            <div className="w-3 h-3 rounded-full overflow-hidden border border-amber-300 shadow-sm shrink-0">
+                            <div className="w-3 h-3 rounded-full overflow-hidden border border-amber-400 shadow-xs shrink-0">
                               <img src={fest.image} alt="" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
                             </div>
                           )}
                         </div>
-                        <span className={`text-[7px] sm:text-[8px] font-black truncate max-w-[45px] sm:max-w-[55px] ${isSelected ? 'text-slate-950' : 'text-amber-200'}`}>
+                        <span className={`text-[7px] sm:text-[8px] font-black truncate max-w-[45px] sm:max-w-[55px] ${isSelected ? 'text-slate-950' : 'text-amber-900'}`}>
                           {festNameLocalized.split(' ')[0]}
                         </span>
                       </div>
                     ) : (
-                      <span className={`text-[7px] font-semibold opacity-60 relative z-10 ${isSelected ? 'text-slate-900' : ''}`}>
+                      <span className={`text-[7px] font-semibold opacity-70 relative z-10 ${isSelected ? 'text-slate-900' : 'text-slate-600'}`}>
                         {isSunday ? labels.weekdays[0] : ''}
                       </span>
                     )}
@@ -1798,13 +1798,13 @@ export default function FestivalCalendarModal({ isOpen, onClose }: Props) {
           {/* Right Column: Month Holidays & Selected Date Panchang Details */}
           <div className="md:col-span-5 space-y-2">
             {/* Festivals & Holidays List Panel */}
-            <div className="bg-slate-950/90 border border-amber-500/40 rounded-2xl p-2.5 shadow-inner">
-              <div className="text-xs font-black text-amber-300 flex items-center justify-between pb-1.5 border-b border-amber-500/30 uppercase tracking-wider">
+            <div className="bg-amber-100/60 border border-amber-300 rounded-2xl p-2.5 shadow-sm">
+              <div className="text-xs font-black text-amber-900 flex items-center justify-between pb-1.5 border-b border-amber-300 uppercase tracking-wider">
                 <span className="flex items-center gap-1.5">
                   <span>🎉</span>
                   <span>{labels.months[currentMonth].split(' ')[0]} Holidays & Festivals</span>
                 </span>
-                <span className="bg-amber-400 text-slate-950 text-[9px] px-1.5 py-0.5 rounded-md font-black">
+                <span className="bg-amber-500 text-white text-[9px] px-1.5 py-0.5 rounded-md font-black">
                   2026
                 </span>
               </div>
@@ -1828,30 +1828,30 @@ export default function FestivalCalendarModal({ isOpen, onClose }: Props) {
                         onClick={() => setSelectedDateStr(dateStr)}
                         className={`w-full text-left p-1.5 rounded-xl border transition flex items-center justify-between gap-2 cursor-pointer ${
                           isCurSelected 
-                            ? 'bg-amber-400 text-slate-950 border-amber-300 font-black shadow-md' 
-                            : 'bg-slate-900/90 hover:bg-slate-800 text-amber-100 border-amber-500/20 hover:border-amber-400/50'
+                            ? 'bg-amber-400 text-slate-950 border-amber-500 font-black shadow-sm' 
+                            : 'bg-white hover:bg-amber-50 text-slate-800 border-amber-200'
                         }`}
                       >
                         <div className="flex items-center gap-2 min-w-0">
                           {fItem.image ? (
-                            <div className="w-6 h-6 rounded-lg overflow-hidden border border-amber-300/80 shrink-0 shadow-xs">
+                            <div className="w-6 h-6 rounded-lg overflow-hidden border border-amber-300 shrink-0 shadow-xs">
                               <img src={fItem.image} alt="" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
                             </div>
                           ) : (
                             <span className="text-base shrink-0">{fItem.icon}</span>
                           )}
                           <div className="min-w-0">
-                            <div className={`text-xs font-black truncate leading-tight ${isCurSelected ? 'text-slate-950' : 'text-amber-200'}`}>
+                            <div className={`text-xs font-black truncate leading-tight ${isCurSelected ? 'text-slate-950' : 'text-slate-900'}`}>
                               {fItem.icon} {fName}
                             </div>
-                            <div className={`text-[9px] font-semibold truncate ${isCurSelected ? 'text-slate-900' : 'text-slate-400'}`}>
+                            <div className={`text-[9px] font-semibold truncate ${isCurSelected ? 'text-slate-900' : 'text-slate-500'}`}>
                               {fItem.tithi[calendarLang] || fItem.tithi.hi}
                             </div>
                           </div>
                         </div>
 
                         <span className={`text-[10px] font-black px-2 py-0.5 rounded-lg shrink-0 ${
-                          isCurSelected ? 'bg-slate-950 text-amber-300' : 'bg-amber-500/20 text-amber-300 border border-amber-400/30'
+                          isCurSelected ? 'bg-slate-950 text-amber-300' : 'bg-amber-100 text-amber-900 border border-amber-300'
                         }`}>
                           {dNum} {labels.months[currentMonth].slice(0, 3)}
                         </span>
@@ -1864,7 +1864,7 @@ export default function FestivalCalendarModal({ isOpen, onClose }: Props) {
                   const y = parseInt(dateStr.split('-')[0], 10);
                   return m === currentMonth && y === currentYear;
                 }).length === 0 && (
-                  <div className="text-center py-4 text-xs text-slate-400 italic">
+                  <div className="text-center py-4 text-xs text-slate-500 italic">
                     No major gazetted festival in this month.
                   </div>
                 )}
@@ -1872,8 +1872,8 @@ export default function FestivalCalendarModal({ isOpen, onClose }: Props) {
             </div>
 
             {/* Panchang & Selected Date Details */}
-            <div className="bg-slate-950/90 border border-amber-500/40 rounded-2xl p-2.5">
-              <div className="flex items-center justify-between text-xs font-black text-amber-200 pb-1 border-b border-amber-500/20">
+            <div className="bg-amber-100/60 border border-amber-300 rounded-2xl p-2.5">
+              <div className="flex items-center justify-between text-xs font-black text-amber-900 pb-1 border-b border-amber-300">
                 <span>📅 {selectedDateFormatted}</span>
                 {selectedFestival?.isGazetted && (
                   <span className="bg-rose-600 text-white text-[9px] px-1.5 py-0.2 rounded font-black uppercase">
@@ -1883,13 +1883,13 @@ export default function FestivalCalendarModal({ isOpen, onClose }: Props) {
               </div>
 
               {selectedFestival && (
-                <div className="mt-1.5 bg-amber-950/60 border border-amber-500/30 p-2 rounded-xl text-xs text-amber-100 leading-relaxed font-medium">
-                  <div className="font-black text-amber-300 flex items-center gap-1 mb-0.5">
+                <div className="mt-1.5 bg-amber-50 border border-amber-300 p-2 rounded-xl text-xs text-amber-950 leading-relaxed font-medium">
+                  <div className="font-black text-amber-900 flex items-center gap-1 mb-0.5">
                     <span>{selectedFestival.icon}</span>
                     <span>{selectedFestival.name[calendarLang] || selectedFestival.name.hi}</span>
                   </div>
                   {selectedFestival.desc && (
-                    <p className="text-[11px] text-amber-100/90">
+                    <p className="text-[11px] text-slate-700">
                       {selectedFestival.desc[calendarLang] || selectedFestival.desc.hi}
                     </p>
                   )}
@@ -1898,15 +1898,15 @@ export default function FestivalCalendarModal({ isOpen, onClose }: Props) {
 
               {/* Panchang Timings */}
               <div className="grid grid-cols-2 gap-1.5 mt-2 text-center text-[10px]">
-                <div className="bg-slate-900 p-1.5 rounded-lg border border-slate-800">
-                  <div className="text-[9px] text-slate-400 font-bold uppercase">Tithi</div>
-                  <div className="font-black text-amber-300 mt-0.5 truncate">
+                <div className="bg-white p-1.5 rounded-lg border border-amber-200">
+                  <div className="text-[9px] text-slate-500 font-bold uppercase">Tithi</div>
+                  <div className="font-black text-amber-900 mt-0.5 truncate">
                     {selectedFestival?.tithi[calendarLang] || selectedFestival?.tithi.hi || 'शुक्ल / कृष्ण पक्ष'}
                   </div>
                 </div>
-                <div className="bg-slate-900 p-1.5 rounded-lg border border-slate-800">
-                  <div className="text-[9px] text-slate-400 font-bold uppercase">Auspicious Time</div>
-                  <div className="font-extrabold text-emerald-400 mt-0.5">
+                <div className="bg-white p-1.5 rounded-lg border border-amber-200">
+                  <div className="text-[9px] text-slate-500 font-bold uppercase">Auspicious Time</div>
+                  <div className="font-extrabold text-emerald-700 mt-0.5">
                     11:45 AM - 12:35 PM
                   </div>
                 </div>
@@ -1916,9 +1916,9 @@ export default function FestivalCalendarModal({ isOpen, onClose }: Props) {
         </div>
 
         {/* Quick WhatsApp Share & Creator Footer */}
-        <div className="bg-slate-950 p-3 sm:p-4 border-t border-slate-800 flex items-center justify-between gap-2">
-          <span className="text-[11px] text-amber-200/90 font-black flex items-center gap-1">
-            <Award size={13} className="text-amber-400" /> {labels.title} • {labels.madeBy}
+        <div className="bg-amber-100 p-3 sm:p-4 border-t border-amber-300 flex items-center justify-between gap-2">
+          <span className="text-[11px] text-amber-900 font-black flex items-center gap-1">
+            <Award size={13} className="text-amber-700" /> {labels.title} • {labels.madeBy}
           </span>
 
           <button
