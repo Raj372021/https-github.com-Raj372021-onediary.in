@@ -399,7 +399,7 @@ export default function AppLockGate({ children }: AppLockGateProps) {
           onClick={() => setShowForgotModal(true)}
           className="text-xs font-bold text-slate-400 hover:text-amber-300 transition underline cursor-pointer py-2"
         >
-          {language === 'hi' ? 'PIN भूल गए? (Forgot PIN?)' : 'Forgot PIN? Reset via Mobile OTP'}
+          {language === 'hi' ? 'PIN भूल गए?' : 'Forgot PIN? Reset via Mobile OTP'}
         </button>
       </div>
 

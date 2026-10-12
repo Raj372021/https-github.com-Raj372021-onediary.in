@@ -243,11 +243,17 @@ export default function CloudSync() {
     const cleanRepo = githubRepo.trim().replace(/^https?:\/\/github\.com\//i, '').replace(/\.git$/i, '');
 
     if (!cleanToken) {
-      setGithubMessage({ text: 'कृपया GitHub Personal Access Token दर्ज करें।', type: 'error' });
+      setGithubMessage({
+        text: language === 'hi' ? 'कृपया GitHub Personal Access Token दर्ज करें।' : 'Please enter GitHub Personal Access Token.',
+        type: 'error'
+      });
       return;
     }
     if (!cleanRepo || !cleanRepo.includes('/')) {
-      setGithubMessage({ text: 'कृपया सही Repository नाम दर्ज करें (उदा. username/repo-name)', type: 'error' });
+      setGithubMessage({
+        text: language === 'hi' ? 'कृपया सही Repository नाम दर्ज करें (उदा. username/repo-name)' : 'Please enter valid Repository name (e.g. username/repo-name)',
+        type: 'error'
+      });
       return;
     }
 
@@ -283,13 +289,17 @@ export default function CloudSync() {
       }
 
       setGithubMessage({
-        text: `✓ सफलता! डेटा GitHub Repository (${cleanRepo}) में फ़ाइल "${resJson.path}" के रूप में सुरक्षित पुश हो गया है!`,
+        text: language === 'hi'
+          ? `✓ सफलता! डेटा GitHub Repository (${cleanRepo}) में फ़ाइल "${resJson.path}" के रूप में सुरक्षित पुश हो गया है!`
+          : `✓ Success! Data pushed to GitHub Repository (${cleanRepo}) as file "${resJson.path}"!`,
         type: 'success'
       });
     } catch (err: any) {
       console.error(err);
       setGithubMessage({
-        text: `त्रुटि: ${err.message || 'GitHub पर पुश नहीं हो पाया। कृपया टोकन और रिपॉजिटरी नाम चेक करें।'}`,
+        text: language === 'hi'
+          ? `त्रुटि: ${err.message || 'GitHub पर पुश नहीं हो पाया। कृपया टोकन और रिपॉजिटरी नाम चेक करें।'}`
+          : `Error: ${err.message || 'Failed to push to GitHub. Please check token and repository name.'}`,
         type: 'error'
       });
     } finally {
@@ -410,7 +420,9 @@ export default function CloudSync() {
         <form onSubmit={handleGithubPush} className="space-y-3 text-xs">
           <div>
             <label className="block text-[11px] font-bold text-slate-300 mb-1">
-              GitHub Repository (उदा. your-username/onediary-backup):
+              {language === 'hi'
+                ? 'GitHub रिपॉजिटरी (उदा. your-username/onediary-backup):'
+                : 'GitHub Repository (e.g. your-username/onediary-backup):'}
             </label>
             <input
               type="text"
@@ -445,7 +457,11 @@ export default function CloudSync() {
             className="w-full bg-slate-800 hover:bg-slate-700 text-white font-extrabold py-2.5 rounded-xl text-xs flex items-center justify-center gap-2 border border-slate-700 transition cursor-pointer disabled:opacity-60 shadow-md active:scale-95"
           >
             {githubLoading ? <Loader2 size={14} className="animate-spin" /> : <GitBranch size={14} className="text-blue-400" />}
-            <span>{githubLoading ? 'GitHub पर पुश हो रहा है...' : 'Push Backup to GitHub'}</span>
+            <span>
+              {githubLoading 
+                ? (language === 'hi' ? 'GitHub पर पुश हो रहा है...' : 'Pushing to GitHub...') 
+                : (language === 'hi' ? 'GitHub पर बैकअप भेजें' : 'Push Backup to GitHub')}
+            </span>
           </button>
         </form>
       </div>
@@ -455,7 +471,7 @@ export default function CloudSync() {
         <div className="flex items-center gap-2">
           <Database size={18} className="text-amber-400" />
           <h3 className="text-sm font-black text-white">
-            {language === 'hi' ? 'ऑफ़लाइन फ़ाइल बैकअप (Personal Backup File)' : 'Personal Offline Backup File'}
+            {language === 'hi' ? 'ऑफ़लाइन फ़ाइल बैकअप' : 'Personal Offline Backup File'}
           </h3>
         </div>
         

@@ -113,86 +113,192 @@ export const defaultPaymentSettings: PaymentSettings = {
   defaultGstRate: 18
 };
 
-export interface SubscriptionPlan { id: string; name: string; workersLimit: number; price: number; duration: "month" | "year"; features: string[]; razorpayPlanId?: string; }
+export interface SubscriptionPlan {
+  id: string;
+  name: string;
+  nameEn?: string;
+  nameHi?: string;
+  workersLimit: number;
+  price: number;
+  duration: "month" | "year";
+  features: string[];
+  featuresEn?: string[];
+  featuresHi?: string[];
+  razorpayPlanId?: string;
+}
 
 export const defaultPlans: SubscriptionPlan[] = [
   { 
     id: "free_starter", 
-    name: "Free Plan (3 Labour) / मुफ़्त प्लान (3 मजदूर)", 
+    name: "Free Plan (3 Labour) / मुफ़्त प्लान (3 मजदूर)",
+    nameEn: "Free Plan (3 Workers)",
+    nameHi: "मुफ़्त प्लान (3 मजदूर)",
     workersLimit: 3, 
     price: 0, 
     duration: "month", 
     features: [
-      "Up to 3 Labour / Workers Allowed (केवल 3 लेबर (मजदूर) तक की अनुमति)",
+      "Up to 3 Labour / Workers Allowed (केवल 3 लेबर तक की अनुमति)",
       "3 Bill Books Free Download (3 बिल बुक डाउनलोड मुफ़्त)",
       "Daily Attendance & Salary Hisab (दैनिक उपस्थिति एवं हाजिरी हिसाब)",
       "Digital Attendance Book Access (डिजिटल हाजिरी बुक एक्सेस)"
-    ] 
+    ],
+    featuresEn: [
+      "Up to 3 Workers Allowed",
+      "3 Bill Books Free Download",
+      "Daily Attendance & Salary Calculations",
+      "Digital Attendance Book Access"
+    ],
+    featuresHi: [
+      "3 मजदूरों तक का रिकॉर्ड",
+      "3 बिल बुक डाउनलोड मुफ़्त",
+      "दैनिक उपस्थिति एवं हाजिरी हिसाब",
+      "डिजिटल हाजिरी बुक एक्सेस"
+    ]
   },
   { 
     id: "plan_199", 
-    name: "Starter Plan (5 Labour + 1 Vedic Kundli) / स्टार्टर प्लान", 
+    name: "Starter Plan (5 Labour + 1 Vedic Kundli) / स्टार्टर प्लान",
+    nameEn: "Starter Plan (5 Workers + 1 Vedic Kundli)",
+    nameHi: "स्टार्टर प्लान (5 मजदूर + 1 कुण्डली)",
     workersLimit: 5, 
     price: 199, 
     duration: "month", 
     features: [
-      "1 Vedic Janm Kundli Generator (1 संपूर्ण वैदिक जन्म कुण्डली)",
-      "10-Year Life Predictions (10 साल का विस्तृत वर्ष-वार भविष्यफल)",
-      "36 Gunas Marriage Match (36 अष्टकूट विवाह गुण मिलान)",
-      "3D Royal Golden Kundli Plate Download (3D गोल्ड कुण्डली डाउनलोड)",
-      "Up to 5 Labour / Workers Allowed (5 लेबर हाजिरी व सैलरी रिकॉर्ड)",
-      "Digital Cashbook & 5 Bill Books / Mo (डिजिटल कैशबुक व 5 बिल बुक)",
-      "Daily Attendance & Salary Hisab (दैनिक उपस्थिति एवं हाजिरी हिसाब)"
-    ] 
+      "1 Vedic Janm Kundli Generator",
+      "10-Year Life Predictions",
+      "36 Gunas Marriage Match",
+      "3D Royal Golden Kundli Plate Download",
+      "Up to 5 Labour / Workers Allowed",
+      "Digital Cashbook & 5 Bill Books / Mo",
+      "Daily Attendance & Salary Hisab"
+    ],
+    featuresEn: [
+      "1 Complete Vedic Janm Kundli Generator",
+      "10-Year Year-by-Year Life Predictions",
+      "36 Gunas Ashtakoot Marriage Match",
+      "3D Royal Golden Kundli Plate Download",
+      "Up to 5 Workers Attendance & Salary Records",
+      "Digital Cashbook & 5 Bill Books per Month",
+      "Daily Attendance & Wage Records"
+    ],
+    featuresHi: [
+      "1 संपूर्ण वैदिक जन्म कुण्डली जनरेटर",
+      "10 साल का विस्तृत वर्ष-वार भविष्यफल",
+      "36 अष्टकूट विवाह गुण मिलान",
+      "3D रॉयल गोल्ड कुण्डली प्लेट डाउनलोड",
+      "5 मजदूरों तक हाजिरी व सैलरी रिकॉर्ड",
+      "डिजिटल कैशबुक व हर महीने 5 बिल बुक",
+      "दैनिक उपस्थिति एवं हाजिरी हिसाब"
+    ]
   },
   { 
     id: "plan_499", 
-    name: "Standard Plan (15 Labour) / स्टैंडर्ड प्लान (15 मजदूर)", 
+    name: "Standard Plan (15 Labour) / स्टैंडर्ड प्लान (15 मजदूर)",
+    nameEn: "Standard Plan (15 Workers)",
+    nameHi: "स्टैंडर्ड प्लान (15 मजदूर)",
     workersLimit: 15, 
     price: 499, 
     duration: "month", 
     features: [
-      "Unlimited Vedic Kundli & 36 Guna Milan (अनलिमिटेड कुण्डली व विवाह मिलान)",
-      "Up to 15 Labour / Workers Allowed (15 लेबर तक की अनुमति)",
-      "Unlimited Digital Attendance Book (अनलिमिटेड डिजिटल हाजिरी बुक)",
-      "Digital Cashbook (डिजिटल कैश बुक)",
-      "GST Calculator & Bill Maker (GST कैलकुलेटर एवं बिल मेकर)",
-      "Quotation Download & Sharing (कोटेशन डाउनलोड एवं शेयरिंग)",
-      "Site Construction Diary (साइट कंस्ट्रक्शन डायरी)"
-    ] 
+      "Unlimited Vedic Kundli & 36 Guna Milan",
+      "Up to 15 Labour / Workers Allowed",
+      "Unlimited Digital Attendance Book",
+      "Digital Cashbook",
+      "GST Calculator & Bill Maker",
+      "Quotation Download & Sharing",
+      "Site Construction Diary"
+    ],
+    featuresEn: [
+      "Unlimited Vedic Kundli & 36 Guna Match",
+      "Up to 15 Workers Capacity",
+      "Unlimited Digital Attendance Book",
+      "Digital Cashbook & Ledger",
+      "GST Calculator & Bill Maker",
+      "Quotation Download & WhatsApp Sharing",
+      "Site Construction Diary"
+    ],
+    featuresHi: [
+      "अनलिमिटेड वैदिक कुण्डली व विवाह मिलान",
+      "15 मजदूरों तक की पूरी क्षमता",
+      "अनलिमिटेड डिजिटल हाजिरी बुक",
+      "डिजिटल कैश बुक और लेजर",
+      "GST कैलकुलेटर एवं बिल मेकर",
+      "कोटेशन डाउनलोड एवं व्हाट्सएप शेयरिंग",
+      "साइट कंस्ट्रक्शन डायरी"
+    ]
   },
   { 
     id: "plan_999", 
-    name: "Pro Contractor Plan (25 Labour) / प्रो ठेकेदार प्लान (25 मजदूर)", 
+    name: "Pro Contractor Plan (25 Labour) / प्रो ठेकेदार प्लान (25 मजदूर)",
+    nameEn: "Pro Contractor Plan (25 Workers)",
+    nameHi: "प्रो ठेकेदार प्लान (25 मजदूर)",
     workersLimit: 25, 
     price: 999, 
     duration: "month", 
     features: [
-      "Unlimited Vedic Kundli & 36 Guna Milan (अनलिमिटेड कुण्डली व विवाह मिलान)",
-      "Up to 25 Labour / Workers Allowed (25 लेबर तक की अनुमति)",
-      "Complete Hisab for 25 Labour (25 मजदूरों का संपूर्ण हिसाब)",
-      "Unlimited GST Bill & Quotation Maker (अनलिमिटेड GST बिल व कोटेशन मेकर)",
-      "Digital Cashbook & Balance Sheet (डिजिटल कैश बुक व बैलेंस शीट)",
-      "GST Calculator (GST कैलकुलेटर)",
-      "Cloud Backup & 100% Security (क्लाउड बैकअप एवं 100% सुरक्षा)"
-    ] 
+      "Unlimited Vedic Kundli & 36 Guna Milan",
+      "Up to 25 Labour / Workers Allowed",
+      "Complete Hisab for 25 Labour",
+      "Unlimited GST Bill & Quotation Maker",
+      "Digital Cashbook & Balance Sheet",
+      "GST Calculator",
+      "Cloud Backup & 100% Security"
+    ],
+    featuresEn: [
+      "Unlimited Vedic Kundli & 36 Guna Match",
+      "Up to 25 Workers Capacity",
+      "Complete Salary & Advance Hisab for 25 Workers",
+      "Unlimited GST Bills & Quotation Maker",
+      "Digital Cashbook & Balance Sheet",
+      "GST Calculator",
+      "Cloud Backup & 100% Data Security"
+    ],
+    featuresHi: [
+      "अनलिमिटेड वैदिक कुण्डली व विवाह मिलान",
+      "25 मजदूरों तक की पूरी क्षमता",
+      "25 मजदूरों का संपूर्ण हिसाब और एडवांस ट्रैकिंग",
+      "अनलिमिटेड GST बिल व कोटेशन मेकर",
+      "डिजिटल कैश बुक व बैलेंस शीट",
+      "GST कैलकुलेटर",
+      "क्लाउड बैकअप एवं 100% डेटा सुरक्षा"
+    ]
   },
   { 
     id: "plan_2999_year", 
-    name: "Annual VIP Plan (25+ Labour / 1 Year) / वार्षिक VIP प्लान (1 वर्ष)", 
+    name: "Annual VIP Plan (25+ Labour / 1 Year) / वार्षिक VIP प्लान (1 वर्ष)",
+    nameEn: "Annual VIP Plan (25+ Workers / 1 Year)",
+    nameHi: "वार्षिक VIP प्लान (25+ मजदूर / 1 वर्ष)",
     workersLimit: 25, 
     price: 2999, 
     duration: "year", 
     razorpayPlanId: "plan_TYbj2MfJ41oskm",
     features: [
-      "Unlimited Vedic Kundli & 36 Guna Milan Full 1 Year (अनलिमिटेड कुण्डली 1 वर्ष)",
-      "25 Labour Capacity — Full 1 Year (25 लेबर क्षमता — पूरे 1 वर्ष के लिए)",
-      "All Premium Features Unlocked (सभी प्रीमियम फीचर्स पूरे 1 साल के लिए अनलॉक)",
-      "GST Calculator & Unlimited Bills (GST कैलकुलेटर व अनलिमिटेड GST बिल मेकर)",
-      "Digital Cashbook & Site Diary (डिजिटल कैश बुक एवं साइट डायरी)",
-      "VIP Admin & Phone Support (वीआईपी एडमिन सपोर्ट व प्राथमिकता)",
-      "Annual Savings — Save >60% (वार्षिक बचत — 60% से अधिक बचत)"
-    ] 
+      "Unlimited Vedic Kundli & 36 Guna Milan Full 1 Year",
+      "25 Labour Capacity — Full 1 Year",
+      "All Premium Features Unlocked",
+      "GST Calculator & Unlimited Bills",
+      "Digital Cashbook & Site Diary",
+      "VIP Admin & Phone Support",
+      "Annual Savings — Save >60%"
+    ],
+    featuresEn: [
+      "Unlimited Vedic Kundli & 36 Guna Match for 1 Full Year",
+      "25+ Workers Capacity for 1 Full Year",
+      "All Premium & VIP Features Unlocked",
+      "GST Calculator & Unlimited GST Bills",
+      "Digital Cashbook & Site Construction Diary",
+      "VIP Priority Support",
+      "Annual Savings — Save Over 60%"
+    ],
+    featuresHi: [
+      "पूरे 1 साल अनलिमिटेड कुण्डली व विवाह मिलान",
+      "25+ मजदूरों की क्षमता — पूरे 1 वर्ष के लिए",
+      "सभी प्रीमियम फीचर्स पूरे 1 साल के लिए अनलॉक",
+      "GST कैलकुलेटर व अनलिमिटेड GST बिल मेकर",
+      "डिजिटल कैश बुक एवं साइट डायरी",
+      "वीआईपी एडमिन सपोर्ट व प्राथमिकता",
+      "वार्षिक बचत — 60% से अधिक की बचत"
+    ]
   }
 ];
 

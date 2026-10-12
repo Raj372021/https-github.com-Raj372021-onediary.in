@@ -59,7 +59,9 @@ export default function AppDownloadModal({ isOpen, onClose }: AppDownloadModalPr
 
   const handleShareWhatsApp = () => {
     const text = encodeURIComponent(
-      `📱 *onediary.in (OneDiary) - डिजिटल खाता, हाजिरी और कैशबुक ऐप*\n\nअपने मोबाइल में तुरंत इंस्टॉल करने के लिए इस लिंक को क्रोम (Chrome) या सफारी में खोलें:\n👉 ${window.location.origin}\n\n100% सेफ, ऑफलाइन मोड व क्लाउड बैकअप उपलब्ध!`
+      language === 'hi'
+        ? `📱 *onediary.in (OneDiary) - डिजिटल खाता, हाजिरी और कैशबुक ऐप*\n\nअपने मोबाइल में तुरंत इंस्टॉल करने के लिए इस लिंक को क्रोम (Chrome) या सफारी में खोलें:\n👉 ${window.location.origin}\n\n100% सेफ, ऑफलाइन मोड व क्लाउड बैकअप उपलब्ध!`
+        : `📱 *onediary.in (OneDiary) - Digital Khata, Attendance & Cashbook App*\n\nInstall immediately on your phone by opening this link in Chrome or Safari:\n👉 ${window.location.origin}\n\n100% safe, offline mode and cloud backup supported!`
     );
     window.open(`https://api.whatsapp.com/send?text=${text}`, '_blank');
   };
@@ -115,7 +117,7 @@ export default function AppDownloadModal({ isOpen, onClose }: AppDownloadModalPr
                 onClick={handleGoToLogin}
                 className="w-full py-3.5 px-5 rounded-2xl bg-gradient-to-r from-amber-400 via-amber-500 to-orange-500 text-slate-950 font-black text-sm shadow-xl flex items-center justify-center gap-2 transition active:scale-95 cursor-pointer"
               >
-                <span>🔑 1-क्लिक में लॉगिन / साइन इन करें (Login Now)</span>
+                <span>{language === 'hi' ? '🔑 1-क्लिक में लॉगिन करें' : '🔑 1-Click Login Now'}</span>
                 <ArrowRight size={18} />
               </button>
             </div>
@@ -138,7 +140,7 @@ export default function AppDownloadModal({ isOpen, onClose }: AppDownloadModalPr
                 onClick={handleGoToLogin}
                 className="w-full py-3.5 px-5 rounded-2xl bg-gradient-to-r from-amber-400 via-amber-500 to-orange-500 text-slate-950 font-black text-sm shadow-xl flex items-center justify-center gap-2 transition active:scale-95 cursor-pointer"
               >
-                <span>🔑 1-क्लिक में लॉगिन / साइन इन करें (Login Now)</span>
+                <span>{language === 'hi' ? '🔑 1-क्लिक में लॉगिन करें' : '🔑 1-Click Login Now'}</span>
                 <ArrowRight size={18} />
               </button>
             </div>
@@ -161,7 +163,7 @@ export default function AppDownloadModal({ isOpen, onClose }: AppDownloadModalPr
                   onClick={handleGoToLogin}
                   className="w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-amber-400 via-yellow-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-slate-950 font-black text-sm shadow-md flex items-center justify-center gap-2 transition active:scale-95 cursor-pointer"
                 >
-                  <span>🔑 लॉगिन / साइन इन करें (Login Screen)</span>
+                  <span>{language === 'hi' ? '🔑 लॉगिन करें' : '🔑 Login / Sign In'}</span>
                   <ArrowRight size={16} />
                 </button>
 
@@ -171,11 +173,13 @@ export default function AppDownloadModal({ isOpen, onClose }: AppDownloadModalPr
                   className="w-full py-2.5 px-4 rounded-xl bg-slate-800 hover:bg-slate-750 border border-emerald-500/40 text-emerald-400 font-bold text-xs flex items-center justify-center gap-2 transition active:scale-95 cursor-pointer"
                 >
                   <Share2 size={16} />
-                  <span>WhatsApp पर ऐप शेयर करें (Share Link)</span>
+                  <span>{language === 'hi' ? 'WhatsApp पर ऐप शेयर करें' : 'Share App on WhatsApp'}</span>
                 </button>
 
                 <p className="text-[11px] text-slate-400 text-center font-medium">
-                  ⚡ Android और Apple iPhone दोनों पर 1-क्लिक में चालू!
+                  {language === 'hi'
+                    ? '⚡ Android और Apple iPhone दोनों पर 1-क्लिक में चालू!'
+                    : '⚡ Ready in 1-click on both Android and Apple iPhone!'}
                 </p>
               </div>
 
@@ -252,7 +256,7 @@ export default function AppDownloadModal({ isOpen, onClose }: AppDownloadModalPr
                       </span>
                       <p className="text-slate-200 font-bold text-emerald-300">
                         {language === 'hi'
-                          ? '**"Add to Home Screen" (होम स्क्रीन में जोड़ें)** चुनें।'
+                          ? '**"Add to Home Screen"** चुनें।'
                           : 'Select **"Add to Home Screen"**.'}
                       </p>
                     </div>
@@ -266,11 +270,11 @@ export default function AppDownloadModal({ isOpen, onClose }: AppDownloadModalPr
           <div className="grid grid-cols-2 gap-2 text-[11px] text-slate-300 pt-2 border-t border-slate-800">
             <div className="flex items-center gap-1.5">
               <ShieldCheck size={14} className="text-emerald-400 shrink-0" />
-              <span>100% सुरक्षित और सेफ</span>
+              <span>{language === 'hi' ? '100% सुरक्षित और सेफ' : '100% Safe & Secure'}</span>
             </div>
             <div className="flex items-center gap-1.5">
               <Sparkles size={14} className="text-amber-400 shrink-0" />
-              <span>ऑफ़लाइन मोड सपोर्ट</span>
+              <span>{language === 'hi' ? 'ऑफ़लाइन मोड सपोर्ट' : 'Offline Mode Support'}</span>
             </div>
           </div>
         </div>
@@ -281,7 +285,7 @@ export default function AppDownloadModal({ isOpen, onClose }: AppDownloadModalPr
             onClick={handleGoToLogin}
             className="flex-1 py-2.5 bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs rounded-xl transition cursor-pointer"
           >
-            🔑 लॉगिन (Login)
+            {language === 'hi' ? '🔑 लॉगिन करें' : '🔑 Login'}
           </button>
           <button
             onClick={onClose}

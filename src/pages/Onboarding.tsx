@@ -50,7 +50,7 @@ export default function Onboarding() {
   
   // Form fields
   const [name, setName] = useState('');
-  const [email, setEmail] = useState('rajsahani.RgcS@gmail.com');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -241,21 +241,21 @@ export default function Onboarding() {
 
     const cleanEmail = email.trim().toLowerCase();
     if (!cleanEmail || !cleanEmail.includes('@')) {
-      setError('कृपया सही ईमेल आईडी दर्ज करें (Enter valid email)');
+      setError(language === 'hi' ? 'कृपया सही ईमेल आईडी दर्ज करें' : 'Please enter a valid email address');
       return;
     }
     if (!password || password.length < 6) {
-      setError('पासवर्ड कम से कम 6 अक्षरों का होना चाहिए (Password must be at least 6 characters)');
+      setError(language === 'hi' ? 'पासवर्ड कम से कम 6 अक्षरों का होना चाहिए' : 'Password must be at least 6 characters');
       return;
     }
 
     if (authMode === 'signup') {
       if (!name || name.trim().length < 2) {
-        setError('कृपया अपना नाम दर्ज करें (Enter your name)');
+        setError(language === 'hi' ? 'कृपया अपना नाम दर्ज करें' : 'Please enter your name');
         return;
       }
       if (password !== confirmPassword) {
-        setError('दोनों पासवर्ड मैच नहीं कर रहे हैं (Passwords do not match)');
+        setError(language === 'hi' ? 'दोनों पासवर्ड मेल नहीं खाते' : 'Passwords do not match');
         return;
       }
     }
@@ -285,7 +285,7 @@ export default function Onboarding() {
         };
 
         await syncUserProfileToCloud(profile, cleanEmail);
-        setMessage('✓ नया खाता सफलतापूर्वक बनाया गया! (Account Created)');
+        setMessage(language === 'hi' ? '✓ नया खाता सफलतापूर्वक बनाया गया!' : '✓ Account created successfully!');
         setTimeout(() => window.location.reload(), 300);
       } else {
         let userUid = `email_${cleanEmail.replace(/[^a-z0-9]/g, '_')}`;
@@ -309,11 +309,11 @@ export default function Onboarding() {
         };
 
         await syncUserProfileToCloud(profile, cleanEmail);
-        setMessage('✓ ईमेल से लॉगिन सफल! (Signed in successfully)');
+        setMessage(language === 'hi' ? '✓ ईमेल से लॉगिन सफल!' : '✓ Signed in successfully!');
         setTimeout(() => window.location.reload(), 300);
       }
     } catch (err: any) {
-      setError(err.message || 'लॉगिन में त्रुटि। कृपया पुनः प्रयास करें।');
+      setError(err.message || (language === 'hi' ? 'लॉगिन में त्रुटि। कृपया पुनः प्रयास करें।' : 'Error logging in. Please try again.'));
       setLoading(false);
     }
   };
@@ -322,12 +322,12 @@ export default function Onboarding() {
   const handleDirectPhoneRestore = async (rawPhone: string) => {
     const cleanDigits = rawPhone.replace(/\D/g, '').slice(-10);
     if (!cleanDigits || cleanDigits.length < 10) {
-      setError('कृपया 10 अंकों का वैध मोबाइल नंबर दर्ज करें (10 Digit Mobile Number)');
+      setError(language === 'hi' ? 'कृपया 10 अंकों का वैध मोबाइल नंबर दर्ज करें' : 'Please enter a valid 10-digit mobile number');
       return;
     }
     setLoading(true);
     setError('');
-    setMessage('⚡ पुराने खाते का सारा डेटा सर्वर से खोजा व लोड किया जा रहा है...');
+    setMessage(language === 'hi' ? '⚡ पुराने खाते का सारा डेटा सर्वर से लोड किया जा रहा है...' : '⚡ Loading existing account data from cloud...');
 
     try {
       const res = await fetch('/api/sync/load', {
@@ -385,12 +385,12 @@ export default function Onboarding() {
     setMessage('');
 
     if (!name || name.trim().length < 2) {
-      setError('कृपया अपना नाम दर्ज करें (Enter Name)');
+      setError(language === 'hi' ? 'कृपया अपना नाम दर्ज करें' : 'Please enter your name');
       return;
     }
     const cleanPhone = phone.replace(/\D/g, '');
     if (!cleanPhone || cleanPhone.length < 10) {
-      setError('कृपया 10 अंकों का वैध मोबाइल नंबर दर्ज करें');
+      setError(language === 'hi' ? 'कृपया 10 अंकों का वैध मोबाइल नंबर दर्ज करें' : 'Please enter a valid 10-digit mobile number');
       return;
     }
 
@@ -418,7 +418,11 @@ export default function Onboarding() {
     setIsOtpSent(true);
     setOtpTimer(45);
     setOtpInput('');
-    setMessage(`📩 OTP आपके मोबाइल नंबर +91 ${cleanPhone} पर भेज दिया गया है।`);
+    setMessage(
+      language === 'hi'
+        ? `📩 OTP आपके मोबाइल नंबर +91 ${cleanPhone} पर भेज दिया गया है।`
+        : `📩 OTP has been sent to your phone +91 ${cleanPhone}.`
+    );
   };
 
   // Mobile OTP Handler - Step 2: Verify OTP
@@ -429,7 +433,7 @@ export default function Onboarding() {
 
     const cleanOtp = otpInput.trim();
     if (!cleanOtp || cleanOtp.length < 6) {
-      setError('कृपया 6 अंकों का सही OTP कोड दर्ज करें');
+      setError(language === 'hi' ? 'कृपया 6 अंकों का सही OTP कोड दर्ज करें' : 'Please enter 6-digit OTP code');
       return;
     }
 
@@ -449,7 +453,7 @@ export default function Onboarding() {
 
     if (!isVerified) {
       setLoading(false);
-      setError('गलत OTP कोड! कृपया सही OTP दर्ज करें या Auto-Fill बटन दबाएं।');
+      setError(language === 'hi' ? 'गलत OTP कोड! कृपया सही OTP दर्ज करें।' : 'Invalid OTP code! Please enter correct OTP.');
       return;
     }
 
@@ -465,7 +469,7 @@ export default function Onboarding() {
     };
 
     await syncUserProfileToCloud(profile, cleanPhone);
-    setMessage('✓ OTP सत्यापन सफल! ऐप में स्वागत है...');
+    setMessage(language === 'hi' ? '✓ OTP सत्यापन सफल! ऐप में स्वागत है...' : '✓ OTP verified! Welcome to app...');
     setTimeout(() => window.location.reload(), 300);
   };
 
@@ -484,7 +488,6 @@ export default function Onboarding() {
           setIsGooglePickerOpen(false);
           handleGoogleSuccess({ email: customEm, name: customEm.split('@')[0] });
         }}
-        userEmail="rajsahani.RgcS@gmail.com"
       />
 
       <ForgotPasswordModal
@@ -499,7 +502,7 @@ export default function Onboarding() {
         <div className="flex items-center justify-between bg-slate-950/80 p-2 rounded-2xl border border-slate-800/80">
           <span className="text-xs font-black text-amber-400 flex items-center gap-1.5 pl-1">
             <Globe size={14} />
-            <span>Language / भाषा:</span>
+            <span>{language === 'hi' ? 'भाषा:' : 'Language:'}</span>
           </span>
           <select
             value={language}
@@ -508,10 +511,6 @@ export default function Onboarding() {
           >
             <option value="en">English</option>
             <option value="hi">हिन्दी (Hindi)</option>
-            <option value="hinglish">Hinglish</option>
-            <option value="gu">ગુજરાતી (Gujarati)</option>
-            <option value="mr">मराठी (Marathi)</option>
-            <option value="ta">தமிழ் (Tamil)</option>
           </select>
         </div>
 
@@ -526,7 +525,7 @@ export default function Onboarding() {
             oneDiary.in
           </h1>
           <p className="text-slate-300 text-xs font-bold">
-            Digital Attendance, Cash Book & Accounts
+            {language === 'hi' ? 'डिजिटल हाजिरी, कैश बुक व हिसाब' : 'Digital Attendance, Cash Book & Accounts'}
           </p>
         </div>
 
@@ -553,7 +552,7 @@ export default function Onboarding() {
             }`}
           >
             <Mail size={13} />
-            <span>Email</span>
+            <span>{language === 'hi' ? 'ईमेल' : 'Email'}</span>
           </button>
 
           <button
@@ -564,7 +563,7 @@ export default function Onboarding() {
             }`}
           >
             <Smartphone size={13} />
-            <span>Mobile OTP</span>
+            <span>{language === 'hi' ? 'मोबाइल OTP' : 'Mobile OTP'}</span>
           </button>
         </div>
 
@@ -597,7 +596,9 @@ export default function Onboarding() {
               </div>
 
               <p className="text-xs text-slate-300 font-medium text-left">
-                अपने गूगल खाते से 1-क्लिक में सुरक्षित साइन इन करें। आपका डेटा Google Cloud पर 100% सुरक्षित रहेगा।
+                {language === 'hi'
+                  ? 'अपने गूगल खाते से 1-क्लिक में सुरक्षित साइन इन करें। आपका डेटा Google Cloud पर 100% सुरक्षित रहेगा।'
+                  : 'Sign in securely with your Google account in 1 click. Your data is 100% encrypted & backed up.'}
               </p>
 
               {/* Main 1-Click Button */}
@@ -613,32 +614,7 @@ export default function Onboarding() {
                   <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" />
                   <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" />
                 </svg>
-                <span>{loading ? 'लॉगिन हो रहा है...' : 'Sign In with Google (1-Click)'}</span>
-              </button>
-            </div>
-
-            {/* Quick Account Pill */}
-            <div className="bg-slate-950/90 border border-amber-500/40 rounded-2xl p-4 flex items-center justify-between gap-2">
-              <div className="flex items-center gap-2.5 min-w-0">
-                <div className="w-9 h-9 rounded-full bg-white flex items-center justify-center shrink-0 shadow">
-                  <svg className="w-5 h-5" viewBox="0 0 24 24">
-                    <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
-                    <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
-                    <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" />
-                    <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" />
-                  </svg>
-                </div>
-                <div className="min-w-0">
-                  <p className="text-xs font-black text-white truncate">rajsahani.RgcS@gmail.com</p>
-                  <p className="text-[10px] text-slate-400">Raj Sahani (Google)</p>
-                </div>
-              </div>
-              <button
-                type="button"
-                onClick={() => handleGoogleSuccess({ email: 'rajsahani.RgcS@gmail.com', name: 'Raj Sahani' })}
-                className="bg-gradient-to-r from-amber-500 to-yellow-500 text-slate-950 text-xs font-black px-3 py-2 rounded-xl transition shadow active:scale-95 cursor-pointer shrink-0"
-              >
-                1-क्लिक लॉगिन
+                <span>{loading ? (language === 'hi' ? 'लॉगिन हो रहा है...' : 'Signing in...') : (language === 'hi' ? 'गूगल से 1-क्लिक साइन इन करें' : 'Sign In with Google (1-Click)')}</span>
               </button>
             </div>
           </div>
@@ -657,7 +633,7 @@ export default function Onboarding() {
                   authMode === 'signin' ? 'bg-amber-500 text-slate-950' : 'text-slate-400'
                 }`}
               >
-                Sign In (लॉगिन)
+                {language === 'hi' ? 'लॉगिन' : 'Sign In'}
               </button>
               <button
                 type="button"
@@ -666,7 +642,7 @@ export default function Onboarding() {
                   authMode === 'signup' ? 'bg-amber-500 text-slate-950' : 'text-slate-400'
                 }`}
               >
-                Sign Up (नया खाता)
+                {language === 'hi' ? 'नया खाता' : 'Sign Up'}
               </button>
             </div>
 
@@ -674,7 +650,7 @@ export default function Onboarding() {
             {authMode === 'signup' && (
               <div>
                 <label className="block text-xs font-bold text-amber-300 mb-1">
-                  Full Name / आपका नाम *
+                  {language === 'hi' ? 'आपका पूरा नाम *' : 'Full Name *'}
                 </label>
                 <div className="relative">
                   <User size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
@@ -683,7 +659,7 @@ export default function Onboarding() {
                     required
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    placeholder="e.g. Rajesh Sharma"
+                    placeholder={language === 'hi' ? 'उदा. राजेश शर्मा' : 'e.g. John Doe'}
                     className="w-full bg-slate-950 border border-slate-700 rounded-xl py-2.5 pl-9 pr-3 text-xs font-bold text-white outline-none focus:ring-2 focus:ring-amber-500"
                   />
                 </div>
@@ -693,7 +669,7 @@ export default function Onboarding() {
             {/* Email Field */}
             <div>
               <label className="block text-xs font-bold text-amber-300 mb-1">
-                Email Address / ईमेल आईडी *
+                {language === 'hi' ? 'ईमेल आईडी *' : 'Email Address *'}
               </label>
               <div className="relative">
                 <Mail size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
@@ -712,7 +688,7 @@ export default function Onboarding() {
             <div>
               <div className="flex items-center justify-between mb-1">
                 <label className="text-xs font-bold text-amber-300">
-                  Password / पासवर्ड *
+                  {language === 'hi' ? 'पासवर्ड *' : 'Password *'}
                 </label>
                 {authMode === 'signin' && (
                   <button
@@ -720,7 +696,7 @@ export default function Onboarding() {
                     onClick={() => setIsForgotPasswordOpen(true)}
                     className="text-[11px] font-bold text-amber-400 hover:text-amber-300 cursor-pointer"
                   >
-                    पासवर्ड भूल गए? (Forgot?)
+                    {language === 'hi' ? 'पासवर्ड भूल गए?' : 'Forgot Password?'}
                   </button>
                 )}
               </div>
@@ -748,7 +724,7 @@ export default function Onboarding() {
             {authMode === 'signup' && (
               <div>
                 <label className="block text-xs font-bold text-amber-300 mb-1">
-                  Confirm Password / पासवर्ड दोहराएं *
+                  {language === 'hi' ? 'पासवर्ड दोहराएं *' : 'Confirm Password *'}
                 </label>
                 <div className="relative">
                   <Lock size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
@@ -771,7 +747,7 @@ export default function Onboarding() {
               className="w-full bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-500 hover:from-amber-400 hover:to-yellow-300 text-slate-950 font-black py-3 rounded-xl transition shadow active:scale-95 flex items-center justify-center gap-2 cursor-pointer mt-2 text-xs"
             >
               {authMode === 'signup' ? <UserPlus size={16} /> : <LogIn size={16} />}
-              <span>{loading ? 'कृपया प्रतीक्षा करें...' : authMode === 'signup' ? 'Sign Up (खाता बनाएं)' : 'Sign In (लॉगिन करें)'}</span>
+              <span>{loading ? (language === 'hi' ? 'कृपया प्रतीक्षा करें...' : 'Please wait...') : authMode === 'signup' ? (language === 'hi' ? 'नया खाता बनाएं' : 'Sign Up') : (language === 'hi' ? 'लॉगिन करें' : 'Sign In')}</span>
             </button>
           </form>
         )}
@@ -783,7 +759,7 @@ export default function Onboarding() {
               <form onSubmit={handleSendOtp} className="space-y-3.5">
                 <div>
                   <label className="block text-xs font-bold text-amber-300 mb-1">
-                    Your Name / आपका नाम *
+                    {language === 'hi' ? 'आपका नाम *' : 'Your Name *'}
                   </label>
                   <div className="relative">
                     <User size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
@@ -792,7 +768,7 @@ export default function Onboarding() {
                       required
                       value={name}
                       onChange={(e) => setName(e.target.value)}
-                      placeholder="उदा. राजेश शर्मा"
+                      placeholder={language === 'hi' ? 'उदा. राजेश शर्मा' : 'e.g. John Doe'}
                       className="w-full bg-slate-950 border border-slate-700 rounded-xl py-2.5 pl-9 pr-3 text-xs font-bold text-white outline-none focus:ring-2 focus:ring-amber-500"
                     />
                   </div>
@@ -800,7 +776,7 @@ export default function Onboarding() {
 
                 <div>
                   <label className="block text-xs font-bold text-amber-300 mb-1">
-                    Mobile Number / मोबाइल नंबर *
+                    {language === 'hi' ? 'मोबाइल नंबर *' : 'Mobile Number *'}
                   </label>
                   <div className="flex bg-slate-950 border border-slate-700 rounded-xl overflow-hidden focus-within:ring-2 focus-within:ring-amber-500">
                     <div className="px-3 py-2.5 font-bold border-r border-slate-700 text-amber-400 bg-slate-900 text-xs">+91</div>
@@ -810,7 +786,7 @@ export default function Onboarding() {
                       maxLength={10}
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
-                      placeholder="10 अंकों का नंबर (e.g. 9876543210)"
+                      placeholder={language === 'hi' ? '10 अंकों का नंबर (उदा. 9876543210)' : '10-digit number (e.g. 9876543210)'}
                       className="w-full bg-transparent py-2.5 px-3 text-white font-bold text-xs outline-none"
                     />
                   </div>
@@ -823,7 +799,7 @@ export default function Onboarding() {
                     className="w-full bg-gradient-to-r from-amber-500 to-yellow-500 text-slate-950 font-black py-3 rounded-xl transition shadow active:scale-95 flex items-center justify-center gap-2 cursor-pointer text-xs disabled:opacity-60"
                   >
                     <KeyRound size={16} />
-                    <span>{loading ? 'OTP भेजा जा रहा है...' : '📲 OTP भेजें (Send Verification OTP)'}</span>
+                    <span>{loading ? (language === 'hi' ? 'OTP भेजा जा रहा है...' : 'Sending OTP...') : (language === 'hi' ? '📲 OTP भेजें' : '📲 Send OTP')}</span>
                   </button>
 
                   <button
@@ -833,7 +809,7 @@ export default function Onboarding() {
                     className="w-full bg-slate-800 hover:bg-slate-700 text-amber-300 border border-amber-500/30 font-bold py-2.5 rounded-xl transition shadow active:scale-95 flex items-center justify-center gap-1.5 cursor-pointer text-xs disabled:opacity-50"
                   >
                     <RefreshCw size={14} />
-                    <span>नया फ़ोन है? 1-क्लिक में पुराना डेटा लोड करें</span>
+                    <span>{language === 'hi' ? 'नया फ़ोन है? 1-क्लिक में पुराना डेटा लोड करें' : 'New phone? Restore data via phone number'}</span>
                   </button>
                 </div>
               </form>
@@ -841,7 +817,7 @@ export default function Onboarding() {
               <form onSubmit={handleVerifyOtp} className="space-y-4">
                 <div className="bg-slate-950 border border-slate-800 rounded-2xl p-3.5 flex items-center justify-between">
                   <div>
-                    <span className="text-[10px] text-slate-400 font-bold block">OTP भेजा गया:</span>
+                    <span className="text-[10px] text-slate-400 font-bold block">{language === 'hi' ? 'OTP भेजा गया:' : 'OTP Sent to:'}</span>
                     <span className="text-xs font-black text-amber-300">+91 {phone}</span>
                   </div>
                   <button
@@ -850,7 +826,7 @@ export default function Onboarding() {
                     className="text-amber-400 text-xs font-bold flex items-center gap-1 hover:underline cursor-pointer"
                   >
                     <Edit2 size={12} />
-                    <span>बदलें</span>
+                    <span>{language === 'hi' ? 'बदलें' : 'Edit'}</span>
                   </button>
                 </div>
 
@@ -889,7 +865,9 @@ export default function Onboarding() {
 
                 <div className="flex items-center justify-between text-xs font-bold">
                   <span className="text-slate-400">
-                    {otpTimer > 0 ? `⏱️ ${otpTimer}s बाद दोबारा भेजें` : '✓ OTP भेजने हेतु तैयार'}
+                    {otpTimer > 0 
+                      ? (language === 'hi' ? `⏱️ ${otpTimer}s बाद दोबारा भेजें` : `⏱️ Resend in ${otpTimer}s`) 
+                      : (language === 'hi' ? '✓ OTP भेजने हेतु तैयार' : '✓ Ready to send OTP')}
                   </span>
                   <button
                     type="button"
@@ -902,7 +880,7 @@ export default function Onboarding() {
                     className="text-amber-400 disabled:opacity-40 flex items-center gap-1 font-bold cursor-pointer"
                   >
                     <RefreshCw size={12} />
-                    <span>OTP दोबारा भेजें</span>
+                    <span>{language === 'hi' ? 'OTP दोबारा भेजें' : 'Resend OTP'}</span>
                   </button>
                 </div>
 
@@ -912,7 +890,11 @@ export default function Onboarding() {
                   className="w-full bg-gradient-to-r from-emerald-500 to-teal-500 text-slate-950 font-black py-3 rounded-xl transition shadow active:scale-95 flex items-center justify-center gap-2 cursor-pointer text-xs"
                 >
                   <CheckCircle2 size={16} />
-                  <span>{loading ? 'सत्यापित हो रहा है...' : '✓ OTP सत्यापित करें व लॉगिन करें'}</span>
+                  <span>
+                    {loading 
+                      ? (language === 'hi' ? 'सत्यापित हो रहा है...' : 'Verifying...') 
+                      : (language === 'hi' ? '✓ OTP सत्यापित करें व लॉगिन करें' : '✓ Verify OTP & Sign In')}
+                  </span>
                 </button>
               </form>
             )}

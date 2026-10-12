@@ -21,7 +21,7 @@ export default function GoogleAccountPickerModal({
   onClose,
   onSelectAccount,
   onCustomEmailSubmit,
-  userEmail = 'rajsahani.RgcS@gmail.com'
+  userEmail = ''
 }: GoogleAccountPickerModalProps) {
   const [showCustomInput, setShowCustomInput] = React.useState(false);
   const [customEmail, setCustomEmail] = React.useState('');
@@ -29,14 +29,14 @@ export default function GoogleAccountPickerModal({
 
   if (!isOpen) return null;
 
-  const defaultAccounts: GoogleAccount[] = [
+  const defaultAccounts: GoogleAccount[] = userEmail ? [
     {
-      name: 'Raj Sahani',
+      name: userEmail.split('@')[0],
       email: userEmail,
       photoURL: `https://api.dicebear.com/7.x/bottts/svg?seed=${userEmail}`,
       isPrimary: true
     }
-  ];
+  ] : [];
 
   return (
     <div className="fixed inset-0 z-50 bg-black/75 backdrop-blur-sm flex items-center justify-center p-4">

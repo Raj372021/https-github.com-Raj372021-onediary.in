@@ -2,6 +2,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { PenSquare, Trash2, Calendar, FileText, Book, Calculator, Tag, ArrowLeft, ChevronDown, Hash, Save, Type, ChevronLeft, ChevronRight, BookOpen, Sparkles } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
+import { useLanguage } from '../context/LanguageContext';
 
 const formatDate = (dateString: string) => {
   if (!dateString) return '';
@@ -93,6 +94,7 @@ const NOTE_COLORS = [
 
 export default function Diary() {
   const navigate = useNavigate();
+  const { language } = useLanguage();
   const [notes, setNotes] = useState<Note[]>([]);
   const [currentNote, setCurrentNote] = useState('');
   const [selectedDate, setSelectedDate] = useState(getTodayDate());
@@ -109,7 +111,7 @@ export default function Diary() {
 
   const handleAddQuickItem = () => {
     if (!quickAmount.trim()) return;
-    const name = quickItemName.trim() || 'खर्चा/आइटम';
+    const name = quickItemName.trim() || (language === 'hi' ? 'खर्चा/आइटम' : 'Expense/Item');
     const lineToAdd = `• ${name}: ₹${quickAmount.trim()}`;
     setCurrentNote(prev => prev ? `${prev}\n${lineToAdd}` : lineToAdd);
     setQuickItemName('');
@@ -382,10 +384,12 @@ export default function Diary() {
             </button>
             <div>
               <h1 className="text-lg sm:text-xl font-bold flex items-center">
-                <Book className="mr-2 text-blue-200" size={22} /> स्मार्ट डायरी / Smart Diary
+                <Book className="mr-2 text-blue-200" size={22} /> {language === 'hi' ? 'स्मार्ट डायरी' : 'Smart Diary'}
               </h1>
               <p className="text-blue-100 text-[11px] opacity-90">
-                कॉपी पेज पलटें (Book Page Flip) • Auto-Calculated Hisab
+                {language === 'hi' 
+                  ? 'कॉपी पेज पलटें • ऑटो-कैलकुलेटेड हिसाब' 
+                  : 'Turn Pages • Auto-Calculated Accounts'}
               </p>
             </div>
           </div>
@@ -396,7 +400,11 @@ export default function Diary() {
               className="bg-amber-400 hover:bg-amber-300 text-slate-950 px-3 py-1.5 rounded-xl font-black text-xs flex items-center gap-1.5 shadow-md transition cursor-pointer shrink-0"
             >
               <BookOpen size={15} />
-              <span className="hidden sm:inline">{isBookViewMode ? 'राइटिंग मोड (Write Note)' : '📖 पेज पलटकर देखें'}</span>
+              <span className="hidden sm:inline">
+                {isBookViewMode 
+                  ? (language === 'hi' ? 'राइटिंग मोड' : 'Write Mode') 
+                  : (language === 'hi' ? '📖 पेज पलटकर देखें' : '📖 Flip Book Mode')}
+              </span>
               <span className="sm:hidden">{isBookViewMode ? 'Write' : '📖 Flip'}</span>
             </button>
           )}
@@ -437,10 +445,10 @@ export default function Diary() {
                     type="button"
                     onClick={() => handleDateFlip('prev')}
                     className="bg-white dark:bg-slate-800 hover:bg-amber-100 text-amber-950 dark:text-amber-200 border border-amber-300 dark:border-amber-700 px-2 py-1 rounded-lg font-black text-xs flex items-center gap-1 transition cursor-pointer active:scale-95 shrink-0 shadow-2xs"
-                    title="पिछला दिनांक पेज (Previous Date Page)"
+                    title={language === 'hi' ? 'पिछला दिनांक पेज' : 'Previous Date Page'}
                   >
                     <ChevronLeft size={16} />
-                    <span className="hidden sm:inline">👈 पिछला</span>
+                    <span className="hidden sm:inline">{language === 'hi' ? '👈 पिछला' : '👈 Prev'}</span>
                   </button>
 
                   {/* Center: Date Picker & Page No */}
@@ -467,10 +475,10 @@ export default function Diary() {
                         type="button"
                         onClick={() => setIsFontDropdownOpen(!isFontDropdownOpen)}
                         className="bg-white dark:bg-slate-800 hover:bg-amber-100 text-slate-900 dark:text-slate-100 border border-amber-300 dark:border-amber-700 px-2 py-1 rounded-lg font-black text-xs flex items-center gap-1 cursor-pointer shadow-2xs"
-                        title="फ़ॉन्ट बदलें (Change Font)"
+                        title={language === 'hi' ? 'फ़ॉन्ट बदलें' : 'Change Font'}
                       >
                         <span>{activeFont.icon}</span>
-                        <span className="hidden sm:inline text-[11px]">{activeFont.nameHi}</span>
+                        <span className="hidden sm:inline text-[11px]">{language === 'hi' ? activeFont.nameHi : activeFont.nameEn}</span>
                         <ChevronDown size={14} className={`transition-transform duration-150 ${isFontDropdownOpen ? 'rotate-180' : ''}`} />
                       </button>
 
@@ -493,7 +501,7 @@ export default function Diary() {
                               >
                                 <span className="flex items-center gap-1.5">
                                   <span>{font.icon}</span>
-                                  <span>{font.nameHi}</span>
+                                  <span>{language === 'hi' ? font.nameHi : font.nameEn}</span>
                                 </span>
                                 {selectedFontId === font.id && <span className="text-[10px] text-amber-700 font-bold">✓</span>}
                               </button>
@@ -507,9 +515,9 @@ export default function Diary() {
                       type="button"
                       onClick={() => handleDateFlip('next')}
                       className="bg-amber-400 hover:bg-amber-300 text-slate-950 font-black text-xs px-2 py-1 rounded-lg flex items-center gap-1 transition cursor-pointer active:scale-95 shadow-2xs"
-                      title="अगला दिनांक पेज (Next Date Page)"
+                      title={language === 'hi' ? 'अगला दिनांक पेज' : 'Next Date Page'}
                     >
-                      <span className="hidden sm:inline">अगला 👉</span>
+                      <span className="hidden sm:inline">{language === 'hi' ? 'अगला 👉' : 'Next 👉'}</span>
                       <ChevronRight size={16} />
                     </button>
 
@@ -519,10 +527,10 @@ export default function Diary() {
                       onClick={handleSave}
                       disabled={!currentNote.trim()}
                       className="bg-blue-600 hover:bg-blue-500 active:scale-95 text-white font-black text-xs px-2.5 py-1 rounded-lg transition shadow-md cursor-pointer disabled:opacity-40 shrink-0 flex items-center gap-1"
-                      title="पेज सहेजें (Save Page)"
+                      title={language === 'hi' ? 'पेज सहेजें' : 'Save Page'}
                     >
                       <PenSquare size={13} />
-                      <span>सहेजें</span>
+                      <span>{language === 'hi' ? 'सहेजें' : 'Save'}</span>
                     </button>
                   </div>
                 </div>
@@ -532,7 +540,9 @@ export default function Diary() {
                   {/* Row 1: Clear Total Amount Display + Save Button */}
                   <div className="flex items-center justify-between gap-2 border-b border-slate-800 pb-1.5">
                     <div className="flex items-center gap-1.5 min-w-0">
-                      <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider shrink-0">कुल राशि:</span>
+                      <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider shrink-0">
+                        {language === 'hi' ? 'कुल राशि:' : 'Total Amount:'}
+                      </span>
                       <span className="text-base sm:text-lg font-black font-mono text-emerald-300 bg-emerald-950/90 px-2.5 py-0.5 rounded-lg border border-emerald-500/30 truncate">
                         ₹{currentTotal.toLocaleString('en-IN')}
                       </span>
@@ -550,10 +560,10 @@ export default function Diary() {
                       }}
                       disabled={!currentNote.trim() && !quickAmount.trim()}
                       className="bg-blue-600 hover:bg-blue-500 active:scale-95 text-white font-black text-xs px-3 py-1.5 rounded-lg transition shadow cursor-pointer disabled:opacity-40 shrink-0 flex items-center gap-1"
-                      title="डायरी सेव करें (Save)"
+                      title={language === 'hi' ? 'डायरी सेव करें' : 'Save Diary'}
                     >
                       <PenSquare size={13} />
-                      <span>💾 डायरी सेव करें</span>
+                      <span>{language === 'hi' ? '💾 डायरी सेव करें' : '💾 Save Diary'}</span>
                     </button>
                   </div>
 
@@ -561,7 +571,7 @@ export default function Diary() {
                   <div className="flex items-center gap-1.5 w-full">
                     <input
                       type="text"
-                      placeholder="सामग्री / विवरण"
+                      placeholder={language === 'hi' ? 'सामग्री / विवरण' : 'Item / Description'}
                       value={quickItemName}
                       onChange={(e) => setQuickItemName(e.target.value)}
                       className="flex-1 min-w-0 bg-slate-950 text-white text-xs px-2.5 py-1.5 rounded-lg border border-slate-700 focus:outline-none focus:border-emerald-400 font-medium placeholder:text-slate-500"
@@ -570,7 +580,7 @@ export default function Diary() {
                       <span className="absolute left-2 top-1/2 -translate-y-1/2 text-emerald-400 font-bold text-xs">₹</span>
                       <input
                         type="number"
-                        placeholder="राशि"
+                        placeholder={language === 'hi' ? 'राशि' : 'Amount'}
                         value={quickAmount}
                         onChange={(e) => setQuickAmount(e.target.value)}
                         onKeyDown={(e) => { if (e.key === 'Enter') handleAddQuickItem(); }}
@@ -582,10 +592,10 @@ export default function Diary() {
                       onClick={handleAddQuickItem}
                       disabled={!quickAmount.trim()}
                       className="bg-emerald-500 hover:bg-emerald-400 active:scale-95 text-slate-950 font-black text-xs px-3 py-1.5 rounded-lg transition shadow cursor-pointer disabled:opacity-40 shrink-0 flex items-center gap-1"
-                      title="डायरी में जोड़ें"
+                      title={language === 'hi' ? 'डायरी में जोड़ें' : 'Add to Diary'}
                     >
                       <span>➕</span>
-                      <span className="font-extrabold text-xs">जोड़ें</span>
+                      <span className="font-extrabold text-xs">{language === 'hi' ? 'जोड़ें' : 'Add'}</span>
                     </button>
                   </div>
                 </div>
@@ -594,7 +604,9 @@ export default function Diary() {
                 <textarea 
                   value={currentNote}
                   onChange={(e) => setCurrentNote(e.target.value)}
-                  placeholder="आज की डायरी / हिसाब लिखें... (उदा. 1. सीमेंट ₹500, 2. चाय ₹150, कुल ऑटो-जोड़ होगा)"
+                  placeholder={language === 'hi' 
+                    ? 'आज की डायरी / हिसाब लिखें... (उदा. 1. सीमेंट ₹500, 2. चाय ₹150, कुल ऑटो-जोड़ होगा)'
+                    : "Write today's notes / accounts... (e.g. 1. Cement ₹500, 2. Tea ₹150)"}
                   style={{
                     fontFamily: activeFont.fontFamily,
                     color: activeFont.textColor
@@ -606,7 +618,9 @@ export default function Diary() {
                   <div className="flex items-center bg-emerald-50 dark:bg-slate-900 px-4 py-3 rounded-xl border border-emerald-200/80 dark:border-emerald-900/60 w-full sm:w-auto flex-1 shadow-2xs">
                     <Calculator size={20} className="text-emerald-600 dark:text-emerald-400 mr-3 shrink-0" />
                     <div className="flex flex-col">
-                      <span className="text-[10px] font-bold text-emerald-700 dark:text-emerald-400 uppercase tracking-wider">कुल हिसाब / Total Calculated</span>
+                      <span className="text-[10px] font-bold text-emerald-700 dark:text-emerald-400 uppercase tracking-wider">
+                        {language === 'hi' ? 'कुल हिसाब' : 'Total Calculated'}
+                      </span>
                       <span className="font-extrabold text-xl text-emerald-800 dark:text-emerald-300 font-mono">₹{currentTotal.toLocaleString('en-IN')}</span>
                     </div>
                   </div>
@@ -616,7 +630,8 @@ export default function Diary() {
                     disabled={!currentNote.trim()}
                     className="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 active:scale-95 transition text-white px-8 py-3.5 rounded-xl font-bold flex items-center justify-center disabled:opacity-50 disabled:active:scale-100 shadow-md shadow-blue-200 dark:shadow-none cursor-pointer"
                   >
-                    <PenSquare size={18} className="mr-2" /> प्रविष्टि सहेजें (Save Page)
+                    <PenSquare size={18} className="mr-2" />
+                    {language === 'hi' ? 'प्रविष्टि सहेजें' : 'Save Entry'}
                   </button>
                 </div>
 
@@ -625,11 +640,11 @@ export default function Diary() {
                   type="button"
                   onClick={() => handleDateFlip('next')}
                   className="absolute bottom-0 right-0 z-20 w-12 h-12 bg-gradient-to-tl from-amber-300 via-amber-200/90 to-transparent rounded-tl-2xl border-t border-l border-amber-400/80 shadow-md flex items-end justify-end p-1 hover:w-14 hover:h-14 transition-all cursor-pointer group"
-                  title="अगला दिनांक पेज पलटें (Page Turn Next Date)"
+                  title={language === 'hi' ? 'अगला दिनांक पेज पलटें' : 'Turn to Next Date Page'}
                 >
                   <span className="text-[9px] font-black text-amber-900 flex items-center gap-0.5 group-hover:scale-110 transition-transform">
                     <span>📖</span>
-                    <span>पालटें</span>
+                    <span>{language === 'hi' ? 'पलटें' : 'Flip'}</span>
                   </span>
                 </button>
               </div>
@@ -644,7 +659,7 @@ export default function Diary() {
               <div className="flex items-center gap-2">
                 <BookOpen className="text-amber-400" size={20} />
                 <h3 className="font-black text-base sm:text-lg text-amber-200">
-                  डिजिटल कॉपी पेज रीडर (Page Flip Reader)
+                  {language === 'hi' ? 'डिजिटल कॉपी पेज रीडर' : 'Digital Notebook Page Reader'}
                 </h3>
               </div>
               <span className="bg-amber-400 text-slate-950 px-2.5 py-1 rounded-lg text-xs font-black font-mono">
@@ -685,7 +700,9 @@ export default function Diary() {
 
                   {notes[activePageIndex]?.totalAmount > 0 && (
                     <div className="mt-3 pt-2 border-t border-slate-300 flex justify-between items-center">
-                      <span className="text-xs font-bold text-slate-600 uppercase">कुल हिसाब</span>
+                      <span className="text-xs font-bold text-slate-600 uppercase">
+                        {language === 'hi' ? 'कुल हिसाब' : 'Total Accounts'}
+                      </span>
                       <span className="text-base font-extrabold text-blue-700 font-mono">
                         ₹{notes[activePageIndex]?.totalAmount?.toLocaleString('en-IN')}
                       </span>
@@ -703,11 +720,11 @@ export default function Diary() {
                 className="bg-slate-800 hover:bg-slate-700 disabled:opacity-40 text-amber-300 font-black text-xs px-4 py-2.5 rounded-xl border border-slate-700 flex items-center gap-1.5 transition cursor-pointer active:scale-95 disabled:active:scale-100"
               >
                 <ChevronLeft size={16} />
-                <span>👈 पिछला पेज (Flip Prev)</span>
+                <span>{language === 'hi' ? '👈 पिछला पेज' : '👈 Prev Page'}</span>
               </button>
 
               <span className="text-xs font-bold text-slate-400 hidden sm:inline">
-                स्वाइप या बटन से कॉपी का पेज पलटें
+                {language === 'hi' ? 'स्वाइप या बटन से कॉपी का पेज पलटें' : 'Swipe or use buttons to turn pages'}
               </span>
 
               <button
@@ -715,7 +732,7 @@ export default function Diary() {
                 disabled={activePageIndex >= notes.length - 1}
                 className="bg-amber-400 hover:bg-amber-300 disabled:opacity-40 text-slate-950 font-black text-xs px-4 py-2.5 rounded-xl border border-amber-300 flex items-center gap-1.5 transition cursor-pointer active:scale-95 disabled:active:scale-100"
               >
-                <span>अगला पेज (Flip Next) 👉</span>
+                <span>{language === 'hi' ? 'अगला पेज 👉' : 'Next Page 👉'}</span>
                 <ChevronRight size={16} />
               </button>
             </div>
@@ -724,7 +741,8 @@ export default function Diary() {
         
         <h3 className="font-bold text-gray-800 dark:text-slate-100 mb-5 flex items-center px-1 text-lg justify-between">
           <span className="flex items-center">
-            <FileText size={20} className="mr-2 text-blue-600 dark:text-blue-400" /> Previous Entries ({notes.length})
+            <FileText size={20} className="mr-2 text-blue-600 dark:text-blue-400" />
+            {language === 'hi' ? `पिछली प्रविष्टियां (${notes.length})` : `Previous Entries (${notes.length})`}
           </span>
           {notes.length > 0 && (
             <button
@@ -732,7 +750,11 @@ export default function Diary() {
               className="text-xs font-bold text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1 cursor-pointer"
             >
               <BookOpen size={14} />
-              <span>{isBookViewMode ? 'सभी नोट्स सूची देखें' : '📖 बुक व्यू मोड (Flip Book)'}</span>
+              <span>
+                {isBookViewMode 
+                  ? (language === 'hi' ? 'सभी नोट्स सूची देखें' : 'View All Notes') 
+                  : (language === 'hi' ? '📖 बुक व्यू मोड' : '📖 Book View Mode')}
+              </span>
             </button>
           )}
         </h3>
@@ -741,7 +763,7 @@ export default function Diary() {
           {notes.length === 0 ? (
             <div className="text-center text-gray-400 dark:text-slate-500 py-10 bg-white dark:bg-slate-900 border-2 border-dashed border-gray-200 dark:border-slate-800 rounded-2xl">
               <Book size={48} className="mx-auto text-gray-300 dark:text-slate-600 mb-3 opacity-50" />
-              <p>No notes yet. Start writing above!</p>
+              <p>{language === 'hi' ? 'कोई नोट्स नहीं हैं। ऊपर लिखना शुरू करें!' : 'No notes yet. Start writing above!'}</p>
             </div>
           ) : (
             notes.map((note, index) => (
@@ -771,10 +793,10 @@ export default function Diary() {
                       <button 
                         onClick={() => startInlineEdit(note)} 
                         className="bg-blue-50 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300 hover:bg-blue-100 dark:hover:bg-blue-900 px-2.5 py-1 rounded-lg text-xs font-bold border border-blue-200 dark:border-blue-800 flex items-center gap-1 transition cursor-pointer"
-                        title="किसी भी लाइन में क्लिक करके एडिट करें"
+                        title={language === 'hi' ? 'एडिट करें' : 'Edit note'}
                       >
                         <PenSquare size={13} />
-                        <span>एडिट करें</span>
+                        <span>{language === 'hi' ? 'एडिट करें' : 'Edit'}</span>
                       </button>
                       <button onClick={() => deleteNote(note.id)} className="bg-slate-50 dark:bg-slate-800 p-1.5 rounded-lg text-slate-500 dark:text-slate-400 hover:text-red-600 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/50 transition-colors border border-slate-200 dark:border-slate-700 cursor-pointer">
                         <Trash2 size={16} />
@@ -800,14 +822,14 @@ export default function Diary() {
                           onClick={cancelInlineEdit}
                           className="bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 text-slate-700 dark:text-slate-300 px-3 py-1.5 rounded-xl text-xs font-bold transition cursor-pointer"
                         >
-                          रद्द करें
+                          {language === 'hi' ? 'रद्द करें' : 'Cancel'}
                         </button>
                         <button
                           onClick={() => saveInlineEdit(note.id)}
                           className="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-1.5 rounded-xl text-xs font-black shadow-xs transition cursor-pointer flex items-center gap-1"
                         >
                           <Save size={14} />
-                          <span>बदलाव सहेजें (Save Changes)</span>
+                          <span>{language === 'hi' ? 'बदलाव सहेजें' : 'Save Changes'}</span>
                         </button>
                       </div>
                     </div>
@@ -815,7 +837,7 @@ export default function Diary() {
                     <div 
                       onClick={() => startInlineEdit(note)}
                       className="lined-paper-note whitespace-pre-wrap mb-4 cursor-pointer hover:ring-2 hover:ring-amber-400/50 rounded-xl p-2 transition group relative"
-                      title="किसी भी लाइन पर क्लिक करके बदलें / टाइप करें"
+                      title={language === 'hi' ? 'किसी भी लाइन पर क्लिक करके बदलें / टाइप करें' : 'Click to edit note content'}
                       style={{
                         fontFamily: (DARK_FONTS.find(f => f.id === note.fontId) || activeFont).fontFamily,
                         color: (DARK_FONTS.find(f => f.id === note.fontId) || activeFont).textColor
@@ -823,7 +845,7 @@ export default function Diary() {
                     >
                       {note.content}
                       <span className="absolute bottom-1 right-2 text-[10px] text-amber-700 dark:text-amber-400 opacity-0 group-hover:opacity-100 font-bold bg-amber-100 dark:bg-amber-950 px-2 py-0.5 rounded-md transition border border-amber-300">
-                        ✏️ किसी भी लाइन पर क्लिक करके बदलें
+                        {language === 'hi' ? '✏️ किसी भी लाइन पर क्लिक करके बदलें' : '✏️ Click to edit note'}
                       </span>
                     </div>
                   )}

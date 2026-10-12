@@ -33,7 +33,9 @@ export default function Dashboard() {
   const handleShareApp = async () => {
     const shareData = {
       title: 'onediary.in - Digital Khata & Attendance App',
-      text: 'onediary.in (OneDiary) - भारत का नंबर 1 डिजिटल खाता, हाजिरी, कैशबुक और पेमेंट ऐप! अभी इस्तेमाल करें:',
+      text: language === 'hi'
+        ? 'onediary.in (OneDiary) - भारत का नंबर 1 डिजिटल खाता, हाजिरी, कैशबुक और पेमेंट ऐप! अभी इस्तेमाल करें:'
+        : 'onediary.in (OneDiary) - India #1 Digital Khata, Attendance, CashBook & Payments App! Try now:',
       url: window.location.origin
     };
 
@@ -46,7 +48,7 @@ export default function Dashboard() {
     } else {
       try {
         await navigator.clipboard.writeText(`${shareData.text} ${shareData.url}`);
-        alert("✓ onediary.in ऐप शेयर लिंक कॉपी हो गया है! (App link copied)");
+        alert(language === 'hi' ? "✓ onediary.in ऐप शेयर लिंक कॉपी हो गया है!" : "✓ onediary.in app share link copied!");
       } catch (err) {
         alert(`Share onediary.in link: ${shareData.url}`);
       }
@@ -55,7 +57,7 @@ export default function Dashboard() {
   
   const stats = getTodayStats();
   const workerStats = getAllWorkerStats();
-  const todayLocale = language === 'hi' ? 'hi-IN' : language === 'hinglish' ? 'en-IN' : 'en-US';
+  const todayLocale = language === 'hi' ? 'hi-IN' : 'en-US';
   const todayStr = new Date().toLocaleDateString(todayLocale, { day: 'numeric', month: 'long', year: 'numeric' });
 
   // Calculate Office Staff vs Site Labour breakdown
@@ -99,36 +101,6 @@ export default function Dashboard() {
       calculatorSub: "तेजी से गणना करें",
       plans: "प्रीमियम प्लान्स",
       plansSub: "सभी सीमाएं और फीचर्स खोलें"
-    },
-    gu: {
-      toolsTitle: "સ્માર્ટ ટૂલ્સ અને એઆઈ સપોર્ટ",
-      toolsSub: "ઝડપી એઆઈ આસિસ્ટન્ટ અને ગણતરી",
-      chatbot: "એઆઈ ચેટબોટ",
-      chatbotSub: "હિસાબ કે વેતનના પ્રશ્નો પૂછો",
-      calculator: "કેલ્ક્યુલેટર",
-      calculatorSub: "ઝડપી ગણતરી કરો",
-      plans: "પ્રીમિયમ પ્લાન્સ",
-      plansSub: "નવા ફીચર્સ મેળવો"
-    },
-    ta: {
-      toolsTitle: "ஸ்மார்ட் கருவிகள் & AI உதவி",
-      toolsSub: "உடனடி வணிக உதவியாளர் மற்றும் கணக்கீடுகள்",
-      chatbot: "AI அரட்டை",
-      chatbotSub: "பணம் அல்லது சம்பளம் பற்றி கேட்க",
-      calculator: "கால்குலேட்டர்",
-      calculatorSub: "விரைவான கணக்கீடு",
-      plans: "பிரீமியம் திட்டங்கள்",
-      plansSub: "அனைத்து அம்சங்களையும் திறக்கவும்"
-    },
-    es: {
-      toolsTitle: "Herramientas Inteligentes e IA",
-      toolsSub: "Asistente de negocios instantáneo y utilidades",
-      chatbot: "Chatbot de IA",
-      chatbotSub: "Preguntas de caja o salarios",
-      calculator: "Calculadora",
-      calculatorSub: "Cálculos rápidos",
-      plans: "Planes Premium",
-      plansSub: "Desbloquear límites y funciones"
     }
   };
 
@@ -197,9 +169,28 @@ export default function Dashboard() {
               </div>
             </div>
 
-            {/* Header Clock Widget */}
-            <div className="shrink-0">
+            {/* Header Right: Clock + Download Button + Dark/Light Mode */}
+            <div className="shrink-0 flex items-center gap-1 sm:gap-1.5">
               <HeaderClockWidget />
+
+              {/* App Download Quick Button */}
+              <button 
+                onClick={() => setIsDownloadOpen(true)}
+                className="h-7 sm:h-8 px-2 bg-gradient-to-r from-emerald-500 via-teal-500 to-indigo-600 hover:from-emerald-400 hover:to-indigo-500 text-slate-950 font-black text-[9.5px] sm:text-xs rounded-xl shadow-md transition cursor-pointer flex items-center gap-1 active:scale-95 shrink-0"
+                title={language === 'hi' ? "ऐप डाउनलोड" : "Download App"}
+              >
+                <Smartphone size={13} className="animate-bounce" />
+                <span className="hidden xs:inline sm:inline">{language === 'hi' ? 'डाउनलोड' : 'App'}</span>
+              </button>
+
+              {/* Theme Toggle Button */}
+              <button 
+                onClick={toggleTheme} 
+                className="w-7 h-7 sm:w-8 sm:h-8 bg-slate-950/80 hover:bg-slate-900 border border-amber-400/50 rounded-xl transition cursor-pointer text-amber-300 active:scale-90 flex items-center justify-center shadow-xs shrink-0"
+                title={theme === 'dark' ? (language === 'hi' ? 'लाइट मोड' : 'Light Mode') : (language === 'hi' ? 'डार्क मोड' : 'Dark Mode')}
+              >
+                {theme === 'dark' ? <Sun size={13} /> : <Moon size={13} />}
+              </button>
             </div>
           </div>
 
@@ -222,10 +213,10 @@ export default function Dashboard() {
                     ? 'bg-amber-500/30 text-amber-200 border-amber-400/60' 
                     : 'bg-white/10 text-slate-200 border-white/10 hover:bg-white/20'
                 }`}
-                title={hideAmounts ? "पैसे दिखाएं" : "पैसे छिपाएं"}
+                title={hideAmounts ? (language === 'hi' ? "पैसे दिखाएं" : "Show Amounts") : (language === 'hi' ? "पैसे छिपाएं" : "Hide Amounts")}
               >
                 {hideAmounts ? <EyeOff size={11} className="text-amber-300" /> : <Eye size={11} />}
-                <span className="text-[9px] font-extrabold">{hideAmounts ? 'Show' : 'Hide'}</span>
+                <span className="text-[9px] font-extrabold">{hideAmounts ? (language === 'hi' ? 'दिखाएं' : 'Show') : (language === 'hi' ? 'छिपाएं' : 'Hide')}</span>
               </button>
 
               {/* Wallet Quick Button */}
@@ -246,16 +237,6 @@ export default function Dashboard() {
                 🚩
               </button>
 
-              {/* App Download Quick Button */}
-              <button 
-                onClick={() => setIsDownloadOpen(true)}
-                className="px-2 py-1 bg-gradient-to-r from-emerald-500 via-teal-500 to-indigo-600 hover:from-emerald-400 hover:to-indigo-500 text-slate-950 font-black text-[10px] rounded-lg shadow-md transition cursor-pointer flex items-center gap-1 active:scale-95 shrink-0"
-                title="Download App"
-              >
-                <Smartphone size={12} className="animate-bounce" />
-                <span>ऐप डाउनलोड</span>
-              </button>
-
               {/* Share Icon Button */}
               <button 
                 onClick={handleShareApp} 
@@ -263,15 +244,6 @@ export default function Dashboard() {
                 title="Share App"
               >
                 <Share2 size={11} />
-              </button>
-
-              {/* Theme Toggle Button */}
-              <button 
-                onClick={toggleTheme} 
-                className="w-6 h-6 bg-white/10 hover:bg-white/20 border border-white/10 rounded-lg transition cursor-pointer text-amber-300 active:scale-90 flex items-center justify-center"
-                title="Toggle Theme"
-              >
-                {theme === 'dark' ? <Sun size={11} /> : <Moon size={11} />}
               </button>
             </div>
           </div>
@@ -297,10 +269,10 @@ export default function Dashboard() {
 
           <div className="mt-2 pt-1 border-t border-indigo-500/30 flex items-center justify-between gap-1 relative z-10">
             <span className="px-1.5 py-0.5 rounded-full bg-blue-500/20 border border-blue-400/30 text-blue-200 text-[9px] font-black flex items-center gap-0.5 shadow-xs truncate">
-              <span>🔨 Site:</span> <strong className="text-amber-300 text-[10px]">{labourCount}</strong>
+              <span>🔨 {language === 'hi' ? 'साइट:' : 'Site:'}</span> <strong className="text-amber-300 text-[10px]">{labourCount}</strong>
             </span>
             <span className="px-1.5 py-0.5 rounded-full bg-indigo-500/20 border border-indigo-400/30 text-indigo-200 text-[9px] font-black flex items-center gap-0.5 shadow-xs truncate">
-              <span>💼 Off:</span> <strong className="text-indigo-300 text-[10px]">{officeCount}</strong>
+              <span>💼 {language === 'hi' ? 'ऑफिस:' : 'Off:'}</span> <strong className="text-indigo-300 text-[10px]">{officeCount}</strong>
             </span>
           </div>
         </div>
@@ -322,10 +294,10 @@ export default function Dashboard() {
 
           <div className="mt-2 pt-1 border-t border-emerald-500/30 flex items-center justify-between gap-1 relative z-10">
             <span className="px-1.5 py-0.5 rounded-full bg-emerald-500/20 border border-emerald-400/30 text-emerald-200 text-[9px] font-black flex items-center gap-0.5 shadow-xs truncate">
-              <span>🔨 Site:</span> <strong className="text-amber-300 text-[10px]">{presentLabour}</strong>
+              <span>🔨 {language === 'hi' ? 'साइट:' : 'Site:'}</span> <strong className="text-amber-300 text-[10px]">{presentLabour}</strong>
             </span>
             <span className="px-1.5 py-0.5 rounded-full bg-teal-500/20 border border-teal-400/30 text-teal-200 text-[9px] font-black flex items-center gap-0.5 shadow-xs truncate">
-              <span>💼 Off:</span> <strong className="text-teal-300 text-[10px]">{presentOffice}</strong>
+              <span>💼 {language === 'hi' ? 'ऑफिस:' : 'Off:'}</span> <strong className="text-teal-300 text-[10px]">{presentOffice}</strong>
             </span>
           </div>
         </div>
@@ -337,35 +309,45 @@ export default function Dashboard() {
           <div className="w-11 h-11 xs:w-[52px] xs:h-[52px] bg-gradient-to-br from-emerald-400 to-green-600 rounded-2xl flex items-center justify-center text-white shadow-lg shadow-emerald-500/20 group-hover:scale-105 transition-transform mb-1 border border-emerald-400/50">
             <Calendar className="w-5 h-5 xs:w-6 xs:h-6" />
           </div>
-          <span className="font-black text-[11px] xs:text-[12px] text-slate-950 dark:text-slate-100 text-center leading-tight tracking-tight uppercase drop-shadow-xs">Mark<br/>Attend</span>
+          <span className="font-black text-[11px] xs:text-[12px] text-slate-950 dark:text-slate-100 text-center leading-tight tracking-tight uppercase drop-shadow-xs">
+            {language === 'hi' ? <>हाजिरी<br/>भरें</> : <>Mark<br/>Attend</>}
+          </span>
         </button>
         
         <button onClick={() => navigate('/workers')} className="flex flex-col items-center group cursor-pointer">
           <div className="w-11 h-11 xs:w-[52px] xs:h-[52px] bg-gradient-to-br from-blue-400 to-indigo-600 rounded-2xl flex items-center justify-center text-white shadow-lg shadow-blue-500/20 group-hover:scale-105 transition-transform mb-1 border border-blue-400/50">
             <Users className="w-5 h-5 xs:w-6 xs:h-6" />
           </div>
-          <span className="font-black text-[11px] xs:text-[12px] text-slate-950 dark:text-slate-100 text-center leading-tight tracking-tight uppercase drop-shadow-xs">Add<br/>Workers</span>
+          <span className="font-black text-[11px] xs:text-[12px] text-slate-950 dark:text-slate-100 text-center leading-tight tracking-tight uppercase drop-shadow-xs">
+            {language === 'hi' ? <>मजदूर<br/>जोड़ें</> : <>Add<br/>Workers</>}
+          </span>
         </button>
 
         <button onClick={() => navigate('/cashbook')} className="flex flex-col items-center group cursor-pointer">
           <div className="w-11 h-11 xs:w-[52px] xs:h-[52px] bg-gradient-to-br from-purple-400 to-fuchsia-600 rounded-2xl flex items-center justify-center text-white shadow-lg shadow-purple-500/20 group-hover:scale-105 transition-transform mb-1 border border-purple-400/50">
             <Wallet className="w-5 h-5 xs:w-6 xs:h-6" />
           </div>
-          <span className="font-black text-[11px] xs:text-[12px] text-slate-950 dark:text-slate-100 text-center leading-tight tracking-tight uppercase drop-shadow-xs">Cash<br/>Book</span>
+          <span className="font-black text-[11px] xs:text-[12px] text-slate-950 dark:text-slate-100 text-center leading-tight tracking-tight uppercase drop-shadow-xs">
+            {language === 'hi' ? <>कैश<br/>बुक</> : <>Cash<br/>Book</>}
+          </span>
         </button>
 
         <button onClick={() => navigate('/hisab')} className="flex flex-col items-center group cursor-pointer">
           <div className="w-11 h-11 xs:w-[52px] xs:h-[52px] bg-gradient-to-br from-amber-400 to-orange-500 rounded-2xl flex items-center justify-center text-white shadow-lg shadow-amber-500/20 group-hover:scale-105 transition-transform mb-1 border border-amber-400/50">
             <FileText className="w-5 h-5 xs:w-6 xs:h-6" />
           </div>
-          <span className="font-black text-[11px] xs:text-[12px] text-slate-950 dark:text-slate-100 text-center leading-tight tracking-tight uppercase drop-shadow-xs">Hisab<br/>Record</span>
+          <span className="font-black text-[11px] xs:text-[12px] text-slate-950 dark:text-slate-100 text-center leading-tight tracking-tight uppercase drop-shadow-xs">
+            {language === 'hi' ? <>खाता<br/>हिसाब</> : <>Hisab<br/>Record</>}
+          </span>
         </button>
         
         <button onClick={() => navigate('/diary')} className="flex flex-col items-center group cursor-pointer">
           <div className="w-11 h-11 xs:w-[52px] xs:h-[52px] bg-gradient-to-br from-rose-400 to-pink-600 rounded-2xl flex items-center justify-center text-white shadow-lg shadow-rose-500/20 group-hover:scale-105 transition-transform mb-1 border border-rose-400/50">
             <Book className="w-5 h-5 xs:w-6 xs:h-6" />
           </div>
-          <span className="font-black text-[11px] xs:text-[12px] text-slate-950 dark:text-slate-100 text-center leading-tight tracking-tight uppercase drop-shadow-xs">Smart<br/>Diary</span>
+          <span className="font-black text-[11px] xs:text-[12px] text-slate-950 dark:text-slate-100 text-center leading-tight tracking-tight uppercase drop-shadow-xs">
+            {language === 'hi' ? <>स्मार्ट<br/>डायरी</> : <>Smart<br/>Diary</>}
+          </span>
         </button>
       </div>
 
@@ -373,11 +355,13 @@ export default function Dashboard() {
         <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-5 shadow-sm space-y-4">
           <div className="flex justify-between items-center">
             <div className="flex items-center gap-2">
-              <h3 className="font-extrabold text-lg text-slate-900 dark:text-slate-100">Plus / Minus Overview</h3>
+              <h3 className="font-extrabold text-lg text-slate-900 dark:text-slate-100">
+                {language === 'hi' ? 'प्लस / माइनस विवरण' : 'Plus / Minus Overview'}
+              </h3>
               <button
                 onClick={toggleHideAmounts}
                 className="p-1 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 hover:text-slate-900 dark:hover:text-slate-200 transition cursor-pointer"
-                title={hideAmounts ? "पैसे दिखाएं (Show Amounts)" : "पैसे छिपाएं (Hide Amounts)"}
+                title={hideAmounts ? (language === 'hi' ? "पैसे दिखाएं" : "Show Amounts") : (language === 'hi' ? "पैसे छिपाएं" : "Hide Amounts")}
               >
                 {hideAmounts ? <EyeOff size={16} className="text-amber-500" /> : <Eye size={16} />}
               </button>
@@ -387,7 +371,7 @@ export default function Dashboard() {
                 onClick={() => navigate('/hisab')}
                 className="text-blue-600 dark:text-blue-400 text-xs font-extrabold flex items-center bg-blue-50 dark:bg-blue-950/60 px-3 py-1.5 rounded-xl border border-blue-100 dark:border-blue-900 cursor-pointer"
               >
-                All People <ChevronRight size={16} className="ml-0.5" />
+                {language === 'hi' ? 'सभी लोग' : 'All People'} <ChevronRight size={16} className="ml-0.5" />
               </button>
             </div>
           </div>
@@ -425,7 +409,9 @@ export default function Dashboard() {
                 <div className="text-lg font-black text-slate-900 dark:text-slate-100 mt-0.5">
                   {hideAmounts ? '₹ •••••' : formatCurrency(totalPayable)}
                 </div>
-                <div className="text-[10px] font-bold text-slate-400">Total Payable</div>
+                <div className="text-[10px] font-bold text-slate-400">
+                  {language === 'hi' ? 'कुल देय वेतन' : 'Total Payable'}
+                </div>
               </div>
               
               <div>
@@ -436,7 +422,9 @@ export default function Dashboard() {
                 <div className="text-lg font-black text-slate-900 dark:text-slate-100 mt-0.5">
                   {hideAmounts ? '₹ •••••' : formatCurrency(totalAdvance)}
                 </div>
-                <div className="text-[10px] font-bold text-slate-400">Advance Taken</div>
+                <div className="text-[10px] font-bold text-slate-400">
+                  {language === 'hi' ? 'एडवांस लिया' : 'Advance Taken'}
+                </div>
               </div>
             </div>
           </div>
@@ -465,14 +453,18 @@ export default function Dashboard() {
             <div className="min-w-0 flex-1">
               <div className="flex items-center justify-between gap-1 flex-wrap">
                 <h4 className="font-black text-sm sm:text-base text-slate-950 dark:text-amber-100 flex items-center gap-1.5 flex-wrap">
-                  <span className="text-slate-950 dark:text-white font-black drop-shadow-sm">सटीक जन्म कुण्डली</span>
+                  <span className="text-slate-950 dark:text-white font-black drop-shadow-sm">
+                    {language === 'hi' ? 'सटीक जन्म कुण्डली' : 'Accurate Janam Kundli'}
+                  </span>
                 </h4>
                 <span className="bg-emerald-600 text-white text-[10px] px-2 py-0.5 rounded-full font-black shadow-xs shrink-0">
-                  1 कुण्डली (₹199)
+                  {language === 'hi' ? '1 कुण्डली (₹199)' : '1 Kundli (₹199)'}
                 </span>
               </div>
               <p className="text-[11.5px] text-amber-900 dark:text-amber-200 font-extrabold mt-1 leading-snug">
-                🔮 1 संपूर्ण जन्म कुण्डली + 10 साल का भविष्यफल + 36 गुण विवाह मिलान + 5 लेबर हाजिरी (₹199 प्लान)
+                {language === 'hi'
+                  ? '🔮 1 संपूर्ण जन्म कुण्डली + 10 साल का भविष्यफल + 36 गुण विवाह मिलान + 5 लेबर हाजिरी (₹199 प्लान)'
+                  : '🔮 1 Complete Janam Kundli + 10 Year Horoscope + 36 Guna Match + 5 Workers Attendance (₹199 Plan)'}
               </p>
             </div>
           </button>
@@ -487,12 +479,18 @@ export default function Dashboard() {
             </div>
             <div>
               <h4 className="font-black text-base text-slate-950 dark:text-amber-100 flex items-center gap-1.5 flex-wrap">
-                <span className="text-slate-950 dark:text-white font-black drop-shadow-sm">श्री हनुमान प्रसाद कैलेंडर</span>
+                <span className="text-slate-950 dark:text-white font-black drop-shadow-sm">
+                  {language === 'hi' ? 'श्री हनुमान प्रसाद कैलेंडर' : 'Shree Hanuman Prasad Calendar'}
+                </span>
                 <span className="bg-amber-400 text-slate-950 text-[9px] px-2 py-0.5 rounded-full font-black shadow">2026</span>
               </h4>
               <div className="text-[11.5px] text-slate-950 dark:text-amber-100 font-extrabold mt-0.5 leading-tight flex items-center gap-1 flex-wrap">
                 <span className="text-slate-950 dark:text-white font-black">onediary.in</span>
-                <span className="text-slate-900 dark:text-amber-200 font-extrabold">• हिंदी, Gujarati, Tamil, English सभी भाषाओं में पंचांग व फोटो त्योहार</span>
+                <span className="text-slate-900 dark:text-amber-200 font-extrabold">
+                  {language === 'hi' 
+                    ? '• हिन्दू पंचांग, शुभ मुहूर्त, व्रत व फोटो त्योहार'
+                    : '• Hindu Panchang, Shubh Muhurat, Vrat & Festivals'}
+                </span>
               </div>
             </div>
           </button>

@@ -115,13 +115,7 @@ export default function More() {
   };
 
   const getLanguageLabel = (lang: string) => {
-    switch (lang) {
-      case 'hi': return 'हिन्दी';
-      case 'gu': return 'ગુજરાતી';
-      case 'ta': return 'தமிழ்';
-      case 'es': return 'Español';
-      default: return 'English';
-    }
+    return lang === 'hi' ? 'हिन्दी (Hindi)' : 'English';
   };
 
   const openSetting = (title: string) => {
@@ -225,7 +219,7 @@ export default function More() {
           <ChevronRight size={20} className="text-white/80 group-hover:translate-x-1 transition" />
         </div>
 
-        <Section title="Data & Security">
+        <Section title={language === 'hi' ? 'डेटा और सुरक्षा' : 'Data & Security'}>
           <Link to="/sync">
             <MenuItem 
               icon={Shield} 
@@ -238,7 +232,7 @@ export default function More() {
             <MenuItem 
               icon={Github} 
               colorBg="bg-purple-500/15 text-purple-600 dark:text-purple-400"
-              title={language === 'hi' ? '🚀 GitHub पर डेटा पुश (Push to GitHub)' : '🚀 Push to GitHub Repository'} 
+              title={language === 'hi' ? '🚀 GitHub पर बैकअप' : '🚀 Push to GitHub Repository'} 
               subtitle={language === 'hi' ? 'अपने सभी लेजर व डेटा को GitHub में सेव करें' : 'Backup & push records directly to GitHub Repo'} 
             />
           </Link>
@@ -263,12 +257,12 @@ export default function More() {
           )}
         </Section>
 
-        <Section title="App Settings">
+        <Section title={language === 'hi' ? 'ऐप सेटिंग्स' : 'App Settings'}>
           <MenuItem 
             icon={theme === 'dark' ? Moon : Sun} 
             colorBg="bg-amber-500/15 text-amber-600 dark:text-amber-400"
-            title={language === 'hi' ? 'थीम मोड' : language === 'hinglish' ? 'Theme Mode / थीम मोड' : 'Theme Mode'} 
-            value={theme === 'dark' ? '🌙 Dark Mode' : '☀️ Light Mode'} 
+            title={language === 'hi' ? 'थीम मोड' : 'Theme Mode'} 
+            value={theme === 'dark' ? (language === 'hi' ? '🌙 डार्क मोड' : '🌙 Dark Mode') : (language === 'hi' ? '☀️ लाइट मोड' : '☀️ Light Mode')} 
             onClick={toggleTheme} 
           />
           <MenuItem 
@@ -280,12 +274,12 @@ export default function More() {
           />
         </Section>
 
-        <Section title="Management">
+        <Section title={language === 'hi' ? 'प्रबंधन व टूल्स' : 'Management'}>
           <Link to="/quotation">
             <MenuItem 
               icon={Receipt} 
               colorBg="bg-teal-500/15 text-teal-600 dark:text-teal-400"
-              title={language === 'hi' ? 'कोटेशन व बिल बुक (GST / Non-GST)' : 'Quotation & Bill Book (GST / Non-GST)'} 
+              title={language === 'hi' ? 'कोटेशन व बिल बुक' : 'Quotation & Bill Book (GST / Non-GST)'} 
               subtitle={language === 'hi' ? 'ठेकेदार लेटरहेड बिल व कोटेशन 1-क्लिक में बनाएं' : 'Create contractor letterhead bills & estimates'} 
             />
           </Link>
@@ -293,15 +287,15 @@ export default function More() {
             <MenuItem 
               icon={Bot} 
               colorBg="bg-purple-500/15 text-purple-600 dark:text-purple-400"
-              title="AI Chatbot Assistant" 
-              subtitle={language === 'hi' ? 'कैश या वेतन के सवाल पूछें' : language === 'hinglish' ? 'Ask questions in Hindi / English about wages & cash' : 'Ask questions about wages & cash'} 
+              title={language === 'hi' ? 'एआई चैटबॉट असिस्टेंट' : 'AI Chatbot Assistant'} 
+              subtitle={language === 'hi' ? 'कैश या वेतन के सवाल पूछें' : 'Ask questions about wages & cash'} 
             />
           </Link>
           <Link to="/calculator">
             <MenuItem 
               icon={Calculator} 
               colorBg="bg-pink-500/15 text-pink-600 dark:text-pink-400"
-              title="Smart Wage & GST Calculator" 
+              title={language === 'hi' ? 'स्मार्ट वेतन व GST कैलकुलेटर' : 'Smart Wage & GST Calculator'} 
               subtitle={language === 'hi' ? 'दैनिक/मासिक वेतन व GST गणना करें' : 'Perform daily/monthly labor & GST calculations'} 
             />
           </Link>
@@ -319,68 +313,68 @@ export default function More() {
             <MenuItem 
               icon={Sparkles} 
               colorBg="bg-amber-500/15 text-amber-600 dark:text-amber-400"
-              title="Subscription Plans" 
-              subtitle="Unlock unlimited worker limits & safe backups" 
+              title={language === 'hi' ? 'सब्सक्रिप्शन प्लान्स' : 'Subscription Plans'} 
+              subtitle={language === 'hi' ? 'मजदूर सीमा और सुरक्षित बैकअप खोलें' : 'Unlock unlimited worker limits & safe backups'} 
             />
           </Link>
           <Link to="/diary">
             <MenuItem 
               icon={Book} 
               colorBg="bg-rose-500/15 text-rose-600 dark:text-rose-400"
-              title="My Diary" 
-              subtitle="Daily notes & reminders with automatic auto-sums" 
+              title={language === 'hi' ? 'मेरी डायरी' : 'My Diary'} 
+              subtitle={language === 'hi' ? 'दैनिक नोट्स और रिमाइंडर' : 'Daily notes & reminders with automatic auto-sums'} 
             />
           </Link>
           <Link to="/reports">
             <MenuItem 
               icon={FileText} 
               colorBg="bg-cyan-500/15 text-cyan-600 dark:text-cyan-400"
-              title="Salary Sheet & Reports" 
+              title={language === 'hi' ? 'वेतन पर्ची व रिपोर्ट्स' : 'Salary Sheet & Reports'} 
             />
           </Link>
         </Section>
 
-        <Section title="App">
+        <Section title={language === 'hi' ? 'ऐप की जानकारी' : 'App'}>
           <MenuItem 
             icon={Share2} 
             colorBg="bg-teal-500/15 text-teal-600 dark:text-teal-400"
-            title={language === 'hi' ? 'शेयर ऐप (onediary.in)' : 'Share App (onediary.in)'} 
+            title={language === 'hi' ? 'ऐप शेयर करें' : 'Share App'} 
             subtitle={language === 'hi' ? 'अन्य ठेकेदारों व दोस्तों को लिंक भेजें' : 'Share app link with contractors & colleagues'} 
             onClick={handleShareApp} 
           />
           <MenuItem 
             icon={Download} 
             colorBg="bg-emerald-500/15 text-emerald-600 dark:text-emerald-400"
-            title={language === 'hi' ? 'ऐप इंस्टॉल / डाउनलोड करें' : 'Install / Download App'} 
+            title={language === 'hi' ? 'ऐप इंस्टॉल करें' : 'Install / Download App'} 
             subtitle={language === 'hi' ? 'अपने मोबाइल की होम स्क्रीन में ऐप जोड़ें' : "Add onediary.in to your phone's home screen"} 
             onClick={() => setIsDownloadModalOpen(true)} 
           />
           <MenuItem 
             icon={FileText} 
             colorBg="bg-blue-500/15 text-blue-600 dark:text-blue-400"
-            title={language === 'hi' ? 'सेवा की शर्तें' : language === 'hinglish' ? 'Terms of Service / सेवा की शर्तें' : 'Terms of Service'} 
-            subtitle="Read the terms of using Labour Book Pro" 
+            title={language === 'hi' ? 'सेवा की शर्तें' : 'Terms of Service'} 
+            subtitle={language === 'hi' ? 'ऐप उपयोग की शर्तें पढ़ें' : 'Read the terms of using Labour Book Pro'} 
             onClick={() => setIsTermsOpen(true)} 
           />
           <MenuItem 
             icon={Shield} 
             colorBg="bg-purple-500/15 text-purple-600 dark:text-purple-400"
-            title={language === 'hi' ? 'गोपनीयता नीति' : language === 'hinglish' ? 'Privacy Policy / गोपनीयता नीति' : 'Privacy Policy'} 
-            subtitle="How we protect your workforce records" 
+            title={language === 'hi' ? 'गोपनीयता नीति' : 'Privacy Policy'} 
+            subtitle={language === 'hi' ? 'डेटा सुरक्षा के बारे में जानें' : 'How we protect your workforce records'} 
             onClick={() => setIsPrivacyOpen(true)} 
           />
           <MenuItem 
             icon={PhoneCall} 
             colorBg="bg-emerald-500/15 text-emerald-600 dark:text-emerald-400"
-            title={language === 'hi' ? 'संपर्क करें (Contact Us)' : 'Contact Us / ग्राहक सहायता'} 
-            subtitle="Email, Phone & Direct App URLs" 
+            title={language === 'hi' ? 'संपर्क करें' : 'Contact Us'} 
+            subtitle={language === 'hi' ? 'ईमेल, फोन व ग्राहक सहायता' : 'Email, Phone & Direct App URLs'} 
             onClick={() => setIsContactUsOpen(true)} 
           />
         </Section>
 
         <button 
           onClick={() => {
-            const logoutMsg = language === 'hi' ? 'क्या आप लॉग आउट करना चाहते हैं?' : language === 'hinglish' ? 'Are you sure you want to log out? (क्या आप लॉग आउट करना चाहते हैं?)' : 'Are you sure you want to log out?';
+            const logoutMsg = language === 'hi' ? 'क्या आप लॉग आउट करना चाहते हैं?' : 'Are you sure you want to log out?';
             if (window.confirm(logoutMsg)) {
               signOut(auth).then(() => {
                 localStorage.removeItem('lb_user_profile');
@@ -398,25 +392,27 @@ export default function More() {
           className="w-full mt-4 bg-red-700 hover:bg-red-800 transition text-white py-3 rounded-xl flex items-center justify-center font-medium shadow-sm cursor-pointer"
         >
           <LogOut size={18} className="mr-2" />
-          Log out
+          {language === 'hi' ? 'लॉग आउट' : 'Log out'}
         </button>
 
-        {/* Discreet Footer with subtle 3-Tap Symbol (No text, No countdown) */}
-        <div className="mt-8 mb-6 text-center space-y-1.5 pb-4">
+        {/* Secret Admin Symbol directly under Logout - Only symbol, no text, 3-clicks to open */}
+        <div className="flex items-center justify-center pt-3 pb-1">
+          <button
+            type="button"
+            onClick={handleAdminSymbolClick}
+            aria-label="Admin Portal"
+            className="p-2.5 text-slate-400 hover:text-slate-600 dark:text-slate-500 dark:hover:text-slate-300 transition-colors cursor-pointer rounded-full active:scale-90 select-none hover:bg-slate-100 dark:hover:bg-slate-800/60"
+            title=""
+          >
+            <ShieldCheck size={20} className="stroke-[1.75]" />
+          </button>
+        </div>
+
+        {/* Footer */}
+        <div className="mt-6 mb-6 text-center pb-4">
           <p className="text-xs font-bold text-slate-400 dark:text-slate-500 tracking-wide">
             onediary.in • v2.6 Pro Edition
           </p>
-          <div className="flex items-center justify-center pt-0.5">
-            <button
-              type="button"
-              onClick={handleAdminSymbolClick}
-              aria-label="Security"
-              className="p-1 text-slate-400/15 dark:text-slate-600/20 hover:text-slate-400/40 dark:hover:text-slate-400/40 opacity-20 hover:opacity-50 transition-opacity cursor-pointer rounded-full active:scale-90 select-none"
-              title="Security"
-            >
-              <ShieldCheck size={11} className="stroke-[1.5]" />
-            </button>
-          </div>
         </div>
       </div>
       
@@ -442,7 +438,7 @@ export default function More() {
                     <>
                       <div>
                         <label className="text-xs font-bold text-gray-500 block mb-1">
-                          {language === 'hi' ? 'नाम' : language === 'hinglish' ? 'Name / Naam' : 'Name'}
+                          {language === 'hi' ? 'नाम' : 'Name'}
                         </label>
                         <input 
                           type="text" 
@@ -453,7 +449,7 @@ export default function More() {
                       </div>
                       <div>
                         <label className="text-xs font-bold text-gray-500 block mb-1">
-                          {language === 'hi' ? 'मोबाइल' : language === 'hinglish' ? 'Mobile / Phone' : 'Mobile'}
+                          {language === 'hi' ? 'मोबाइल' : 'Mobile'}
                         </label>
                         <input 
                           type="text" 
@@ -464,7 +460,7 @@ export default function More() {
                       </div>
                       <div>
                         <label className="text-xs font-bold text-gray-500 block mb-1">
-                          {language === 'hi' ? 'कार्य क्षेत्र' : language === 'hinglish' ? 'Working Field / Kshetra' : 'Working Field'}
+                          {language === 'hi' ? 'कार्य क्षेत्र' : 'Working Field'}
                         </label>
                         <input 
                           type="text" 
@@ -525,19 +521,8 @@ export default function More() {
             </div>
             <div className="p-3 overflow-y-auto divide-y divide-gray-100">
               {[
-                { id: 'en', name: 'English Only', native: 'English' },
-                { id: 'hinglish', name: 'Hindi + English Mix', native: 'हिंदी + English (Bilingual)' },
-                { id: 'hi', name: 'Pure Hindi', native: 'केवल हिन्दी' },
-                { id: 'gu', name: 'Gujarati', native: 'ગુજરાતી' },
-                { id: 'ta', name: 'Tamil', native: 'தமிழ்' },
-                { id: 'mr', name: 'Marathi', native: 'मराठी' },
-                { id: 'bn', name: 'Bengali', native: 'বাংলা' },
-                { id: 'te', name: 'Telugu', native: 'తెలుగు' },
-                { id: 'kn', name: 'Kannada', native: 'ಕನ್ನಡ' },
-                { id: 'ml', name: 'Malayalam', native: 'മലയാളം' },
-                { id: 'pa', name: 'Punjabi', native: 'ਪੰਜਾਬੀ' },
-                { id: 'or', name: 'Odia', native: 'ଓଡ଼ିଆ' },
-                { id: 'es', name: 'Spanish', native: 'Español' },
+                { id: 'en', name: 'English', native: 'English' },
+                { id: 'hi', name: 'Hindi', native: 'हिन्दी' },
               ].map((lang) => (
                 <button
                   key={lang.id}
@@ -607,7 +592,7 @@ export default function More() {
               <div className="bg-slate-50 dark:bg-slate-800/80 p-4 rounded-2xl border border-slate-200 dark:border-slate-700/80 flex items-center justify-between">
                 <div>
                   <label className="text-xs font-black text-slate-900 dark:text-slate-100 block">
-                    {language === 'hi' ? 'ऐप लॉक चालू करें (Enable Lock)' : 'Enable App Lock'}
+                    {language === 'hi' ? 'ऐप लॉक चालू करें' : 'Enable App Lock'}
                   </label>
                   <p className="text-[10px] text-slate-500 dark:text-slate-400 font-medium mt-0.5">
                     {language === 'hi' ? 'ऐप खोलने पर PIN या फिंगरप्रिंट मांगेगा' : 'Require PIN or Fingerprint on app open'}
@@ -659,7 +644,7 @@ export default function More() {
 
                     <div>
                       <label className="text-[10px] font-extrabold text-slate-500 dark:text-slate-400 uppercase tracking-wider block mb-1">
-                        {language === 'hi' ? 'PIN दोबारा दर्ज करें (Confirm PIN)' : 'Confirm New PIN'}
+                        {language === 'hi' ? 'PIN दोबारा दर्ज करें' : 'Confirm New PIN'}
                       </label>
                       <input
                         type="password"
@@ -680,7 +665,7 @@ export default function More() {
                       </div>
                       <div>
                         <label className="text-xs font-black text-slate-900 dark:text-slate-100 block">
-                          {language === 'hi' ? 'फिंगरप्रिंट अनलॉक (Biometric)' : 'Fingerprint Unlock'}
+                          {language === 'hi' ? 'फिंगरप्रिंट अनलॉक' : 'Fingerprint Unlock'}
                         </label>
                         <p className="text-[10px] text-slate-500 dark:text-slate-400 font-medium">
                           {language === 'hi' ? 'बायोमेट्रिक से 1-सेकंड में अनलॉक करें' : 'Unlock quickly with touch sensor'}
@@ -705,11 +690,11 @@ export default function More() {
                   {/* Auto Lock Delay */}
                   <div className="bg-slate-50 dark:bg-slate-800/50 p-4 rounded-2xl border border-slate-200 dark:border-slate-700/60">
                     <label className="text-xs font-black text-slate-900 dark:text-slate-100 block mb-2">
-                      {language === 'hi' ? 'ऑटो-लॉक समय (Auto-Lock Delay):' : 'Auto-Lock Inactivity Timer:'}
+                      {language === 'hi' ? 'ऑटो-लॉक समय:' : 'Auto-Lock Inactivity Timer:'}
                     </label>
                     <div className="grid grid-cols-3 gap-2">
                       {[
-                        { min: 0, label: language === 'hi' ? 'तुरंत (Instant)' : 'Immediately' },
+                        { min: 0, label: language === 'hi' ? 'तुरंत' : 'Immediately' },
                         { min: 1, label: language === 'hi' ? '1 मिनट' : '1 Minute' },
                         { min: 5, label: language === 'hi' ? '5 मिनट' : '5 Minutes' },
                       ].map(item => (
@@ -763,7 +748,9 @@ export default function More() {
                   <PhoneCall size={24} className="text-amber-300" />
                 </div>
                 <div>
-                  <h3 className="text-lg font-black tracking-tight">संपर्क करें (Contact Us)</h3>
+                  <h3 className="text-lg font-black tracking-tight">
+                    {language === 'hi' ? 'संपर्क करें' : 'Contact Us'}
+                  </h3>
                   <p className="text-xs text-emerald-100 font-medium">onediary.in Help & Support Center</p>
                 </div>
               </div>
@@ -782,17 +769,17 @@ export default function More() {
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2 text-emerald-800 dark:text-emerald-300 font-black text-xs uppercase tracking-wider">
                     <Globe size={16} />
-                    <span>आधिकारिक ऐप लिंक (Official Website Link)</span>
+                    <span>{language === 'hi' ? 'आधिकारिक ऐप लिंक' : 'Official Website Link'}</span>
                   </div>
                   <button
                     type="button"
                     onClick={() => {
                       navigator.clipboard.writeText('https://onediary.in');
-                      alert('✓ लिंक कॉपी हो गया: https://onediary.in');
+                      alert(language === 'hi' ? '✓ लिंक कॉपी हो गया: https://onediary.in' : '✓ Link copied: https://onediary.in');
                     }}
                     className="px-2.5 py-1 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-[11px] font-bold cursor-pointer transition shadow-xs flex items-center gap-1"
                   >
-                    <span>कॉपी करें</span>
+                    <span>{language === 'hi' ? 'कॉपी करें' : 'Copy'}</span>
                   </button>
                 </div>
                 <a 
@@ -804,7 +791,9 @@ export default function More() {
                   https://onediary.in
                 </a>
                 <p className="text-[11px] text-slate-600 dark:text-slate-400">
-                  यह इस ऐप का मुख्य आधिकारिक लिंक है, जिसे आप किसी भी मोबाइल, कंप्यूटर या टैबलेट पर खोल सकते हैं।
+                  {language === 'hi' 
+                    ? 'यह इस ऐप का मुख्य आधिकारिक लिंक है, जिसे आप किसी भी मोबाइल, कंप्यूटर या टैबलेट पर खोल सकते हैं।'
+                    : 'This is the official app link that you can access on any phone, computer, or tablet.'}
                 </p>
               </div>
 
@@ -812,28 +801,28 @@ export default function More() {
               <div className="bg-blue-50 dark:bg-blue-950/40 p-4 rounded-2xl border border-blue-200 dark:border-blue-800/60 space-y-3">
                 <div className="flex items-center gap-2 text-blue-800 dark:text-blue-300 font-black text-xs uppercase tracking-wider">
                   <Mail size={16} />
-                  <span>आधिकारिक ईमेल & सपोर्ट (support@onediary.in)</span>
+                  <span>{language === 'hi' ? 'आधिकारिक ईमेल & सपोर्ट' : 'Official Email & Support'} (support@onediary.in)</span>
                 </div>
 
                 <div className="space-y-2 pt-1">
                   <input 
                     type="text" 
                     id="support-sender-name"
-                    placeholder="आपका नाम (Your Name)" 
+                    placeholder={language === 'hi' ? 'आपका नाम' : 'Your Name'} 
                     className="w-full text-xs px-3 py-2 rounded-xl bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white"
                     defaultValue={userProfile?.name || ''}
                   />
                   <input 
                     type="tel" 
                     id="support-sender-phone"
-                    placeholder="मोबाइल नंबर (Mobile Number)" 
+                    placeholder={language === 'hi' ? 'मोबाइल नंबर' : 'Mobile Number'} 
                     className="w-full text-xs px-3 py-2 rounded-xl bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white"
                     defaultValue={userProfile?.role || ''}
                   />
                   <textarea 
                     id="support-sender-msg"
                     rows={2}
-                    placeholder="अपनी समस्या या संदेश यहाँ लिखें... (Write your message)" 
+                    placeholder={language === 'hi' ? 'अपनी समस्या या संदेश यहाँ लिखें...' : 'Write your message or issue here...'} 
                     className="w-full text-xs px-3 py-2 rounded-xl bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white resize-none"
                   />
                   <button
@@ -843,7 +832,7 @@ export default function More() {
                       const msgInput = (document.getElementById('support-sender-msg') as HTMLTextAreaElement)?.value || '';
 
                       if (!msgInput.trim()) {
-                        alert('कृपया संदेश लिखकर भेजें!');
+                        alert(language === 'hi' ? 'कृपया संदेश लिखकर भेजें!' : 'Please write a message before sending!');
                         return;
                       }
 
@@ -858,16 +847,18 @@ export default function More() {
                       try {
                         const existing = JSON.parse(localStorage.getItem('onediary_support_mails') || '[]');
                         localStorage.setItem('onediary_support_mails', JSON.stringify([newMail, ...existing]));
-                        alert('✓ आपका संदेश और मेल सफलतापूर्वक एडमिन के पास भेज दिया गया है! एडमिन इसे अपने एडमिन पैनल इनबॉक्स में देख सकेंगे।');
+                        alert(language === 'hi' 
+                          ? '✓ आपका संदेश और मेल सफलतापूर्वक एडमिन के पास भेज दिया गया है! एडमिन इसे अपने एडमिन पैनल इनबॉक्स में देख सकेंगे।' 
+                          : '✓ Your message has been sent to admin successfully! Admin can view it in the inbox.');
                         (document.getElementById('support-sender-msg') as HTMLTextAreaElement).value = '';
                       } catch (e) {
-                        alert('संदेश भेजने में त्रुटि हुई। कृपया पुनः प्रयास करें।');
+                        alert(language === 'hi' ? 'संदेश भेजने में त्रुटि हुई। कृपया पुनः प्रयास करें।' : 'Error sending message. Please try again.');
                       }
                     }}
                     className="w-full py-2 bg-blue-600 hover:bg-blue-700 text-white font-extrabold text-xs rounded-xl shadow cursor-pointer transition flex items-center justify-center gap-1.5"
                   >
                     <Mail size={14} />
-                    <span>एडमिन को मेल/संदेश भेजें (Send to Admin)</span>
+                    <span>{language === 'hi' ? 'एडमिन को संदेश भेजें' : 'Send Message to Admin'}</span>
                   </button>
                 </div>
               </div>
@@ -878,7 +869,7 @@ export default function More() {
                 className="w-full py-3 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-extrabold rounded-2xl text-xs flex items-center justify-center gap-2 shadow-lg cursor-pointer active:scale-95 transition"
               >
                 <Share2 size={16} />
-                <span>ऐप का लिंक दूसरों के साथ शेयर करें (Share App Link)</span>
+                <span>{language === 'hi' ? 'ऐप का लिंक दूसरों के साथ शेयर करें' : 'Share App Link'}</span>
               </button>
             </div>
 
@@ -888,7 +879,7 @@ export default function More() {
                 onClick={() => setIsContactUsOpen(false)}
                 className="px-6 py-2.5 bg-slate-900 dark:bg-slate-800 text-white font-black text-xs rounded-xl shadow cursor-pointer hover:bg-slate-800 transition"
               >
-                बंद करें (Close)
+                {language === 'hi' ? 'बंद करें' : 'Close'}
               </button>
             </div>
           </div>

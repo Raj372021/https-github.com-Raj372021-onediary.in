@@ -7,7 +7,7 @@ export default function BottomNav() {
 
   // Optimized labels based on language for crystal clear mobile visibility
   const getLabel = (type: 'home' | 'cashbook' | 'diary' | 'quotation' | 'workers' | 'more') => {
-    const isHi = language === 'hi' || language === 'hinglish';
+    const isHi = language === 'hi';
     switch (type) {
       case 'home':
         return isHi ? 'होम' : 'Home';

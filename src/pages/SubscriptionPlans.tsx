@@ -135,22 +135,22 @@ export default function SubscriptionPlans() {
                 {isCurrentActive ? (
                   <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-emerald-500 to-teal-500 text-slate-950 font-black text-[11px] px-3.5 py-1 rounded-full flex items-center shadow-lg gap-1 border border-emerald-300">
                     <ShieldCheck size={13} />
-                    <span>ACTIVE PLAN (एक्टिव)</span>
+                    <span>{language === 'hi' ? 'सक्रिय प्लान' : 'ACTIVE PLAN'}</span>
                   </div>
                 ) : isPlatinum ? (
                   <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 text-white font-black text-[11px] px-3.5 py-1 rounded-full flex items-center shadow-xl gap-1 border border-blue-300">
                     <Sparkles size={13} className="text-amber-300 fill-amber-300" />
-                    <span>👑 PLATINUM VIP (60% बचत)</span>
+                    <span>{language === 'hi' ? '👑 प्लेटिनम VIP (60% बचत)' : '👑 PLATINUM VIP (Save >60%)'}</span>
                   </div>
                 ) : isGold ? (
                   <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-amber-400 via-yellow-300 to-amber-500 text-slate-950 font-black text-[11px] px-3.5 py-1 rounded-full flex items-center shadow-xl gap-1 border border-amber-200">
                     <Crown size={13} className="text-slate-950" />
-                    <span>⭐ GOLD VIP (15 लेबर)</span>
+                    <span>{language === 'hi' ? '⭐ गोल्ड VIP (15 मजदूर)' : '⭐ GOLD VIP (15 Workers)'}</span>
                   </div>
                 ) : isStarter ? (
                   <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-black text-[11px] px-3.5 py-1 rounded-full flex items-center shadow-xl gap-1 border border-blue-300">
                     <Zap size={13} className="text-amber-300" />
-                    <span>⚡ STARTER VIP (5 लेबर)</span>
+                    <span>{language === 'hi' ? '⚡ स्टार्टर VIP (5 मजदूर)' : '⚡ STARTER VIP (5 Workers)'}</span>
                   </div>
                 ) : null}
 
@@ -159,27 +159,33 @@ export default function SubscriptionPlans() {
                   <div>
                     <div className="flex items-center gap-1.5">
                       <h2 className="text-base font-black text-white tracking-wide">
-                        {plan.name}
+                        {language === 'hi' ? (plan.nameHi || plan.name) : (plan.nameEn || plan.name)}
                       </h2>
                       {isGold && <Award size={16} className="text-amber-400" />}
                       {isPlatinum && <Crown size={16} className="text-blue-400 fill-blue-400" />}
                     </div>
                     <p className="text-[11px] font-bold text-blue-200/90 mt-0.5">
-                      {plan.workersLimit === 999999 ? 'Unlimited Workers (अनलिमिटेड मजदूर)' : `Up to ${plan.workersLimit} Workers (${plan.workersLimit} लेबर)`}
-                      {plan.duration === 'year' && ' · 1 Year VIP'}
+                      {plan.workersLimit === 999999
+                        ? (language === 'hi' ? 'अनलिमिटेड मजदूर' : 'Unlimited Workers')
+                        : (language === 'hi' ? `${plan.workersLimit} मजदूर तक` : `Up to ${plan.workersLimit} Workers`)}
+                      {plan.duration === 'year' && (language === 'hi' ? ' · 1 वर्ष VIP' : ' · 1 Year VIP')}
                     </p>
                   </div>
 
                   {/* Price Tag */}
                   <div className="text-right">
                     {plan.price === 0 ? (
-                      <span className="text-2xl font-black text-slate-300">Free</span>
+                      <span className="text-2xl font-black text-slate-300">
+                        {language === 'hi' ? 'मुफ़्त' : 'Free'}
+                      </span>
                     ) : (
                       <div className="flex items-baseline justify-end gap-0.5">
                         <span className="text-2xl sm:text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-white to-amber-200">
                           {formatCurrency(plan.price)}
                         </span>
-                        <span className="text-[10px] text-slate-400 font-bold">/{plan.duration === 'month' ? 'महीना' : 'साल'}</span>
+                        <span className="text-[10px] text-slate-400 font-bold">
+                          /{plan.duration === 'month' ? (language === 'hi' ? 'माह' : 'month') : (language === 'hi' ? 'वर्ष' : 'year')}
+                        </span>
                       </div>
                     )}
                   </div>
@@ -187,7 +193,7 @@ export default function SubscriptionPlans() {
 
                 {/* Compact Feature Bullet Points */}
                 <div className="grid grid-cols-1 gap-1.5 my-3 pt-2 border-t border-slate-800/80">
-                  {plan.features.map((feature, idx) => (
+                  {((language === 'hi' && plan.featuresHi) ? plan.featuresHi : (language === 'en' && plan.featuresEn) ? plan.featuresEn : plan.features).map((feature, idx) => (
                     <div key={idx} className="flex items-center text-xs text-slate-200 font-medium">
                       <CheckCircle2 size={14} className="text-emerald-400 mr-2 shrink-0" />
                       <span className="text-[11px]">{feature}</span>
@@ -199,23 +205,24 @@ export default function SubscriptionPlans() {
                 {isCurrentActive ? (
                   <div className="w-full py-2.5 bg-emerald-950/80 text-emerald-300 font-extrabold rounded-xl text-center border border-emerald-500/60 flex items-center justify-center gap-2 text-xs">
                     <ShieldCheck size={16} />
-                    <span>{language === 'hi' ? 'यह प्लान एक्टिव है' : 'Active Plan Enrolled'}</span>
+                    <span>{language === 'hi' ? 'यह प्लान सक्रिय है' : 'Active Plan Enrolled'}</span>
                   </div>
                 ) : plan.price === 0 ? (
                   <div className="w-full py-2 bg-slate-800 text-slate-400 font-bold rounded-xl text-center text-xs border border-slate-700">
-                    Default Free Plan
+                    {language === 'hi' ? 'डिफ़ॉल्ट मुफ़्त प्लान' : 'Default Free Plan'}
                   </div>
                 ) : (
                   <div className="space-y-2 pt-1">
                     {/* Subscription Button */}
                     <button 
                       onClick={() => {
-                        openInstantPayment(plan.id, plan.name, plan.price, plan.workersLimit);
+                        const displayName = language === 'hi' ? (plan.nameHi || plan.name) : (plan.nameEn || plan.name);
+                        openInstantPayment(plan.id, displayName, plan.price, plan.workersLimit);
                       }}
                       className="w-full py-3 bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 hover:from-blue-500 hover:to-indigo-500 text-white font-black rounded-xl transition text-xs sm:text-sm border border-blue-400/60 flex items-center justify-center gap-2 cursor-pointer shadow-lg shadow-blue-600/30 active:scale-98"
                     >
                       <Crown size={16} className="text-amber-300" />
-                      <span>{language === 'hi' ? `✨ सब्सक्रिप्शन लें (Subscription - ₹${plan.price})` : `✨ Get Subscription (₹${plan.price})`}</span>
+                      <span>{language === 'hi' ? `✨ सब्सक्रिप्शन लें (₹${plan.price})` : `✨ Get Subscription (₹${plan.price})`}</span>
                     </button>
                   </div>
                 )}

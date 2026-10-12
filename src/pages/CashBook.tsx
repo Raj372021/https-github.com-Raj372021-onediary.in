@@ -397,8 +397,8 @@ export default function CashBook() {
 
       {/* 2. TABLE HEADERS BAR (Clean, High Contrast, Perfectly Aligned) */}
       <div className="bg-[#c2185b] text-white px-3 sm:px-4 py-2.5 flex items-center justify-between text-xs sm:text-sm font-black tracking-wider uppercase border-t border-white/10 select-none shadow-xs">
-        <div className="text-left">नाम व रिमार्क (Name & Remark)</div>
-        <div className="text-right">राशि / बैलेंस (Amount / Balance)</div>
+        <div className="text-left">{language === 'hi' ? 'नाम व विवरण' : 'Name & Remark'}</div>
+        <div className="text-right">{language === 'hi' ? 'राशि / बैलेंस' : 'Amount / Balance'}</div>
       </div>
 
       {/* Optional Search and Filter Bar */}
@@ -408,7 +408,7 @@ export default function CashBook() {
             <Search size={18} className="text-slate-400 shrink-0" />
             <input 
               type="text" 
-              placeholder="नाम, रिमार्क या राशि खोजें..."
+              placeholder={language === 'hi' ? "नाम, विवरण या राशि खोजें..." : "Search by name, remark or amount..."}
               value={searchQuery}
               onChange={e => setSearchQuery(e.target.value)}
               className="w-full bg-transparent text-sm sm:text-base text-gray-800 outline-none placeholder-slate-400 font-bold"
@@ -426,15 +426,21 @@ export default function CashBook() {
       {showStatsSummary && (
         <div className="bg-white border-b border-slate-200 p-4 grid grid-cols-3 gap-2 text-center shadow-xs select-none">
           <div className="border-r border-slate-200 pr-2">
-            <span className="text-[11px] sm:text-xs font-black text-emerald-700 uppercase tracking-wide block mb-0.5">कुल आया (In)</span>
+            <span className="text-[11px] sm:text-xs font-black text-emerald-700 uppercase tracking-wide block mb-0.5">
+              {language === 'hi' ? 'कुल जमा' : 'Total In'}
+            </span>
             <span className="text-sm sm:text-lg font-black text-emerald-600 block truncate">+{formatNum(stats.totalIn)}</span>
           </div>
           <div className="border-r border-slate-200 px-2">
-            <span className="text-[11px] sm:text-xs font-black text-rose-700 uppercase tracking-wide block mb-0.5">कुल गया (Out)</span>
+            <span className="text-[11px] sm:text-xs font-black text-rose-700 uppercase tracking-wide block mb-0.5">
+              {language === 'hi' ? 'कुल खर्च' : 'Total Out'}
+            </span>
             <span className="text-sm sm:text-lg font-black text-rose-600 block truncate">-{formatNum(stats.totalOut)}</span>
           </div>
           <div className="pl-2">
-            <span className="text-[11px] sm:text-xs font-black text-blue-800 uppercase tracking-wide block mb-0.5">कुल बैलेंस</span>
+            <span className="text-[11px] sm:text-xs font-black text-blue-800 uppercase tracking-wide block mb-0.5">
+              {language === 'hi' ? 'कुल बैलेंस' : 'Net Balance'}
+            </span>
             <span className={`text-sm sm:text-lg font-black block truncate ${stats.balance >= 0 ? 'text-blue-700' : 'text-rose-700'}`}>{formatNum(stats.balance)}</span>
           </div>
         </div>
@@ -448,7 +454,9 @@ export default function CashBook() {
             <p className="font-black text-gray-800 text-base sm:text-lg">
               {language === 'hi' ? 'कोई हिसाब / एंट्री नहीं है' : 'No transactions yet'}
             </p>
-            <p className="text-sm text-gray-500 mt-1 max-w-xs font-medium">नीचे CASH IN या CASH OUT दबाकर नाम, राशि और रिमार्क दर्ज करें।</p>
+            <p className="text-sm text-gray-500 mt-1 max-w-xs font-medium">
+              {language === 'hi' ? 'नीचे CASH IN या CASH OUT दबाकर नाम, राशि और विवरण जोड़ें।' : 'Tap CASH IN or CASH OUT below to record transactions.'}
+            </p>
             {showSearchAndFilter && (
               <button 
                 onClick={() => { setSearchQuery(''); setSelectedModeFilter('ALL'); }}
@@ -493,7 +501,7 @@ export default function CashBook() {
                           <span className={`text-[10px] font-black px-2 py-0.5 rounded-full uppercase ${
                             isIn ? 'bg-emerald-600 text-white' : 'bg-rose-600 text-white'
                           }`}>
-                            {isIn ? '✓ जमा' : '✗ खर्च'}
+                            {isIn ? (language === 'hi' ? '✓ जमा' : '✓ IN') : (language === 'hi' ? '✗ खर्च' : '✗ OUT')}
                           </span>
                           <span className="text-[11px] font-bold text-slate-500 uppercase">
                             {entry.paymentMode || 'CASH'}
@@ -510,7 +518,7 @@ export default function CashBook() {
                           <span className={`font-black text-base sm:text-lg leading-snug truncate block ${
                             isIn ? 'text-emerald-950' : 'text-rose-950'
                           }`}>
-                            {entry.partyName || entry.description || 'लेन-देन'}
+                            {entry.partyName || entry.description || (language === 'hi' ? 'लेन-देन' : 'Transaction')}
                           </span>
                           {entry.description && entry.partyName && entry.description !== entry.partyName && (
                             <span className="text-xs text-slate-600 font-semibold truncate block mt-0.5">
@@ -535,7 +543,9 @@ export default function CashBook() {
 
                         {/* Running Balance */}
                         <div className="flex items-center gap-1">
-                          <span className="text-[10px] uppercase font-extrabold text-blue-600 tracking-wider">शेष:</span>
+                          <span className="text-[10px] uppercase font-extrabold text-blue-600 tracking-wider">
+                            {language === 'hi' ? 'शेष:' : 'Bal:'}
+                          </span>
                           <span className="font-black text-xs sm:text-sm text-blue-700">
                             {Number(entry.balance).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                           </span>
@@ -662,7 +672,7 @@ export default function CashBook() {
         <div className="fixed inset-0 bg-black/60 backdrop-blur-xs flex items-center justify-center z-55 p-4 animate-in fade-in duration-200">
           <div className="bg-white rounded-3xl w-full max-w-sm overflow-hidden shadow-2xl p-5 flex flex-col relative border border-slate-100 animate-in zoom-in-95 duration-150">
             <h3 className="text-sm font-black text-slate-800 uppercase tracking-wider mb-4 text-center">
-              {language === 'hi' ? 'नया खाता बुक' : language === 'hinglish' ? 'Add New Cash Book / Naya Khata' : 'Add New Cash Book'}
+              {language === 'hi' ? 'नया खाता बुक' : 'Add New Cash Book'}
             </h3>
             
             <div className="space-y-3.5">
@@ -703,18 +713,20 @@ export default function CashBook() {
         <div className="fixed inset-0 bg-black/60 backdrop-blur-xs flex items-center justify-center z-55 p-4 animate-in fade-in duration-200">
           <div className="bg-white rounded-3xl w-full max-w-sm overflow-hidden shadow-2xl p-5 flex flex-col relative border border-slate-100 animate-in zoom-in-95 duration-150">
             <h3 className="text-xs font-black text-slate-800 uppercase tracking-wider mb-4 text-center">
-              {language === 'hi' ? 'खाता सेटिंग्स' : language === 'hinglish' ? 'Edit Cash Book / Khata Settings' : 'Edit Cash Book'}
+              {language === 'hi' ? 'खाता सेटिंग्स' : 'Edit Cash Book'}
             </h3>
 
             <div className="space-y-4">
               <div>
-                <label className="text-[10px] font-extrabold text-slate-400 uppercase tracking-widest block mb-1">Rename Cash Book</label>
+                <label className="text-[10px] font-extrabold text-slate-400 uppercase tracking-widest block mb-1">
+                  {language === 'hi' ? 'खाता का नाम बदलें' : 'Rename Cash Book'}
+                </label>
                 <input 
                   type="text" 
                   value={newBookNameInput}
                   onChange={e => setNewBookNameInput(e.target.value)}
                   className="w-full border border-slate-200 rounded-xl px-4 py-3 text-slate-800 text-xs font-bold focus:outline-none focus:ring-2 focus:ring-blue-500 bg-slate-50"
-                  placeholder="Enter book name"
+                  placeholder={language === 'hi' ? "नया नाम दर्ज करें" : "Enter book name"}
                 />
               </div>
 
@@ -724,13 +736,13 @@ export default function CashBook() {
                   disabled={!newBookNameInput.trim()}
                   className="bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white font-black py-3 rounded-xl text-xs uppercase tracking-wider transition cursor-pointer"
                 >
-                  {language === 'hi' ? 'सहेजें' : language === 'hinglish' ? 'Save / Badlein' : 'Save'}
+                  {language === 'hi' ? 'सहेजें' : 'Save'}
                 </button>
                 <button 
                   onClick={() => setSelectedBookForOptions(null)}
                   className="bg-slate-100 hover:bg-slate-200 text-slate-700 font-black py-3 rounded-xl text-xs uppercase tracking-wider transition cursor-pointer"
                 >
-                  Cancel
+                  {language === 'hi' ? 'रद्द करें' : 'Cancel'}
                 </button>
               </div>
 
@@ -765,12 +777,14 @@ export default function CashBook() {
                 {/* Left: Title & Badge */}
                 <div className="flex items-center gap-2">
                   <h3 className="font-black text-slate-900 text-base sm:text-lg tracking-tight">
-                    {editingEntryId ? (type === 'IN' ? 'Edit Cash In' : 'Edit Cash Out') : (type === 'IN' ? 'Cash In (जमा)' : 'Cash Out (खर्च)')}
+                    {editingEntryId 
+                      ? (type === 'IN' ? (language === 'hi' ? 'जमा सुधारें' : 'Edit Cash In') : (language === 'hi' ? 'खर्च सुधारें' : 'Edit Cash Out')) 
+                      : (type === 'IN' ? (language === 'hi' ? 'जमा (CASH IN)' : 'Cash In') : (language === 'hi' ? 'खर्च (CASH OUT)' : 'Cash Out'))}
                   </h3>
                   <span className={`text-xs px-2.5 py-0.5 rounded-full font-black uppercase ${
                     type === 'IN' ? 'bg-emerald-100 text-emerald-800 border border-emerald-300' : 'bg-rose-100 text-rose-800 border border-rose-300'
                   }`}>
-                    {type === 'IN' ? '+ जमा (आया)' : '- खर्च (गया)'}
+                    {type === 'IN' ? (language === 'hi' ? '+ जमा' : '+ IN') : (language === 'hi' ? '- खर्च' : '- OUT')}
                   </span>
                 </div>
 
@@ -783,7 +797,7 @@ export default function CashBook() {
                       value={date}
                       onChange={e => setDate(e.target.value)}
                       className="text-xs font-black text-slate-800 outline-none bg-transparent cursor-pointer"
-                      title="दिनांक चुनें"
+                      title={language === 'hi' ? "दिनांक चुनें" : "Select date"}
                     />
                     <span className="text-slate-300">|</span>
                     <Clock size={11} className="text-slate-400 shrink-0" />
@@ -793,7 +807,7 @@ export default function CashBook() {
                       onChange={e => setTime(e.target.value)}
                       placeholder="12:00 PM"
                       className="w-14 text-[11px] font-bold text-slate-700 outline-none bg-transparent"
-                      title="समय"
+                      title={language === 'hi' ? "समय" : "Time"}
                     />
                   </div>
 
@@ -821,7 +835,7 @@ export default function CashBook() {
                     }`}
                   >
                     <Plus size={16} strokeWidth={3} />
-                    <span>IN (+ जमा)</span>
+                    <span>{language === 'hi' ? '+ जमा' : 'IN (+)'}</span>
                   </button>
                   <button 
                     type="button"
@@ -833,7 +847,7 @@ export default function CashBook() {
                     }`}
                   >
                     <Minus size={16} strokeWidth={3} />
-                    <span>OUT (- खर्च)</span>
+                    <span>{language === 'hi' ? '- खर्च' : 'OUT (-)'}</span>
                   </button>
                 </div>
 
@@ -846,12 +860,12 @@ export default function CashBook() {
                     setPaymentMode(modes[nextIdx]);
                   }}
                   className="px-3 py-2 bg-white hover:bg-slate-50 border-2 border-slate-300 rounded-2xl font-black text-xs text-slate-800 flex items-center gap-1.5 transition cursor-pointer shadow-xs whitespace-nowrap active:scale-95 shrink-0"
-                  title="क्लिक करके Cash / UPI / Bank बदलें"
+                  title={language === 'hi' ? "मोड बदलें" : "Change mode"}
                 >
-                  {paymentMode === 'CASH' && <span className="flex items-center gap-1 text-emerald-700">💰 <span>Cash (नकद)</span></span>}
+                  {paymentMode === 'CASH' && <span className="flex items-center gap-1 text-emerald-700">💰 <span>{language === 'hi' ? 'नकद' : 'Cash'}</span></span>}
                   {paymentMode === 'UPI' && <span className="flex items-center gap-1 text-blue-700">📱 <span>UPI</span></span>}
-                  {paymentMode === 'BANK' && <span className="flex items-center gap-1 text-indigo-700">🏦 <span>Bank</span></span>}
-                  <span className="text-[10px] text-slate-400 font-bold bg-slate-100 px-1 py-0.5 rounded-md">⇄ बदलें</span>
+                  {paymentMode === 'BANK' && <span className="flex items-center gap-1 text-indigo-700">🏦 <span>{language === 'hi' ? 'बैंक' : 'Bank'}</span></span>}
+                  <span className="text-[10px] text-slate-400 font-bold bg-slate-100 px-1 py-0.5 rounded-md">⇄</span>
                 </button>
               </div>
             </div>
@@ -859,14 +873,14 @@ export default function CashBook() {
             {/* Scrollable Form Body: 3 DISTINCT, LARGE, CRYSTAL-CLEAR LINES */}
             <div className="flex-1 overflow-y-auto p-5 space-y-4 text-left scrollbar-thin">
               
-              {/* LINE 1: 💰 AMOUNT (राशि / अमाउंट) */}
+              {/* LINE 1: 💰 AMOUNT */}
               <div className="space-y-1">
                 <div className="flex items-center justify-between">
                   <label className="text-xs sm:text-sm font-black text-slate-900 uppercase tracking-wide flex items-center gap-1.5">
                     <span className="w-5 h-5 rounded-full bg-[#c2185b] text-white text-xs flex items-center justify-center font-black shrink-0">1</span>
-                    <span>राशि / अमाउंट (Amount) <span className="text-rose-500">*</span></span>
+                    <span>{language === 'hi' ? 'राशि' : 'Amount'} <span className="text-rose-500">*</span></span>
                   </label>
-                  <span className="text-xs text-slate-500 font-bold">कितना रुपया?</span>
+                  <span className="text-xs text-slate-500 font-bold">{language === 'hi' ? 'राशि दर्ज करें' : 'Enter amount'}</span>
                 </div>
                 
                 <div className={`relative border-2 rounded-2xl px-4 py-3.5 flex items-center gap-2 bg-white transition-all shadow-xs ${
@@ -880,7 +894,7 @@ export default function CashBook() {
                     value={amount}
                     onChange={e => setAmount(e.target.value)}
                     className="w-full outline-none text-2xl sm:text-3xl font-black bg-transparent text-slate-900 placeholder-slate-300"
-                    placeholder="यहाँ राशि लिखें (उदा. 5000)"
+                    placeholder={language === 'hi' ? "यहाँ राशि लिखें (उदा. 5000)" : "Enter amount (e.g. 5000)"}
                     autoFocus
                   />
                 </div>
@@ -906,30 +920,32 @@ export default function CashBook() {
                       onClick={() => setAmount('')}
                       className="px-2.5 py-1 bg-rose-50 hover:bg-rose-100 text-rose-600 text-xs font-bold rounded-xl border border-rose-200 transition cursor-pointer"
                     >
-                      हटाएं (Clear)
+                      {language === 'hi' ? 'हटाएं' : 'Clear'}
                     </button>
                   )}
                 </div>
               </div>
 
-              {/* LINE 2: 👤 NAME / PARTY (नाम / पार्टी) + Quick Advance & Previous Suggestions */}
+              {/* LINE 2: 👤 NAME / PARTY */}
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
                   <label className="text-xs sm:text-sm font-black text-slate-900 uppercase tracking-wide flex items-center gap-1.5">
                     <span className="w-5 h-5 rounded-full bg-[#c2185b] text-white text-xs flex items-center justify-center font-black shrink-0">2</span>
-                    <span>नाम / पार्टी (Name / Party)</span>
+                    <span>{language === 'hi' ? 'नाम / पार्टी' : 'Name / Party'}</span>
                   </label>
                   <button
                     type="button"
                     onClick={() => {
-                      const advText = type === 'IN' ? 'एडवांस मिला (Advance Received)' : 'एडवांस दिया (Advance Given)';
+                      const advText = type === 'IN' 
+                        ? (language === 'hi' ? 'एडवांस मिला' : 'Advance Received') 
+                        : (language === 'hi' ? 'एडवांस दिया' : 'Advance Given');
                       setDescription(advText);
-                      if (!partyName) setPartyName('Advance');
+                      if (!partyName) setPartyName(language === 'hi' ? 'एडवांस' : 'Advance');
                     }}
                     className="text-xs font-black bg-pink-100 hover:bg-pink-200 text-[#c2185b] px-2.5 py-1 rounded-xl transition cursor-pointer flex items-center gap-1 border border-pink-300 shadow-xs"
                   >
                     <span>⚡</span>
-                    <span>+ एडवांस (Advance)</span>
+                    <span>{language === 'hi' ? '+ एडवांस' : '+ Advance'}</span>
                   </button>
                 </div>
                 
@@ -942,7 +958,7 @@ export default function CashBook() {
                       setDescription(e.target.value);
                     }}
                     className="w-full border-2 border-slate-200 bg-slate-50 focus:bg-white rounded-2xl px-4 py-3.5 pr-10 text-slate-900 text-base sm:text-lg font-bold focus:outline-none focus:border-[#c2185b] focus:ring-4 focus:ring-pink-500/20 transition placeholder-slate-400"
-                    placeholder="व्यक्ति / लेबर / पार्टी का नाम (उदा. राहुल, ठेकेदार)..."
+                    placeholder={language === 'hi' ? "व्यक्ति / मजदूर / पार्टी का नाम..." : "Name of person / worker / party..."}
                   />
                   {partyName && (
                     <button 
@@ -959,7 +975,7 @@ export default function CashBook() {
                 {filteredSuggestions.length > 0 && (
                   <div className="mt-2 bg-slate-50 border border-slate-200 rounded-2xl p-2.5">
                     <span className="text-[11px] font-black text-slate-500 uppercase tracking-wide block mb-1.5">
-                      💡 पुराने नाम / पार्टियाँ चुनें (Previous Names):
+                      {language === 'hi' ? '💡 पुराने नाम / पार्टियाँ चुनें:' : '💡 Previous Names:'}
                     </span>
                     <div className="flex gap-1.5 flex-wrap max-h-32 overflow-y-auto">
                       {filteredSuggestions.map(name => (
@@ -999,14 +1015,14 @@ export default function CashBook() {
                 }`}
               >
                 <Check size={18} strokeWidth={3} />
-                <span>सहेजें (SAVE)</span>
+                <span>{language === 'hi' ? 'सहेजें' : 'SAVE'}</span>
               </button>
               <button 
                 onClick={() => handleSave(false)}
                 disabled={!amount}
                 className="py-4 rounded-2xl bg-slate-900 hover:bg-slate-850 disabled:opacity-55 text-white font-black text-sm tracking-wide transition active:scale-95 cursor-pointer uppercase shadow-lg text-center"
               >
-                SAVE & NEXT (+)
+                {language === 'hi' ? 'सहेजें व अगला (+)' : 'SAVE & NEXT (+)'}
               </button>
             </div>
           </div>
@@ -1026,7 +1042,7 @@ export default function CashBook() {
             
             <h3 className="font-extrabold text-slate-800 text-base uppercase tracking-wider mb-4 text-center flex items-center justify-center gap-2">
               <Settings size={18} className="text-[#c2185b]" />
-              <span>कैश बुक विकल्प (Options)</span>
+              <span>{language === 'hi' ? 'कैश बुक विकल्प' : 'Cash Book Options'}</span>
             </h3>
 
             {/* Grid list of interactive helper options */}
@@ -1043,7 +1059,11 @@ export default function CashBook() {
               >
                 <div className="flex items-center gap-3">
                   <Search size={18} />
-                  <span>{showSearchAndFilter ? 'खोज पट्टी छिपाएं' : 'खोज पट्टी दिखाएं (Search)'}</span>
+                  <span>
+                    {showSearchAndFilter 
+                      ? (language === 'hi' ? 'खोज पट्टी छिपाएं' : 'Hide Search Bar') 
+                      : (language === 'hi' ? 'खोज पट्टी दिखाएं' : 'Show Search Bar')}
+                  </span>
                 </div>
                 <span className="text-xs font-black uppercase text-slate-400">🔍 Search</span>
               </button>
@@ -1059,7 +1079,11 @@ export default function CashBook() {
               >
                 <div className="flex items-center gap-3">
                   <Info size={18} />
-                  <span>{showStatsSummary ? 'ऊपरी बैलेंस सारांश छिपाएं' : 'ऊपरी बैलेंस सारांश दिखाएं'}</span>
+                  <span>
+                    {showStatsSummary 
+                      ? (language === 'hi' ? 'बैलेंस सारांश छिपाएं' : 'Hide Balance Overview') 
+                      : (language === 'hi' ? 'बैलेंस सारांश दिखाएं' : 'Show Balance Overview')}
+                  </span>
                 </div>
                 <span className="text-xs font-black uppercase text-slate-400">📊 Stats</span>
               </button>
@@ -1071,8 +1095,10 @@ export default function CashBook() {
               >
                 <Download size={18} className="text-blue-500" />
                 <div className="text-left flex-1">
-                  <span className="block font-black">खाता डाउनलोड करें (Export CSV/Excel)</span>
-                  <span className="block text-xs text-slate-500 font-medium">लेन-देन की पूरी लिस्ट डाउनलोड करें</span>
+                  <span className="block font-black">{language === 'hi' ? 'खाता डाउनलोड करें (CSV/Excel)' : 'Download Cash Book (CSV/Excel)'}</span>
+                  <span className="block text-xs text-slate-500 font-medium">
+                    {language === 'hi' ? 'लेन-देन की पूरी लिस्ट डाउनलोड करें' : 'Export all transaction records'}
+                  </span>
                 </div>
               </button>
 
@@ -1083,7 +1109,7 @@ export default function CashBook() {
               onClick={() => setShowOptionsDrawer(false)}
               className="mt-5 w-full bg-slate-900 hover:bg-slate-800 text-white font-black py-4 rounded-2xl text-sm uppercase tracking-wider transition cursor-pointer text-center shadow-md"
             >
-              बंद करें (CLOSE)
+              {language === 'hi' ? 'बंद करें' : 'Close'}
             </button>
 
           </div>
@@ -1096,7 +1122,7 @@ export default function CashBook() {
           <div className="bg-white rounded-3xl w-full max-w-sm overflow-hidden shadow-2xl p-6 flex flex-col relative border border-slate-100 animate-in zoom-in-95 duration-150 select-none">
             
             <h3 className="font-black text-slate-900 text-lg uppercase tracking-wide mb-4 text-center">
-              लेन-देन विवरण (Transaction)
+              {language === 'hi' ? 'लेन-देन विवरण' : 'Transaction Details'}
             </h3>
 
             {/* Data summary - Highlight the 3 things (Amount, Name, Remark) with Big Font */}
@@ -1107,7 +1133,9 @@ export default function CashBook() {
                 <span className={`inline-block px-3 py-1 rounded-full text-xs font-black mb-1 ${
                   selectedEntryForOptions.type === 'IN' ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'
                 }`}>
-                  {selectedEntryForOptions.type === 'IN' ? '➕ CASH IN (जमा)' : '➖ CASH OUT (खर्च)'}
+                  {selectedEntryForOptions.type === 'IN' 
+                    ? (language === 'hi' ? '➕ जमा' : '➕ CASH IN') 
+                    : (language === 'hi' ? '➖ खर्च' : '➖ CASH OUT')}
                 </span>
                 <p className={`font-black text-2xl sm:text-3xl mt-1 ${
                   selectedEntryForOptions.type === 'IN' ? 'text-emerald-700' : 'text-rose-700'
@@ -1118,19 +1146,23 @@ export default function CashBook() {
 
               {/* 1. Name */}
               <div>
-                <span className="font-black text-slate-400 uppercase tracking-wider text-[11px] block">1. नाम (Name / Party)</span>
+                <span className="font-black text-slate-400 uppercase tracking-wider text-[11px] block">
+                  {language === 'hi' ? '1. नाम / पार्टी' : '1. Name / Party'}
+                </span>
                 <span className="font-black text-slate-900 text-lg block mt-0.5">{selectedEntryForOptions.partyName || 'N/A'}</span>
               </div>
 
               {/* 2. Remark */}
               <div>
-                <span className="font-black text-slate-400 uppercase tracking-wider text-[11px] block">2. रिमार्क (Remark / Details)</span>
-                <span className="font-bold text-slate-800 text-base block mt-0.5">{selectedEntryForOptions.description || 'कोई रिमार्क नहीं'}</span>
+                <span className="font-black text-slate-400 uppercase tracking-wider text-[11px] block">
+                  {language === 'hi' ? '2. विवरण / रिमार्क' : '2. Remark / Details'}
+                </span>
+                <span className="font-bold text-slate-800 text-base block mt-0.5">{selectedEntryForOptions.description || (language === 'hi' ? 'कोई विवरण नहीं' : 'No remark')}</span>
               </div>
 
               {/* Date & Time */}
               <div className="pt-2 border-t border-slate-200 flex justify-between text-xs font-bold text-slate-500">
-                <span>दिनांक: {selectedEntryForOptions.date}</span>
+                <span>{language === 'hi' ? 'दिनांक:' : 'Date:'} {selectedEntryForOptions.date}</span>
                 <span>{selectedEntryForOptions.time || ''}</span>
               </div>
             </div>
@@ -1141,26 +1173,29 @@ export default function CashBook() {
                 onClick={() => openEditModal(selectedEntryForOptions)}
                 className="w-full bg-[#2196f3] hover:bg-[#1976d2] text-white font-black py-4 rounded-2xl text-sm uppercase tracking-wider transition cursor-pointer flex items-center justify-center gap-2 shadow-md"
               >
-                <Edit2 size={16} /> <span>सुधारें (Edit Entry)</span>
+                <Edit2 size={16} /> <span>{language === 'hi' ? 'सुधारें' : 'Edit Entry'}</span>
               </button>
 
               <div className="grid grid-cols-2 gap-2.5">
                 <button 
                   onClick={() => {
-                    if (window.confirm("क्या आप इस एंट्री को हमेशा के लिए हटाना चाहते हैं?")) {
+                    const confirmText = language === 'hi' 
+                      ? 'क्या आप इस एंट्री को हमेशा के लिए हटाना चाहते हैं?' 
+                      : 'Are you sure you want to permanently delete this entry?';
+                    if (window.confirm(confirmText)) {
                       deleteCashEntry(selectedEntryForOptions.id);
                       setSelectedEntryForOptions(null);
                     }
                   }}
                   className="bg-rose-50 hover:bg-rose-100 border border-rose-200 text-rose-600 font-black py-3.5 rounded-2xl text-xs uppercase tracking-wider transition cursor-pointer flex items-center justify-center gap-1.5 shadow-xs"
                 >
-                  <Trash2 size={15} /> <span>हटाएं (Delete)</span>
+                  <Trash2 size={15} /> <span>{language === 'hi' ? 'हटाएं' : 'Delete'}</span>
                 </button>
                 <button 
                   onClick={() => setSelectedEntryForOptions(null)}
                   className="bg-slate-900 hover:bg-slate-800 text-white font-black py-3.5 rounded-2xl text-xs uppercase tracking-wider transition cursor-pointer shadow-xs text-center"
                 >
-                  बंद करें (CLOSE)
+                  {language === 'hi' ? 'बंद करें' : 'Close'}
                 </button>
               </div>
             </div>

@@ -218,7 +218,7 @@ export default function Payment() {
             <div className="space-y-3 pt-1">
               <div className="space-y-1">
                 <label className="text-[11px] font-black text-slate-600 dark:text-slate-300 uppercase tracking-wide">
-                  {language === 'hi' ? 'आपका नाम (Full Name)' : 'Full Name'}
+                  {language === 'hi' ? 'आपका पूरा नाम' : 'Full Name'}
                 </label>
                 <input 
                   type="text" 
@@ -231,7 +231,7 @@ export default function Payment() {
 
               <div className="space-y-1">
                 <label className="text-[11px] font-black text-slate-600 dark:text-slate-300 uppercase tracking-wide">
-                  {language === 'hi' ? 'मोबाइल नंबर (Mobile Number)' : 'Mobile Phone Number (+91)'}
+                  {language === 'hi' ? 'मोबाइल नंबर' : 'Mobile Phone Number (+91)'}
                 </label>
                 <input 
                   type="tel" 
@@ -373,9 +373,15 @@ export default function Payment() {
               <div className="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto shadow-inner">
                 <CheckCircle2 size={40} />
               </div>
-              <h2 className="text-2xl font-black text-slate-900">भुगतान सफल हुआ!</h2>
+              <h2 className="text-2xl font-black text-slate-900">
+                {language === 'hi' ? 'भुगतान सफल हुआ!' : 'Payment Successful!'}
+              </h2>
               <p className="text-xs font-bold text-slate-600">
-                आपका <span className="text-indigo-600 font-black">{planName}</span> सब्सक्रिप्शन एक्टिव हो गया है।
+                {language === 'hi' ? (
+                  <>आपका <span className="text-indigo-600 font-black">{planName}</span> सब्सक्रिप्शन सक्रिय हो गया है।</>
+                ) : (
+                  <>Your <span className="text-indigo-600 font-black">{planName}</span> subscription is now active.</>
+                )}
               </p>
             </div>
 
@@ -424,7 +430,7 @@ export default function Payment() {
                 className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-extrabold py-2.5 rounded-xl text-xs flex items-center justify-center gap-1.5 shadow transition cursor-pointer"
               >
                 <Download size={15} />
-                <span>रसीद / बिल डाउनलोड करें (Download Bill)</span>
+                <span>{language === 'hi' ? 'रसीद डाउनलोड करें' : 'Download Receipt'}</span>
               </button>
               
               <button 
@@ -436,7 +442,7 @@ export default function Payment() {
                 className="w-full bg-green-600 hover:bg-green-700 text-white font-extrabold py-2.5 rounded-xl text-xs flex items-center justify-center gap-1.5 shadow transition cursor-pointer"
               >
                 <span className="font-bold text-lg leading-none mt-[-2px]">✆</span>
-                <span>WhatsApp पर रसीद भेजें (Share Bill)</span>
+                <span>{language === 'hi' ? 'WhatsApp पर रसीद भेजें' : 'Share Receipt on WhatsApp'}</span>
               </button>
 
               <button 
@@ -444,7 +450,7 @@ export default function Payment() {
                 onClick={() => navigate('/workers')}
                 className="w-full bg-slate-900 hover:bg-slate-800 text-white font-extrabold py-3 rounded-xl text-xs shadow transition cursor-pointer"
               >
-                डैशबोर्ड पर जाएं (Go to Dashboard) →
+                {language === 'hi' ? 'डैशबोर्ड पर जाएं →' : 'Go to Dashboard →'}
               </button>
             </div>
 

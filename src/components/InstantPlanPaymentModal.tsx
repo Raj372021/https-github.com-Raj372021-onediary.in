@@ -157,15 +157,17 @@ export default function InstantPlanPaymentModal({
             </div>
             <div className="space-y-1">
               <h3 className="text-xl font-black text-emerald-700 dark:text-emerald-400">
-                🎉 भुगतान सफल! (Payment Complete)
+                {language === 'hi' ? '🎉 भुगतान सफल!' : '🎉 Payment Complete!'}
               </h3>
               <p className="text-sm font-extrabold text-slate-800 dark:text-slate-100">
-                आपका {planName} प्लान सफलतापूर्वक चालू कर दिया गया है।
+                {language === 'hi'
+                  ? `आपका ${planName} प्लान सफलतापूर्वक चालू कर दिया गया है।`
+                  : `Your ${planName} plan has been successfully activated.`}
               </p>
             </div>
             <div className="pt-2">
               <span className="inline-flex items-center gap-2 px-5 py-2 bg-emerald-600 text-white rounded-xl text-xs font-black shadow-lg">
-                <ShieldCheck size={16} /> Active Plan Enrolled
+                <ShieldCheck size={16} /> {language === 'hi' ? 'सक्रिय प्लान चालू' : 'Active Plan Enrolled'}
               </span>
             </div>
           </div>
@@ -176,13 +178,15 @@ export default function InstantPlanPaymentModal({
             <div className="p-4 rounded-2xl bg-gradient-to-br from-indigo-50/80 to-purple-50/50 dark:from-indigo-950/40 dark:to-purple-950/20 border border-indigo-200 dark:border-indigo-800/60 flex items-center justify-between">
               <div>
                 <span className="text-[9px] uppercase tracking-widest font-black bg-indigo-100 text-indigo-700 dark:bg-indigo-900/60 dark:text-indigo-300 px-2 py-0.5 rounded-md">
-                  Selected Plan
+                  {language === 'hi' ? 'चुना गया प्लान' : 'Selected Plan'}
                 </span>
                 <h3 className="text-sm sm:text-base font-black text-slate-900 dark:text-white mt-1">
                   {planName}
                 </h3>
                 <p className="text-xs font-bold text-indigo-600 dark:text-indigo-400 mt-0.5">
-                  {workersLimit === 999999 ? 'Unlimited Labour Record' : `${workersLimit || 25} Labour Capacity`}
+                  {workersLimit === 999999
+                    ? (language === 'hi' ? 'अनलिमिटेड लेबर रिकॉर्ड' : 'Unlimited Worker Records')
+                    : (language === 'hi' ? `${workersLimit || 25} मजदूर क्षमता` : `${workersLimit || 25} Workers Capacity`)}
                 </p>
               </div>
 
@@ -190,7 +194,9 @@ export default function InstantPlanPaymentModal({
                 <span className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white">
                   ₹{amount}
                 </span>
-                <span className="text-[10px] text-slate-500 block font-semibold">Incl. 18% GST</span>
+                <span className="text-[10px] text-slate-500 block font-semibold">
+                  {language === 'hi' ? '18% GST सहित' : 'Incl. 18% GST'}
+                </span>
               </div>
             </div>
 
@@ -205,7 +211,7 @@ export default function InstantPlanPaymentModal({
             <div className="space-y-3">
               <div className="space-y-1">
                 <label className="text-[11px] font-black text-slate-600 dark:text-slate-300 uppercase tracking-wide">
-                  {language === 'hi' ? 'आपका नाम (Full Name)' : 'Full Name'}
+                  {language === 'hi' ? 'आपका नाम' : 'Full Name'}
                 </label>
                 <input 
                   type="text" 
@@ -218,7 +224,7 @@ export default function InstantPlanPaymentModal({
 
               <div className="space-y-1">
                 <label className="text-[11px] font-black text-slate-600 dark:text-slate-300 uppercase tracking-wide">
-                  {language === 'hi' ? 'मोबाइल नंबर (Mobile Number)' : 'Mobile Phone Number (+91)'}
+                  {language === 'hi' ? 'मोबाइल नंबर' : 'Mobile Phone Number (+91)'}
                 </label>
                 <input 
                   type="tel" 
@@ -233,7 +239,7 @@ export default function InstantPlanPaymentModal({
             {/* Gateway feature list */}
             <div className="p-3 bg-slate-50 dark:bg-slate-800/60 rounded-xl border border-slate-200 dark:border-slate-700 space-y-1.5">
               <span className="text-[10px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-wider block">
-                Razorpay Online Gateway Supports:
+                {language === 'hi' ? 'Razorpay ऑनलाइन गेटवे सपोर्ट:' : 'Razorpay Online Gateway Supports:'}
               </span>
               <div className="grid grid-cols-2 gap-2 text-[11px] font-bold text-slate-700 dark:text-slate-300">
                 <div className="flex items-center gap-1.5">
@@ -246,11 +252,11 @@ export default function InstantPlanPaymentModal({
                 </div>
                 <div className="flex items-center gap-1.5">
                   <Check size={13} className="text-emerald-500 shrink-0" />
-                  <span>Net Banking (All Indian Banks)</span>
+                  <span>{language === 'hi' ? 'नेट बैंकिंग (सभी बैंक)' : 'Net Banking (All Indian Banks)'}</span>
                 </div>
                 <div className="flex items-center gap-1.5">
                   <Check size={13} className="text-emerald-500 shrink-0" />
-                  <span>Instant Verification</span>
+                  <span>{language === 'hi' ? 'तत्काल सत्यापन' : 'Instant Verification'}</span>
                 </div>
               </div>
             </div>
@@ -275,9 +281,9 @@ export default function InstantPlanPaymentModal({
                 <ShieldCheck size={13} className="text-indigo-500" /> 256-Bit SSL
               </span>
               <span>•</span>
-              <span>100% Secure Transaction</span>
+              <span>{language === 'hi' ? '100% सुरक्षित भुगतान' : '100% Secure Transaction'}</span>
               <span>•</span>
-              <span>Instant Activation</span>
+              <span>{language === 'hi' ? 'तत्काल एक्टिवेशन' : 'Instant Activation'}</span>
             </div>
 
           </div>

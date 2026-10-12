@@ -116,7 +116,7 @@ export default function Workers() {
                 ? 'bg-amber-500/20 text-amber-300 border-amber-400/40 hover:bg-amber-500/30' 
                 : 'bg-white/10 text-slate-200 border-white/20 hover:bg-white/20'
             }`}
-            title={hideRates ? "Show Rates (दर दिखाएं)" : "Hide Rates (दर छिपाएं)"}
+            title={hideRates ? (language === 'hi' ? "दर दिखाएं" : "Show Rates") : (language === 'hi' ? "दर छिपाएं" : "Hide Rates")}
           >
             {hideRates ? <EyeOff size={14} /> : <Eye size={14} />}
             <span className="hidden sm:inline">{hideRates ? (language === 'hi' ? 'दर दिखाएं' : 'Show Rates') : (language === 'hi' ? 'दर छिपाएं' : 'Hide Rates')}</span>
@@ -178,7 +178,7 @@ export default function Workers() {
               </div>
             </div>
             <span className="text-[10px] font-black uppercase px-2.5 py-1.5 rounded-xl bg-amber-400 text-slate-950 shrink-0 ml-2 shadow">
-              Plans (₹199+)
+              {language === 'hi' ? 'प्लान (₹199+)' : 'Plans (₹199+)'}
             </span>
           </div>
         ) : maxWorkersAllowed < 25 ? (
@@ -202,7 +202,7 @@ export default function Workers() {
               </div>
             </div>
             <span className="text-[10px] font-black uppercase px-2.5 py-1.5 rounded-xl bg-indigo-600 text-white shrink-0 ml-2 shadow">
-              Upgrade Plan
+              {language === 'hi' ? 'प्लान अपग्रेड' : 'Upgrade Plan'}
             </span>
           </div>
         ) : null}
@@ -245,7 +245,7 @@ export default function Workers() {
                 : 'text-slate-600 hover:text-slate-950'
             }`}
           >
-            All ({workers.length})
+            {language === 'hi' ? 'सभी' : 'All'} ({workers.length})
           </button>
           <button
             onClick={() => setTypeFilter('LABOUR')}
@@ -255,7 +255,7 @@ export default function Workers() {
                 : 'text-slate-600 hover:text-slate-955'
             }`}
           >
-            <span className="shrink-0 text-xs">🔨</span> Labour ({workers.filter(w => w.workerType === 'LABOUR' || !w.workerType).length})
+            <span className="shrink-0 text-xs">🔨</span> {language === 'hi' ? 'मजदूर' : 'Labour'} ({workers.filter(w => w.workerType === 'LABOUR' || !w.workerType).length})
           </button>
           <button
             onClick={() => setTypeFilter('OFFICE')}
@@ -265,13 +265,17 @@ export default function Workers() {
                 : 'text-slate-600 hover:text-slate-955'
             }`}
           >
-            <span className="shrink-0 text-xs">💼</span> Office ({workers.filter(w => w.workerType === 'OFFICE').length})
+            <span className="shrink-0 text-xs">💼</span> {language === 'hi' ? 'ऑफिस स्टाफ' : 'Office Staff'} ({workers.filter(w => w.workerType === 'OFFICE').length})
           </button>
         </div>
 
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-sm font-bold text-gray-500 uppercase tracking-wider">
-            {typeFilter === 'ALL' ? 'All People List' : typeFilter === 'OFFICE' ? 'Office Staff List' : 'Labour List'} ({filteredWorkers.length})
+            {typeFilter === 'ALL' 
+              ? (language === 'hi' ? 'सभी लोगों की सूची' : 'All People List') 
+              : typeFilter === 'OFFICE' 
+                ? (language === 'hi' ? 'ऑफिस स्टाफ सूची' : 'Office Staff List') 
+                : (language === 'hi' ? 'मजदूरों की सूची' : 'Labour List')} ({filteredWorkers.length})
           </h2>
         </div>
 
@@ -287,7 +291,9 @@ export default function Workers() {
         {showAddForm && (
           <div className="bg-white rounded-2xl shadow-xl border-2 border-blue-500 p-5 mb-6 animate-in fade-in slide-in-from-top-4 duration-200">
             <div className="flex justify-between items-center mb-4 border-b pb-2">
-              <h3 className="font-bold text-lg text-gray-900">Add New Person (स्टाफ/मज़दूर जोड़ें)</h3>
+              <h3 className="font-bold text-lg text-gray-900">
+                {language === 'hi' ? 'नया व्यक्ति जोड़ें' : 'Add New Person'}
+              </h3>
               <button
                 type="button"
                 onClick={async () => {
@@ -320,13 +326,15 @@ export default function Workers() {
                 }}
                 className="text-xs bg-blue-50 text-blue-700 px-2.5 py-1.5 rounded-lg font-bold flex items-center hover:bg-blue-100 transition-colors"
               >
-                <BookUser size={14} className="mr-1" /> Import Contact
+                <BookUser size={14} className="mr-1" /> {language === 'hi' ? 'कॉन्टैक्ट से चुनें' : 'Import Contact'}
               </button>
             </div>
             <form onSubmit={handleAdd} className="space-y-4">
               {/* Role Type Selection */}
               <div>
-                <label className="text-xs font-bold text-gray-700 block mb-1.5">Select Role / Type (प्रकार चुनें)</label>
+                <label className="text-xs font-bold text-gray-700 block mb-1.5">
+                  {language === 'hi' ? 'प्रकार चुनें' : 'Select Role / Type'}
+                </label>
                 <div className="grid grid-cols-2 gap-3">
                   <button
                     type="button"
@@ -337,7 +345,7 @@ export default function Workers() {
                         : 'border-slate-200 bg-white text-slate-600 hover:bg-slate-50'
                     }`}
                   >
-                    <span>🔨</span> Site Labour (मज़दूर)
+                    <span>🔨</span> {language === 'hi' ? 'साइट मजदूर' : 'Site Labour'}
                   </button>
                   <button
                     type="button"
@@ -348,18 +356,18 @@ export default function Workers() {
                         : 'border-slate-200 bg-white text-slate-600 hover:bg-slate-50'
                     }`}
                   >
-                    <span>💼</span> Office Staff (स्टाफ)
+                    <span>💼</span> {language === 'hi' ? 'ऑफिस स्टाफ' : 'Office Staff'}
                   </button>
                 </div>
               </div>
 
               <div>
                 <label className="text-xs font-bold text-gray-700 block mb-1">
-                  {language === 'hi' ? 'नाम (पूरा नाम) *' : language === 'hinglish' ? 'Name (Pura Naam) *' : 'Name *'}
+                  {language === 'hi' ? 'नाम *' : 'Name *'}
                 </label>
                 <input 
                   type="text" 
-                  placeholder={newWorker.workerType === 'OFFICE' ? "Enter employee's name" : "Enter worker's full name"}
+                  placeholder={newWorker.workerType === 'OFFICE' ? (language === 'hi' ? "स्टाफ का नाम" : "Enter employee's name") : (language === 'hi' ? "मजदूर का नाम" : "Enter worker's full name")}
                   value={newWorker.name}
                   onChange={e => setNewWorker({ ...newWorker, name: e.target.value })}
                   className="w-full border-2 border-slate-300 rounded-xl px-4 py-2.5 text-sm font-semibold text-gray-900 focus:outline-none focus:border-blue-500 bg-slate-50 focus:bg-white"
@@ -369,11 +377,11 @@ export default function Workers() {
               <div className="grid grid-cols-2 gap-3">
                 <div>
                   <label className="text-xs font-bold text-gray-700 block mb-1">
-                    {language === 'hi' ? 'मोबाइल नंबर' : language === 'hinglish' ? 'Phone Number (Call ke liye)' : 'Phone Number'}
+                    {language === 'hi' ? 'मोबाइल नंबर' : 'Phone Number'}
                   </label>
                   <input 
                     type="tel" 
-                    placeholder="Mobile number" 
+                    placeholder={language === 'hi' ? "मोबाइल नंबर" : "Mobile number"} 
                     value={newWorker.phone}
                     onChange={e => setNewWorker({ ...newWorker, phone: e.target.value })}
                     className="w-full border-2 border-slate-300 rounded-xl px-4 py-2.5 text-sm font-semibold text-gray-900 focus:outline-none focus:border-blue-500 bg-slate-50 focus:bg-white"
@@ -393,7 +401,7 @@ export default function Workers() {
               <div className="grid grid-cols-2 gap-3">
                 <div>
                   <label className="text-xs font-bold text-gray-700 block mb-1">
-                    {language === 'hi' ? 'श्रेणी / पद' : language === 'hinglish' ? 'Category (Kaam ka Pad)' : 'Category'}
+                    {language === 'hi' ? 'श्रेणी / पद' : 'Category'}
                   </label>
                   <select
                     value={newWorker.category}
@@ -407,31 +415,31 @@ export default function Workers() {
                 </div>
                 <div>
                   <label className="text-xs font-bold text-gray-700 block mb-1">
-                    {language === 'hi' ? 'वेतन प्रकार' : language === 'hinglish' ? 'Wage Type (Vetan Prakar)' : 'Wage Type'}
+                    {language === 'hi' ? 'वेतन प्रकार' : 'Wage Type'}
                   </label>
                   <select
                     value={newWorker.rateType}
                     onChange={e => setNewWorker({ ...newWorker, rateType: e.target.value as any })}
                     className="w-full border-2 border-slate-300 rounded-xl px-4 py-2.5 text-sm font-semibold text-gray-900 focus:outline-none focus:border-blue-500 bg-slate-50 focus:bg-white"
                   >
-                    <option value="DAILY">{language === 'hi' ? 'दैनिक' : language === 'hinglish' ? 'Daily (Dainik)' : 'Daily'}</option>
-                    <option value="WEEKLY">{language === 'hi' ? 'साप्ताहिक' : language === 'hinglish' ? 'Weekly (Saptahik)' : 'Weekly'}</option>
-                    <option value="MONTHLY">{language === 'hi' ? 'मासिक' : language === 'hinglish' ? 'Monthly (Masik)' : 'Monthly'}</option>
-                    <option value="ROUND">{language === 'hi' ? 'ठेका / एकमुश्त' : language === 'hinglish' ? 'Round / Fixed (Theka)' : 'Round / Fixed'}</option>
+                    <option value="DAILY">{language === 'hi' ? 'दैनिक' : 'Daily'}</option>
+                    <option value="WEEKLY">{language === 'hi' ? 'साप्ताहिक' : 'Weekly'}</option>
+                    <option value="MONTHLY">{language === 'hi' ? 'मासिक' : 'Monthly'}</option>
+                    <option value="ROUND">{language === 'hi' ? 'ठेका / एकमुश्त' : 'Round / Fixed'}</option>
                   </select>
                 </div>
               </div>
 
               <div>
                 <label className="text-xs font-bold text-gray-700 block mb-1">
-                  {newWorker.rateType === 'DAILY' ? (language === 'hi' ? 'दैनिक वेतन दर *' : language === 'hinglish' ? 'Daily Wage / Rate (Dainik Dar) *' : 'Daily Wage / Rate *') :
-                   newWorker.rateType === 'WEEKLY' ? (language === 'hi' ? 'साप्ताहिक वेतन दर *' : language === 'hinglish' ? 'Weekly Wage / Rate (Saptahik Dar) *' : 'Weekly Wage / Rate *') :
-                   newWorker.rateType === 'MONTHLY' ? (language === 'hi' ? 'मासिक वेतन दर *' : language === 'hinglish' ? 'Monthly Wage / Rate (Masik Dar) *' : 'Monthly Wage / Rate *') :
-                   (language === 'hi' ? 'एकमुश्त / ठेका राशि *' : language === 'hinglish' ? 'Fixed Contract Amount (Theka Rashi) *' : 'Fixed Contract Amount *')}
+                  {newWorker.rateType === 'DAILY' ? (language === 'hi' ? 'दैनिक वेतन दर *' : 'Daily Wage / Rate *') :
+                   newWorker.rateType === 'WEEKLY' ? (language === 'hi' ? 'साप्ताहिक वेतन दर *' : 'Weekly Wage / Rate *') :
+                   newWorker.rateType === 'MONTHLY' ? (language === 'hi' ? 'मासिक वेतन दर *' : 'Monthly Wage / Rate *') :
+                   (language === 'hi' ? 'एकमुश्त / ठेका राशि *' : 'Fixed Contract Amount *')}
                 </label>
                 <input 
                   type="number" 
-                  placeholder="Salary / Rate amount" 
+                  placeholder={language === 'hi' ? "वेतन / दर राशि" : "Salary / Rate amount"} 
                   value={newWorker.dailyRate}
                   onChange={e => setNewWorker({ ...newWorker, dailyRate: Number(e.target.value) })}
                   className="w-full border-2 border-slate-300 rounded-xl px-4 py-2.5 text-sm font-bold text-gray-900 focus:outline-none focus:border-blue-500 bg-slate-50 focus:bg-white"
@@ -440,9 +448,11 @@ export default function Workers() {
               </div>
               <div className="flex gap-3 pt-3 border-t">
                 <button type="submit" className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-xl font-bold transition shadow-md shadow-blue-100 cursor-pointer">
-                  Save {newWorker.workerType === 'OFFICE' ? 'Staff' : 'Worker'}
+                  {language === 'hi' ? 'सहेजें' : `Save ${newWorker.workerType === 'OFFICE' ? 'Staff' : 'Worker'}`}
                 </button>
-                <button type="button" onClick={() => setShowAddForm(false)} className="flex-1 bg-slate-100 hover:bg-slate-200 text-gray-700 py-3 rounded-xl font-bold transition cursor-pointer">Cancel</button>
+                <button type="button" onClick={() => setShowAddForm(false)} className="flex-1 bg-slate-100 hover:bg-slate-200 text-gray-700 py-3 rounded-xl font-bold transition cursor-pointer">
+                  {language === 'hi' ? 'रद्द करें' : 'Cancel'}
+                </button>
               </div>
             </form>
           </div>
@@ -554,13 +564,13 @@ export default function Workers() {
                 <div className="mt-3 pt-2.5 border-t border-slate-300 grid grid-cols-3 gap-2 text-center text-xs">
                   <div className="bg-amber-50/90 rounded-xl p-1.5 border border-amber-300/80">
                     <div className="text-[9px] text-amber-900 font-extrabold uppercase tracking-wider">
-                      {language === 'hi' ? 'एडवांस लिया' : language === 'hinglish' ? 'Adv. (Advance Liya)' : 'Advance Taken'}
+                      {language === 'hi' ? 'एडवांस लिया' : 'Advance Taken'}
                     </div>
                     <div className="font-extrabold text-amber-950 mt-0.5">{formatCurrency(worker.advance || 0)}</div>
                   </div>
                   <div className="bg-emerald-50/90 rounded-xl p-1.5 border border-emerald-300/80">
                     <div className="text-[9px] text-emerald-900 font-extrabold uppercase tracking-wider">
-                      {language === 'hi' ? 'देना है' : language === 'hinglish' ? 'Dena Hai (Payable)' : 'Payable'}
+                      {language === 'hi' ? 'देना है' : 'Payable'}
                     </div>
                     <div className="font-extrabold text-emerald-950 mt-0.5">
                       {worker.balance > 0 ? formatCurrency(worker.balance) : formatCurrency(0)}
@@ -568,7 +578,7 @@ export default function Workers() {
                   </div>
                   <div className="bg-rose-50/90 rounded-xl p-1.5 border border-rose-300/80">
                     <div className="text-[9px] text-rose-900 font-extrabold uppercase tracking-wider">
-                      {language === 'hi' ? 'लेना है' : language === 'hinglish' ? 'Lena Hai (Receivable)' : 'Receivable'}
+                      {language === 'hi' ? 'लेना है' : 'Receivable'}
                     </div>
                     <div className="font-extrabold text-rose-950 mt-0.5">
                       {worker.balance < 0 ? formatCurrency(Math.abs(worker.balance)) : formatCurrency(0)}
